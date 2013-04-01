@@ -1,0 +1,66 @@
+#
+# see docs: https://www.kernel.org/pub/software/scm/git/docs/git-config.html
+#
+[user]
+    name = Steffen Gransow
+    email = graste@mivesto.de
+    editor = vim
+[github]
+    user = graste
+[giggle]
+	main-window-maximized = true
+	main-window-geometry = 0x0+0+0
+	history-view-vpane-position = 226
+    main-window-view = HistoryView
+    file-view-hpane-position = 286
+    file-view-vpane-position = 635
+[credential]
+    helper = cache --timeout=3600
+[color]
+    interactive = auto
+    showbranch = auto
+    status = auto
+    pager = true
+    ui = auto
+[alias]
+    br = branch
+    co = checkout
+    ci = commit
+    di = diff
+    st = status
+    hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+    type = cat-file -t
+    dump = cat-file -p
+    noup = log --graph --decorate --pretty=oneline --abbrev-commit --all @{upstream}^..
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+[branch]
+    # set "pull" to use rebase instead of merge for all tracking branches (local and remote)
+    autosetuprebase = always
+[merge]
+    # <<<< |||| >>>>
+    conflictstyle = diff3
+[rerere]
+    # activate recording of resolved conflicts to get auto-resolving of identical conflicts later on
+    enabled = true
+[core]
+    # see .gitattributes docs as well: https://www.kernel.org/pub/software/scm/git/docs/gitattributes.html
+    autocrlf = input
+    # warn about mixed line endings
+    safecrlf = true
+    # one of: lf | crlf | native
+    eol = native
+    # comma separated list of common whitespace problems to notice - use "-" to disable any of them
+    whitespace = trailing-space,space-before-tab,tab-in-indent,-indent-with-non-tab,cr-at-eol,tabwidth=4
+[diff]
+    # detect multiple renamed/copied files
+    renames = copies
+[help]
+    format = man
+    autocorrect = 0
+[status]
+    # show paths relative to repository root
+    relativePaths = true
+    # normal | no | all
+    showUntrackedFiles = normal
+    # summary of commits for modified submodules (true = -1 = unlimited; use a number otherwise)
+    submodulesummary = true

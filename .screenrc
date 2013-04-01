@@ -1,0 +1,89 @@
+# set a reattach password:
+# password p4ssw0rd # "1234"
+
+# disable copyright page; default: on
+startup_message off
+
+# detach on hangup; default: on
+autodetach on
+
+# scrollback buffer length; default: 100
+defscrollback 10000
+
+nethack on
+
+# may use "shell bash" etc. - every window is a login shell with this
+shell -${SHELL}
+
+# xterm etc.
+term ${TERM}
+
+# pass on the "beep" (CTRL-G) by adding a '~':
+# bell "%C -> %n%f %t bell!~"
+bell "bell in %n (%t) [%w:%s]~"
+
+# no annoying audible bell
+vbell on
+# but a visual one
+vbell_msg " *beep* *beep* "
+
+# message when there's activity on a window
+activity "activity in %n (%t) [%w:%s]~"
+
+# poweroff/detach/.logout message
+pow_detach_msg "Screen session of \$LOGNAME \$:cr:\$:nl:ended."
+
+#caption always "%{rw} * | %H * $LOGNAMEM| %{bw}%c %D | %{-}%-Lw%{rw}%50>%{rW}%n%f* %t %{-}%+Lw%<"
+#caption always ""
+#caption always "%{yK} $LOGNAME@%H | %l | %C:%s %A - %M-%d-%Y | %-Lw%50>%{Ky}%n%f* %t%{-}%+Lw%<%{- Wk}%{yK} | "
+
+hardstatus on
+hardstatus alwayslastline
+hardstatus string "%{= kG}[%{G}$LOGNAME@%H%{g}][%= %{=kw}%?%-Lw%?%{r}(%{W}%n*%f%t%?(%u)%?%{r})%{w}%?%+Lw%?%?%= %{g}][%{B}%D %Y-%02m-%02d %{W}%02c:%02s%{g}]"
+
+#
+# xterm tweaks
+#
+
+#xterm understands both im/ic and doesn't have a status line.
+#Note: Do not specify im and ic in the real termcap/info file as
+#some programs (e.g. vi) will not work anymore.
+termcap  xterm hs@:cs=\E[%i%d;%dr:im=\E[4h:ei=\E[4l
+terminfo xterm hs@:cs=\E[%i%p1%d;%p2%dr:im=\E[4h:ei=\E[4l
+
+#80/132 column switching must be enabled for ^AW to work
+#change init sequence to not switch width
+termcapinfo  xterm Z0=\E[?3h:Z1=\E[?3l:is=\E[r\E[m\E[2J\E[H\E[?7h\E[?1;4;6l
+
+# Make the output buffer large for (fast) xterms.
+termcapinfo xterm* OL=10000
+
+# tell screen that xterm can switch to dark background and has function keys
+termcapinfo xterm 'VR=\E[?5h:VN=\E[?5l'
+termcapinfo xterm 'k1=\E[11~:k2=\E[12~:k3=\E[13~:k4=\E[14~'
+termcapinfo xterm 'kh=\E[1~:kI=\E[2~:kD=\E[3~:kH=\E[4~:kP=\E[H:kN=\E[6~'
+
+# special xterm hardstatus: use the window title
+termcapinfo xterm 'hs:ts=\E]2;:fs=\007:ds=\E]2;screen\007'
+termcapinfo xterm 'hs:ts=\E]2;:fs=\007:ds=\E]1;screen\007'
+
+#terminfo xterm 'vb=\E[?5h$<200/>\E[?5l'
+termcapinfo xterm 'vi=\E[?25l:ve=\E[34h\E[?25h:vs=\E[34l'
+
+# emulate part of the 'K' charset
+termcapinfo   xterm 'XC=K%,%\E(B,[\304,\\\\\326,]\334,{\344,|\366,}\374,~\337'
+
+# xterm-52 tweaks: uses background color for delete operations
+termcapinfo xterm ut
+
+# set these terminals up to be 'optimal' instead of vt100
+termcapinfo xterm*|linux*|rxvt*|Eterm*|konsole OP
+
+# make pgup/pgdn work - enables shift+pgup and shift+pgdn for scrollback buffer navigation
+termcapinfo xterm*|linux*|xs|rxvt*|Eterm*|konsole ti@:te@
+
+
+
+#bind = resize =
+#bind + resize +3
+#bind - resize -3

@@ -1,0 +1,8 @@
+# case-insensitive bash completion
+set completion-ignore-case on
+
+# no double <tab> necessary anymore if multiple matches
+set show-all-if-ambiguous on
+
+# enable hints about directories, links and executables when completing stuff (just like "ls -F")
+set visible-stats on
