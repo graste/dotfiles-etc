@@ -43,6 +43,9 @@ alias wget='wget -c'
 # "rsync" instead of "cp" - progress bar on file copy.
 alias cp-with-progress="rsync --progress -ravz"
 
+# you should use more "ack-grep" instead of "grep" :-)
+alias ack='ack-grep'
+
 
 
 #
@@ -176,6 +179,9 @@ alias serve='python -m SimpleHTTPServer 8080'
 # wake up remote device over lan
 #alias wakeup-nas01='/usr/bin/wakeonlan 00:11:22:33:44:FC'
 
+# return random 7-char english names if needed
+alias random-name="cat /usr/share/dict/words | rl | grep -vP \"^\w{8,}\" | grep -vP \"'s$\" | head -1"
+
 
 
 #
@@ -214,5 +220,4 @@ alias banking='TEMPDIR=$(mktemp -d --tmpdir=/dev/shm) && cp ~/secure_operaprefs.
 
 # craur
 alias craur=/home/graste/projects/Craur/php/craur
-
 

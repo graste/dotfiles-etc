@@ -100,6 +100,7 @@ if [ -d "~/.bash" ]; then
     . ~/.bash/environment.sh
     . ~/.bash/functions.sh
     . ~/.bash/git.sh
+    . ~/.bash/gitprompt.sh
 else
     printf '~/.bash/ directory not found. Not sourcing any files.\n'
 fi

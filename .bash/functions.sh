@@ -1,5 +1,5 @@
 
-# remind with desktop notification
+# remind with desktop notification (ubuntu only atm)
 function remind()
 {
     if [ -n "$2" ]; then
@@ -13,3 +13,4 @@ function remind()
 i(){
     (head -n 5;tail -n 5) < "$1" | column -t
 }
+

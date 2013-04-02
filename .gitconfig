@@ -5,43 +5,6 @@
     name = Steffen Gransow
     email = graste@mivesto.de
     editor = vim
-[github]
-    user = graste
-[giggle]
-	main-window-maximized = true
-	main-window-geometry = 0x0+0+0
-	history-view-vpane-position = 226
-    main-window-view = HistoryView
-    file-view-hpane-position = 286
-    file-view-vpane-position = 635
-[credential]
-    helper = cache --timeout=3600
-[color]
-    interactive = auto
-    showbranch = auto
-    status = auto
-    pager = true
-    ui = auto
-[alias]
-    br = branch
-    co = checkout
-    ci = commit
-    di = diff
-    st = status
-    hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
-    type = cat-file -t
-    dump = cat-file -p
-    noup = log --graph --decorate --pretty=oneline --abbrev-commit --all @{upstream}^..
-    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-[branch]
-    # set "pull" to use rebase instead of merge for all tracking branches (local and remote)
-    autosetuprebase = always
-[merge]
-    # <<<< |||| >>>>
-    conflictstyle = diff3
-[rerere]
-    # activate recording of resolved conflicts to get auto-resolving of identical conflicts later on
-    enabled = true
 [core]
     # see .gitattributes docs as well: https://www.kernel.org/pub/software/scm/git/docs/gitattributes.html
     autocrlf = input
@@ -51,12 +14,43 @@
     eol = native
     # comma separated list of common whitespace problems to notice - use "-" to disable any of them
     whitespace = trailing-space,space-before-tab,tab-in-indent,-indent-with-non-tab,cr-at-eol,tabwidth=4
+[branch]
+    # set "pull" to use rebase instead of merge for all tracking branches (local and remote)
+    autosetuprebase = always
+[merge]
+    # <<<< |||| >>>> - includes local version in addition to left and right stuff
+    conflictstyle = diff3
+[rerere]
+    # activate recording of resolved conflicts to get auto-resolving of identical conflicts later on
+    enabled = true
 [diff]
     # detect multiple renamed/copied files
     renames = copies
-[help]
-    format = man
-    autocorrect = 0
+[alias]
+    # yeah...but...ehm...you know
+    br = branch
+    co = checkout
+    ci = commit
+    di = diff
+    st = status
+    # useful stuff
+    unstage = reset HEAD -- 
+    # cdiff and sdiff are the same according to man page
+    cdiff = diff --cached
+    sdiff = diff --staged
+    # difff = diff HEAD | pygmentize -l diff | less -R
+    # history as colored graph with relative dates and authors 
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+    # some aliases for history and last activities
+    hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+    history = log --graph --pretty=oneline --abbrev-commit
+    last = log -1 HEAD
+    lastweek = log --pretty=format:\"%h %ad | %s%d [%an]\" --since=\"7 days ago\" --graph --date=shor
+    # what's not in upstream
+    noup = log --graph --decorate --pretty=oneline --abbrev-commit --all @{upstream}^..
+    # search through things
+    type = cat-file -t
+    dump = cat-file -p
 [status]
     # show paths relative to repository root
     relativePaths = true
@@ -64,3 +58,23 @@
     showUntrackedFiles = normal
     # summary of commits for modified submodules (true = -1 = unlimited; use a number otherwise)
     submodulesummary = true
+[credential]
+    helper = cache --timeout=3600
+[github]
+    user = graste
+[color]
+    interactive = auto
+    showbranch = auto
+    status = auto
+    pager = true
+    ui = auto
+[help]
+    format = man
+    autocorrect = 0
+[giggle]
+	main-window-maximized = true
+	main-window-geometry = 0x0+0+0
+	history-view-vpane-position = 226
+    main-window-view = HistoryView
+    file-view-hpane-position = 286
+    file-view-vpane-position = 635
