@@ -17,3 +17,6 @@ export CDPATH=.:~:/mnt:/media;/etc
 
 # PATHs for command lookup
 export PATH=~/bin:/opt/vagrant/bin:$PATH
+
+# enable vagrant debug logs
+export VAGRANT_LOG=debug
