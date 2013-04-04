@@ -89,20 +89,22 @@ fi
 # settings for local or remote logins
 if [ -z "$SSH_CLIENT" ]; then
     # code when local login
+    echo "Local login..."
 else
     # code when remote login
+    echo "Remote login..."
 fi
 
 # source function definitions
-if [ -d "~/.bash" ]; then
-    . ~/.bash/options.sh
-    . ~/.bash/environment.sh
-    . ~/.bash/functions.sh
-    . ~/.bash/git.sh
-    . ~/.bash/gitprompt.sh
-    . ~/.bash/history.sh # this should stay last
+if [ -d "${HOME}/.bash" ]; then
+    . ${HOME}/.bash/environment.sh
+    . ${HOME}/.bash/functions.sh
+    . ${HOME}/.bash/git.sh
+    . ${HOME}/.bash/gitprompt.sh
+    . ${HOME}/.bash/options.sh
+    . ${HOME}/.bash/history.sh # this should stay last
 else
-    printf '~/.bash/ directory not found. Not sourcing any files.\n'
+    printf '~/.bash directory not found. Not sourcing any files.\n'
 fi
 
 # source alias definitions

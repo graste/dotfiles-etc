@@ -11,11 +11,11 @@ export HISTFILESIZE=10000
 #export HISTIGNORE="&:[ ]*:truecrypt -P*:sudo*"
 export HISTIGNORE="&:[ ]*:ls:ll:la:[bf]g:exit:truecrypt -P*"
 
-# enable history (enabled by default for interactive shells)
-set -o history
-
 # append to the history file, don't overwrite it
 shopt -s histappend
 
 # multi-line commands will be appended to history as a single-line command
 shopt -s cmdhist
+
+# enable history (enabled by default for interactive shells)
+set -o history

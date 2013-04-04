@@ -5,7 +5,7 @@ shopt -s histappend
 shopt -s cmdhist
 
 # must use ">|filename" to force overwriting (prevents output redirection using ">", ">&" and "<>" from overwriting existing files)
-shopt -o noclobber
+shopt -qo noclobber
 
 # enable filename expansion (use "set -f" to disable globbing)
 set +o noglob
@@ -48,13 +48,10 @@ shopt -s checkwinsize
 set -o ignoreeof
 
 # exit immediately when command in pipeline fails - exit code of piped commands will be the exit code of the failed command ("set +e" to disable)
-set -o errexit
+#set -o errexit
 
 # expand braces ("set -B")
 set -o braceexpand
-
-# enable history (enabled by default for interactive shells)
-set -o history
 
 # enable "!" history substitution (on by default for interactive shells; use "set +H" to disable)
 set -o histexpand
