@@ -1,7 +1,13 @@
-# source ~/.bashrc if it exists
-if [ -f "$HOME/.bashrc" ] ; then
-    . $HOME/.bashrc
+# source ~/.profile if it's readable
+if [ -r ~/.profile ]; then
+    . ~/.profile;
 fi
+
+# if we're interactive, source ~/.bashrc if it's readable
+case $- in                                                                                                          
+    *i*) if [ -r ~/.bashrc ]; then . ~/.bashrc; fi;;
+      *) return;;
+esac
 
 # load RVM into a shell session *as a function*
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"

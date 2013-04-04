@@ -3,11 +3,11 @@ printf 'Kernel: ' ; uname -smr
 printf 'Uptime: ' ; uptime
 printf 'Server time: ' ; date
 
-printf '\nDisk usage (human readable): \n'
-df -hT
+printf '\nDisk usage (w/o tmpfs): \n'
+df -hlT --exclude-type=tmpfs --exclude-type=devtmpfs
 
-printf '\nMemory usage (in bytes): \n'
-free -mt
+printf '\nMemory usage (w/o buffers): \n'
+free -mot
 
 # lastlog | grep "root" | awk {'print "Last login from : "$3 print "Last Login Date & Time: ",$4,$5,$6,$7,$8,$9;'}
 printf '\nLast logins: \n'
