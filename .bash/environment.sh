@@ -13,7 +13,7 @@ export LESS="-iMFXR"
 #export GREP_OPTIONS='--color=auto'
 
 # base paths to use for "cd" command completion                                                                                                   
-export CDPATH=.:~:/mnt:/media:/etc
+#export CDPATH=.:~:/mnt:/media:/etc
 
 # PATHs for command lookup
 export PATH=~/bin:/opt/vagrant/bin:$PATH

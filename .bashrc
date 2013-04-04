@@ -96,11 +96,11 @@ fi
 # source function definitions
 if [ -d "~/.bash" ]; then
     . ~/.bash/options.sh
-    . ~/.bash/history.sh
     . ~/.bash/environment.sh
     . ~/.bash/functions.sh
     . ~/.bash/git.sh
     . ~/.bash/gitprompt.sh
+    . ~/.bash/history.sh # this should stay last
 else
     printf '~/.bash/ directory not found. Not sourcing any files.\n'
 fi
