@@ -10,8 +10,6 @@ fi
 DOTFILES_DIR=$(dirname $ME)
 SOURCE_DIR=$(pwd -P $DOTFILES_DIR)
 
-echo $SOURCE_DIR
-
 FILES=(
     .bash
     .bash_aliases
@@ -35,6 +33,7 @@ echo ""
 echo "This script will copy (and overwrite!) ${NUM} items from ${SOURCE_DIR} to ${HOME}."
 echo ""
 read -p "Press enter or abort via CTRL+C..." pleasenot
+mkdir ${HOME}/.bash
 for (( i = 0 ; i < NUM ; i++ ))
 do
     cp -iR ${SOURCE_DIR}/${FILES[$i]} ${HOME}/
