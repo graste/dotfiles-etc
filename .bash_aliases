@@ -87,7 +87,7 @@ alias ports='netstat -tulanp'
 alias sockets='ss ; ss -s'
 
 # list IPs
-alias ips="ifconfig | grep -i 'inet ad' | cut -d: -f2 | cut -d' ' -f1"
+alias ips="ifconfig | grep -i inet[^6] | cut -d: -f2 | cut -d' ' -f1"
 
 # list MAC addresses
 alias macs="ifconfig | grep -i hwad | awk '{print \$5}'"
@@ -144,6 +144,9 @@ alias shortping='ping -c 3'
 # do not wait interval 1 second
 alias fastping='ping -c 100 -i.2'
 
+# find all symlinks pointing to their parent directories or above
+alias symlinks-to-parent-directories="find . -type l -printf \"'%p' -> '%l'\n\" | grep '\.\./'"
+
 
 
 #
@@ -151,8 +154,9 @@ alias fastping='ping -c 100 -i.2'
 #
 
 # only show active lines (not commented or blank), e.g. httpd.conf
-alias nocomment='grep -v -e "^$" -e"^ *#"'
-alias lines='grep -v -e "^$" -e"^ *#"'
+alias nocomment='grep -v -e "^$" -e"^\s*#"'
+alias nocomment-semicolon='grep -v -e "^$" -e"^\s*;"'
+alias lines='grep -v -e "^$" -e"^\s*#"'
 alias lines2='egrep -v "^\s*(#|$)"'
 
 # awk column print shorthand, e.g. print 2nd column: "df -h | fawk 2"

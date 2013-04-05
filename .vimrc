@@ -3,12 +3,14 @@
 set nocompatible "enable VIM improvements
 
 " in many terminal emulators the mouse works just fine, thus enable it
-if has('mouse')
-    set mouse=a
-endif
+"if has('mouse')
+"    set mouse=a
+"endif
 
 " use , instead of \ as leader key
-"let mapleader=","
+let mapleader=","
+" show commands in status line
+set showcmd
 
 set shell=bash
 
@@ -30,9 +32,9 @@ set backspace=indent,eol,start " Backspace through everything
 " color/display related
 color slate         " choose color scheme
 set hls!            " highlight search hits
-syntax enable       " enable syntax highlighting
 set showmatch       " show matching braces/brackets/parens
-set number          " display line numbers
+"set number          " display line numbers
+set relativenumber  " display relative line numbers
 set cursorline      " highlight current line
 "set cursorcolumn    " highlight current column
 set ruler           " show the cursor position all the time
@@ -43,6 +45,7 @@ set incsearch       " enable incremental search (search while typing)
 set smartcase       " preserve case when replacing
 
 " file related
+syntax enable       " enable syntax highlighting
 filetype on         " show filetype
 filetype plugin on
 filetype indent on
@@ -69,11 +72,10 @@ set statusline+=\ %P    "percent through file
 
 set laststatus=2    "always show the status bar even if there's only one window
 
-
 " explorer and tree view
 let g:netrw_liststyle=3     " Use tree-mode as default view
 let g:netrw_browse_split=4  " Open file in previous buffer
-" let g:netrw_preview=1       " preview window shown in a vertically split
+"let g:netrw_preview=1       " preview window shown in a vertically split
 let g:netrw_winsize=80      " control initial sizing (%)
 let g:netrw_alto=0          " control above/below splitting
 let g:netrw_altv=0          " control right/left splitting
@@ -109,14 +111,49 @@ set showmode
 
 " have a look at url for functions: https://github.com/garybernhardt/dotfiles/blob/master/.vimrc
 
+" ctrl+d to delete line in normal mode
+nnoremap <c-d> dd
+
+" ctrl+d to delete line in insert mode
+inoremap <c-d> <esc>ddi
+
+" move current line down
+nnoremap - ddp
+
+" move current line up
+nnoremap _ ddkP
+
+" put single or double quotes around words
+nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
+nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
+
+" put single or double quotes around visually selected text
+vnoremap <leader>q <esc>`<i'<esc>`>lli'<esc>l
+vnoremap <leader>Q <esc>`<i"<esc>`>lli"<esc>l
+
+" strip all trailing whitespace in the current file
+nnoremap <leader>stw :%s/\s\+$//<cr>:let @/=''<CR>
+
+" fold tag
+nnoremap <leader>f Vatzf
+
+" sort CSS properties alphabetical
+nnoremap <leader>s ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
+
+" reselect pasted text (to do further things like indentation with it)
+nnoremap <leader>v V`]
+
+" create new vertical split and change to it
+nnoremap <leader>w <C-w>v<C-w>l
+
 " Append modeline after last line in buffer.
 " Use substitute() instead of printf() to handle '%%s' modeline in LaTeX
 " files.
 function! AppendModeline()
-  let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d %set :", &tabstop, &shiftwidth, &textwidth, &expandtab ? '' : 'no')
-  let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
-  call append(line("$"), l:modeline)
+    let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d %set :", &tabstop, &shiftwidth, &textwidth, &expandtab ? '' : 'no')
+    let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
+    call append(line("$"), l:modeline)
 endfunction
 nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
 
-
+" vim: set ts=4 sw=4 tw=78 et :
