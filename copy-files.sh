@@ -34,6 +34,7 @@ echo "This script will copy (and overwrite!) ${NUM} items from ${SOURCE_DIR} to 
 echo ""
 read -p "Press enter or abort via CTRL+C..." pleasenot
 mkdir ${HOME}/.bash
+mkdir -p ${HOME}/.vim/{backup,swap,undo}
 for (( i = 0 ; i < NUM ; i++ ))
 do
     cp -iR ${SOURCE_DIR}/${FILES[$i]} ${HOME}/

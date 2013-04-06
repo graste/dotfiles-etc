@@ -15,6 +15,56 @@
 - to really execute `~/.bash_profile` start bash with a `-l` or `--login` option
 - put bash unspecific things in `~/.profile` as switching shells becomes easier
 - bash specific settings should be set in `~/.bashrc` (as it may not be your login shell)
+
+### word modifiers
+
+- `p` print
+- `h` head - remove a trailing file name component, leaving only the head
+- `t` tail - remove all leading file name components, leaving the tail
+- `r` remove a trailing suffix of the form .xxx, leaving the basename
+- `e` remove all but the trailing suffix
+- `s` substitue strings (replace first match)
+- `gs` global substitute (replace all matches)
+- `&` repeat the previous substitution
+- word modifiers are stackable
+- words are whitespace delimited
+
+### history handling
+
+- `!!` repeat last command from history
+- `!foo` repeat last command beginning with `foo`
+- `!foo:p` print last command beginning with `foo` - it adds to the history as well, thus you cann use `!!` directly if the command looks good
+- `!N` execute the command with number `N`
+- `!-N` execute the command `N` commands ago
+- `!$` reuse the 'end' of the last command (reuse the last word)
+- `!$:p` print last argument from previous command (`:p` is a `word modifier`)
+- `!*` reuse all arguments from previous command
+- `^error^correction` correct and execute previous command (replace and execute)
+- `links /usr/local/share/doc/3dm/3DM_help.htm`
+    - `cd !$:h` change to directory (`:h` removes `3DM_help.htm`)
+    - `links !-2$:t` open `3DM_help.htm` as that is the tail of the 2nd last command
+    - `mkdir !-3$:t:r` create directory `3DM_help` (`:t` removes tailing path and `:r` removes the `.htm` extension)
+- `!!:s/foo/bar/` execute last command with the first `foo` occurrence replaced by `bar`
+- `!!:gs/foo/bar/` execute last command with all occurrences of `foo` replaced by `bar`
+- `!!:s/foo/&.bar/` - execute the last command with the first `foo` replaced by `.bar`
+
+### shortcuts
+
+- `<alt+.>` to insert last argument on current cursor position (repeatable)
+- `<ctrl+w>` erase word
+- `<ctrl+u>` erase from cursor to beginning of the line
+- `<ctrl+a>` move the cursor to the beginning of the line
+- `<ctrl+e>` move the curor to the end of the line
+
+### brace expansion
+
+- `cp filename{,-old}` copy filename to filename-old
+- `cp filename{-v1,-v2}` copy filename-v1 to filename-v2
+- `touch a{1,2,3}b` create files a1b, a2b and a3b
+- multiple brace expansions can be used together and nested (not that that would be readable)
+
+### various stuff
+
 - `|&` === `2>&1 |`: standard error of command1 is connected to command2's standard input through the pipe
 - `set` command
   - `set -o`: list currently configured shell options
@@ -27,7 +77,6 @@
   - `shopt -u option_name`: disable/unset option
 - `echo $SHLVL`:  get subshell level (toplevel is 1)
 - default time format: ``TIMEFORMAT=$'\nreal\t%3lR\nuser\t%3lU\nsys\t%3lS'``
-- ``shopt -s interactive_comments``
 
 ## tl;dr
 
