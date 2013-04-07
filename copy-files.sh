@@ -2,11 +2,13 @@
 
 # $(dirname ${BASH_SOURCE[0]})
 # DOTFILES_DIR=$(dirname "$0")
+
 if [ -L $0 ] ; then
     ME=$(readlink $0)
 else
     ME=$0
 fi
+
 DOTFILES_DIR=$(dirname $ME)
 SOURCE_DIR=$(pwd -P $DOTFILES_DIR)
 
@@ -30,11 +32,11 @@ SPECIAL=(
 )
 
 NUM=${#FILES[@]}
-echo "Hello, ${USER}"
+echo "Hello ${USER},"
 echo ""
-echo "This script will copy (and overwrite!) ${NUM} items from ${SOURCE_DIR} to ${HOME}."
+echo "this script will copy (and overwrite) ${NUM} items from ${SOURCE_DIR} to ${HOME}."
 echo ""
-read -p "Press enter or abort via CTRL+C..." pleasenot
+read -p "Press enter or abort via CTRL+C..." pleaseimscared
 mkdir ${HOME}/.bash
 mkdir -p ${HOME}/.vim/{backup,swap,undo}
 for (( i = 0 ; i < NUM ; i++ ))
