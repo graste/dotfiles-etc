@@ -9,6 +9,7 @@
 
 Screenshot with a glimpse of vim status line, screen status line and the bash
 prompt with exit code coloring and git status information:
+![Screenshot of screen/vim/bash/gitprompt](https://raw.github.com/graste/dotfiles-etc/master/screen-vim-bash-gitprompt.png)
 
 ## Bash prompt
 
