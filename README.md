@@ -8,7 +8,8 @@ Various dotfiles I use and want to have available elsewhere. Probably a lot of t
 - `.screenrc` settings for screen (not tmux yet)
 - `.ackrc` settings for ack (or ack-grep how it's called in Debian repositories)
 - `.git*` default settings and ignores for git
-- `.profile` commands to execute after login (system information)
+- `.profile` commands to execute after login (basic system information)
+- `.pam_environment` user environment locale settings with one assignment expression per line (I prefer english/utf-8 messages with german numbers and dates etc.)
 
 ## Usage
 
@@ -107,9 +108,27 @@ prompt with exit code coloring and git status information:
 
 ### tl;dr
 
-- `~/.profile` for whole session settings like start programs on log in (but not graphical programs, they go into a different file) and environment variable definitions.
+- `~/.profile` for whole session settings like programs to run on log in and the start of the display manager. May be used for environment variable definitions.
 - `~/.bashrc` for bash specific settings like alias and function definitions, shell options and prompt settings.
 - `~/.inputrc` for key bindings and other input related settings.
 - `~/.bash_profile` can be used instead of `~/.profile`, but you also need to include `~/.bashrc` if the shell is interactive.
-- `~/.profile` is nowadays not always read when one logs in in a graphical environment (that is, if the program where you type your password is running in graphics mode).
+
+## Locale settings
+
+The `~/.pam_environment` file contains session-wide user-environment locale settings with one assignment expression per line. To activate changes to this file one has to _re-login_.
+
+- `LANG` basic language setting used by applications on the system (may be overridden by more specific locale environment variables)
+- `LC_CTYPE` character set used to display and input text
+- `LC_NUMERIC` how non-monetary numeric values are formatted on screen
+- `LC_TIME` how date and time values are formatted
+- `LC_COLLATE` how to sort various information items (e.g. sort command behaviour)
+- `LC_MONETARY` how monetary numeric values are formatted
+- `LC_MESSAGES` language to display messages to the end user
+- `LC_PAPER` definitions of paper formats and standards
+- `LC_NAME` how names are formatted
+- `LC_ADDRESS` how to display address information
+- `LC_TELEPHONE` how telephone numbers are structured
+- `LC_MEASUREMENT` what units of measurement are used
+- `LC_IDENTIFICATION` metadata about the locale information
+- `LC_ALL` override over all the other locale environment variables (applications use this variable if it's set, regardless of other variables' values)
 
