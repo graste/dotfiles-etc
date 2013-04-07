@@ -8,6 +8,7 @@ Various dotfiles I use and want to have available elsewhere. Probably a lot of t
 - `.screenrc` settings for screen (not tmux yet)
 - `.ackrc` settings for ack (or ack-grep how it's called in Debian repositories)
 - `.git*` default settings and ignores for git
+- `.profile` commands to execute after login (system information)
 
 ## Usage
 
@@ -18,6 +19,7 @@ Various dotfiles I use and want to have available elsewhere. Probably a lot of t
 
 Screenshot with a glimpse of vim status line, screen status line and the bash
 prompt with exit code coloring and git status information:
+
 ![Screenshot of screen/vim/bash/gitprompt](https://raw.github.com/graste/dotfiles-etc/master/screen-vim-bash-gitprompt.png)
 
 ## Bash prompt
@@ -65,10 +67,10 @@ prompt with exit code coloring and git status information:
 - `!$:p` print last argument from previous command (`:p` is a `word modifier`)
 - `!*` reuse all arguments from previous command
 - `^error^correction` correct and execute previous command (replace and execute)
-- `links /usr/local/share/doc/3dm/3DM_help.htm`
-    - `cd !$:h` change to directory (`:h` removes `3DM_help.htm`)
-    - `links !-2$:t` open `3DM_help.htm` as that is the tail of the 2nd last command
-    - `mkdir !-3$:t:r` create directory `3DM_help` (`:t` removes tailing path and `:r` removes the `.htm` extension)
+- given the command `cat /usr/local/share/doc/foo/bar.baz`:
+    - `cd !$:h` change to directory (`:h` removes `bar.baz`)
+    - `cat !-2$:t` open `bar.baz` as that is the tail of the 2nd last command
+    - `mkdir !-3$:t:r` create directory `bar` (`:t` removes tailing path and `:r` removes the `.baz` extension)
 - `!!:s/foo/bar/` execute last command with the first `foo` occurrence replaced by `bar`
 - `!!:gs/foo/bar/` execute last command with all occurrences of `foo` replaced by `bar`
 - `!!:s/foo/&.bar/` - execute the last command with the first `foo` replaced by `.bar`
@@ -83,9 +85,9 @@ prompt with exit code coloring and git status information:
 
 ### brace expansion
 
-- `cp filename{,-old}` copy filename to filename-old
-- `cp filename{-v1,-v2}` copy filename-v1 to filename-v2
-- `touch a{1,2,3}b` create files a1b, a2b and a3b
+- `cp filename{,-old}` copy `filename` to `filename-old`
+- `cp filename{-v1,-v2}` copy `filename-v1` to `filename-v2`
+- `touch foo{1,2,3}bar` create files `foo1bar`, `foo2bar` and `foo3bar`
 - multiple brace expansions can be used together and nested (not that that would be readable)
 
 ### various stuff
