@@ -1,6 +1,9 @@
 # set a reattach password:
 # password p4ssw0rd # "1234"
 
+# always start in $HOME
+chdir
+
 # disable copyright page; default: on
 startup_message off
 
@@ -8,7 +11,7 @@ startup_message off
 autodetach on
 
 # scrollback buffer length; default: 100
-defscrollback 10000
+defscrollback 50000
 
 nethack on
 

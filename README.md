@@ -5,6 +5,21 @@
     git clone git://github.com/graste/dotfiles-etc.git
     cd dotfiles-etc && ./copy-files.sh
 
+## Screenshot
+
+Screenshot with a glimpse of vim status line, screen status line and the bash
+prompt with exit code coloring and git status information:
+
+## Bash prompt
+
+- `# <time> <history-id> <exit-code> <git-status-info> <path> $ `
+    - `#` mitigates execution of accidental pastes in the command line
+    - `<time>` as often long running commands are not called with the `time` bash builtin
+    - `<history-id>` to execute earlier commands via `!<history-id>` when seeing one in the scrollback buffer
+    - `<exit-code>` shell exit code of last command (color in bold red if it's not zero)
+    - `<git-status-info>` displays detailed useful information about the git repository in the current working directory
+    - `<path>` current working directory shortened via `PROMPT_DIRTRIM=3` environment variable
+
 ## Bash
 
 - RTFM: [Bash Reference Manual](http://www.gnu.org/software/bash/manual/bashref.html)

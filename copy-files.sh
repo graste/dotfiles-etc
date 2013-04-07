@@ -11,6 +11,7 @@ DOTFILES_DIR=$(dirname $ME)
 SOURCE_DIR=$(pwd -P $DOTFILES_DIR)
 
 FILES=(
+    .ackrc
     .bash
     .bash_aliases
     .bash_logout
@@ -20,6 +21,7 @@ FILES=(
     .profile
     .screenrc
     .vimrc
+    .gitignore
     .gitconfig
 )
 

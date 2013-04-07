@@ -1,0 +1,48 @@
+#
+# general settings for ack-grep
+#
+
+# only search with case sensitivity if there is mixed case
+--smart-case
+
+# follow symlinks by default
+--follow
+
+# always sort
+#--sort-files
+
+# no grouping
+#--noheading
+#--break
+
+#
+# type settings
+#
+
+# add markdown, textile, and reStructuredText
+--type-set=plaintext=.md,.mdown,.markdown,.mkdn,.textile,.rst,.txt
+
+--type-set=csv=.txt,.csv,.tsv
+--type-set=gettext=.pot,.po
+--type-add=ruby=.haml
+--type-set=log=.log
+--type-set=django=.py,.html
+--type-set=less=.less
+--type-set=sass=.sass
+--type-set=vim=.vim
+--type-set=puppet=.pp
+--type-set=frontend=.html,.js,.less,.sass,.css
+--type-set=frontendadv=.html,.js,.less,.css,.sass
+--type-set=docs=.markdown,.md,.mdown,.mkdn,.rst
+
+# types to ignore by default
+--nogettext
+
+# paths to ignore by default
+--ignore-dir=public/media/cache
+--ignore-dir=public/static/cache
+--ignore-dir=build/html
+--ignore-dir=docs/build
+--ignore-dir=app/log
+--ignore-dir=app/cache
+

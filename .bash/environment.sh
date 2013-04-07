@@ -1,5 +1,6 @@
 # we want vim as default editor
 export EDITOR=vim
+export VISUAL=vim
 
 # trim paths to 3 hierarchy levels
 export PROMPT_DIRTRIM=3

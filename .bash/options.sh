@@ -7,6 +7,9 @@ shopt -s cmdhist
 # must use ">|filename" to force overwriting (prevents output redirection using ">", ">&" and "<>" from overwriting existing files)
 shopt -qo noclobber
 
+# expand aliases as we use some of them
+shopt -s expand_aliases
+
 # enable filename expansion (use "set -f" to disable globbing)
 set +o noglob
 
