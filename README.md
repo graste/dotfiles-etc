@@ -1,5 +1,14 @@
 # Configuration files
 
+Various dotfiles I use and want to have available elsewhere. Probably a lot of this is Ubuntu-only so handle with care if you re-use aliases etc. :-)
+
+- `.bash*` settings for bash (prompt, aliases, functions)
+- `.inputrc` settings for keyboard input (like case insensitive completion)
+- `.vimrc` settings for vim (not vi; mappings, functions etc.)
+- `.screenrc` settings for screen (not tmux yet)
+- `.ackrc` settings for ack (or ack-grep how it's called in Debian repositories)
+- `.git*` default settings and ignores for git
+
 ## Usage
 
     git clone git://github.com/graste/dotfiles-etc.git
@@ -94,15 +103,11 @@ prompt with exit code coloring and git status information:
 - `echo $SHLVL`:  get subshell level (toplevel is 1)
 - default time format: ``TIMEFORMAT=$'\nreal\t%3lR\nuser\t%3lU\nsys\t%3lS'``
 
-## tl;dr
+### tl;dr
 
 - `~/.profile` for whole session settings like start programs on log in (but not graphical programs, they go into a different file) and environment variable definitions.
 - `~/.bashrc` for bash specific settings like alias and function definitions, shell options and prompt settings.
 - `~/.inputrc` for key bindings and other input related settings.
 - `~/.bash_profile` can be used instead of `~/.profile`, but you also need to include `~/.bashrc` if the shell is interactive.
 - `~/.profile` is nowadays not always read when one logs in in a graphical environment (that is, if the program where you type your password is running in graphics mode).
-
-## Changelog
-
-First draft from 2013-04-02 with fixes on 2013-04-04.
 
