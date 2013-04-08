@@ -25,12 +25,15 @@ prompt with exit code coloring and git status information:
 
 ## Bash prompt
 
-- `# <time> <history-id> <exit-code> <git-status-info> <path> $ `
+- `# <time> <history-id> <exit-code> (<git-branch> <git-branch-tracking>|<git-local-status>) <path> $ `
     - `#` mitigates execution of accidental pastes in the command line
     - `<time>` as often long running commands are not called with the `time` bash builtin
     - `<history-id>` to execute earlier commands via `!<history-id>` when seeing one in the scrollback buffer
     - `<exit-code>` shell exit code of last command (color in bold red if it's not zero)
-    - `<git-status-info>` displays detailed useful information about the git repository in the current working directory
+    - `(<git-branch> <git-branch-tracking>|<git-local-status>)` displays detailed useful information about the git repository in the current working directory (not displayed if not in a git directory)
+        - `<git-branch>` name of the currently checked out branch
+        - `<git-branch-tracking>` number of commits ahead/behind of remote
+        - `<git-local-status>` number of staged/modified/conflicted/untracked files
     - `<path>` current working directory shortened via `PROMPT_DIRTRIM=3` environment variable
 
 ## Bash
