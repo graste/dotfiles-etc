@@ -132,3 +132,7 @@ The `~/.pam_environment` file contains session-wide user-environment locale sett
 - `LC_IDENTIFICATION` metadata about the locale information
 - `LC_ALL` override over all the other locale environment variables (applications use this variable if it's set, regardless of other variables' values)
 
+## Sources of inspiration
+
+- The customized git status information prompt was adapted from there: https://github.com/magicmonty/bash-git-prompt
+- various dotfiles of other people

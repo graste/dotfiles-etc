@@ -225,3 +225,4 @@ alias banking='TEMPDIR=$(mktemp -d --tmpdir=/dev/shm) && cp ~/secure_operaprefs.
 # craur
 alias craur=/home/graste/projects/Craur/php/craur
 
+alias troll="echo \"What you've just written is one of the most insanely idiotic things I have ever heard. At no point in your rambling, incoherent response were you even close to anything that could be considered a rational thought. Everyone here is now dumber for having read it. I award you no points and downvote instead."
