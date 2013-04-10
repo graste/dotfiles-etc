@@ -1,5 +1,10 @@
 "set runtimepath^=$MYVIM
 
+" load all bundles from .vim/bundles directory
+filetype off
+execute pathogen#infect()
+"call pathogen#incubate()
+
 "
 " some basic settings
 "
@@ -56,6 +61,7 @@ set smartcase               " preserve case when replacing
 " some more useful settings
 "
 "set t_Co=256               " use 256 colors
+"set t_Co=16
 set t_ti= t_te=             " enable scrolling in scrollback buffer (http://www.shallowsky.com/linux/noaltscreen.html)
 set scrolloff=999           " increase scrolling offset at buffer end - center cursor with high value
 set modelines=5             " interpret 5 lines at bottom for modelines
@@ -68,10 +74,13 @@ set ttimeoutlen=10          " fix slow O inserts
 "
 " folding related
 "
-set foldmethod=indent       " set indentation mode (manual|indent|syntax|...)
-set foldminlines=2          " minimum number of lines to fold by default
-set foldlevelstart=1        " start at level 1
+"set foldmethod=indent       " set indentation mode (manual|indent|syntax|...)
+"set foldminlines=2          " minimum number of lines to fold by default
+"set foldlevelstart=1        " start at level 1
 
+"set background=dark
+"let g:solarized_termcolors=256
+"colorscheme solarized
 "
 " file and syntax highlighting related
 "
@@ -91,6 +100,7 @@ set statusline+=%m          "modified flag
 set statusline+=%r          "read only flag
 set statusline+=%y          "filetype
 set statusline+=%=          "left/right separator
+set statusline+=%{SyntasticStatuslineFlag()} " syntastic errors/warnings
 set statusline+=%c,         "cursor column
 set statusline+=%l/%L       "cursor line/total lines
 set statusline+=\ %P        "percent through file
@@ -152,6 +162,9 @@ nnoremap <F2> :set invpaste paste?<CR>
 " <F2> toggles paste option in insert mode
 set pastetoggle=<F2>
 
+" open previous buffer
+nnoremap <leader>l :bprevious<CR>
+
 " reselect previously used text (to e. g. indent pasted text)
 nnoremap <leader>m V`]
 
@@ -207,5 +220,21 @@ function! AppendModeline()
     call append(line("$"), l:modeline)
 endfunction
 nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
+
+
+"
+" settings for bundles etc.
+"
+
+" use ack from within vim
+nnoremap <leader>a :Ack
+
+" disable folding for vim-markdown syntax highlighting
+let g:vim_markdown_folding_disabled=1
+
+" syntastic configuration and checkers
+let g:syntastic_python_checkers=['pylint']
+let g:syntastic_php_checkers=['php'] " 'phpcs', 'phpmd'
+let g:syntastic_twig_checkers=['twig-lint']
 
 " vim: set ts=4 sw=4 tw=78 et :

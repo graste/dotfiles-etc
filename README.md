@@ -135,6 +135,24 @@ The `~/.pam_environment` file contains session-wide user-environment locale sett
 - `LC_IDENTIFICATION` metadata about the locale information
 - `LC_ALL` override over all the other locale environment variables (applications use this variable if it's set, regardless of other variables' values)
 
+## Vim bundles
+
+`pathogen` is used to handle plugins, syntax highlighting etc. For details see `.vim/bundles`.
+
+For syntax checking with `syntastic` the following (ubuntu) packages may be useful:
+
+- `sudo apt-get install pylint tidy libxml2-utils make puppet-lint`
+- for `jshint`, `jslint` and `csslint`, `less`, `sass`and `js-yaml`:
+    - `sudo apt-get install software-properties-common python-software-properties python g++ make`
+    - `sudo add-apt-repository ppa:chris-lea/node.js`
+    - `sudo apt-get update`
+    - `sudo apt-get install nodejs`
+    - install globally `sudo npm install -g less sass jshint jslint js-yaml csslint` (or locally: `npm install less sass jshint jslint js-yaml csslint` and add it to `$PATH` or as an alias)
+    - things like `coffeelint` if you use those...
+- for `twig-lint`:
+    - download `http://asm89.github.com/d/twig-lint.phar` and put it into your `$PATH` (e.g. `~/bin`)
+    - `cd ~/bin && chmod u+x twig-lint.phar && mv twig-lint.phar twig-lint`
+
 ## Sources of inspiration
 
 - The customized git status information prompt was adapted from there: https://github.com/magicmonty/bash-git-prompt
