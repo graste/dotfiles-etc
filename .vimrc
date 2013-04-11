@@ -101,6 +101,7 @@ set statusline+=%r          "read only flag
 set statusline+=%y          "filetype
 set statusline+=%=          "left/right separator
 set statusline+=%{SyntasticStatuslineFlag()} " syntastic errors/warnings
+set statusline+=\ 
 set statusline+=%c,         "cursor column
 set statusline+=%l/%L       "cursor line/total lines
 set statusline+=\ %P        "percent through file
@@ -174,6 +175,17 @@ nnoremap <leader>h <C-w>s<C-w>j
 
 " auto save on lost focus
 "autocmd FocusLost * :wa
+
+" make vim search use less confusing regex syntax by default (perl compatible)
+nnoremap / /\v
+vnoremap / /\v
+
+" turn off search highlighting
+nnoremap <leader><cr> :noh<cr>
+
+" jump from parenthesis to parenthesis a bit easier
+nnoremap <tab> %
+vnoremap <tab> %
 
 " code completion
 inoremap <c-space> <c-x><c-o>
