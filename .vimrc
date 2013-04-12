@@ -11,7 +11,6 @@ execute pathogen#infect()
 set nocompatible            " enable VIM improvements
 scriptencoding utf-8        " I like utf-8
 set encoding=utf-8          " I really do
-
 let mapleader=","           " use , instead of \ as the leader key
 
 "
@@ -28,8 +27,10 @@ set list                    " show invisible characters
 set listchars=tab:›\        " set tabulator character
 set listchars+=trail:⋅      " set trailing whitespace character
 "set listchars+=eol:¬       " set end-of-line character
+set listchars=nbsp:¶
+set listchars=extends:»
+set listchars=precedes:«
 set showbreak=↪             " the character to put to show a line has been wrapped
-
 "
 " color and display related
 "
@@ -70,7 +71,7 @@ set shell=bash              " bash as shell would be nice
 set history=5000            " keep 5000 lines of command line history
 set timeout timeoutlen=1000 " fix slow O inserts
 set ttimeoutlen=10          " fix slow O inserts
-
+set autoread                " auto reload files modified in the background
 "
 " folding related
 "
@@ -78,9 +79,13 @@ set ttimeoutlen=10          " fix slow O inserts
 "set foldminlines=2          " minimum number of lines to fold by default
 "set foldlevelstart=1        " start at level 1
 
+"
+" solarize colorscheme
+"
 "set background=dark
 "let g:solarized_termcolors=256
 "colorscheme solarized
+
 "
 " file and syntax highlighting related
 "
@@ -101,8 +106,7 @@ set statusline+=%r          "read only flag
 set statusline+=%y          "filetype
 set statusline+=%=          "left/right separator
 set statusline+=%{SyntasticStatuslineFlag()} " syntastic errors/warnings
-set statusline+=\ 
-set statusline+=%c,         "cursor column
+set statusline+=\ %c,       "cursor column
 set statusline+=%l/%L       "cursor line/total lines
 set statusline+=\ %P        "percent through file
 
@@ -159,19 +163,25 @@ autocmd FileType yaml setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 cmap w!! %!sudo tee > /dev/null %
 
 " <F2> inverts paste option in normal mode
-nnoremap <F2> :set invpaste paste?<CR>
+nnoremap <f2> :set invpaste paste?<cr>
 " <F2> toggles paste option in insert mode
-set pastetoggle=<F2>
+set pastetoggle=<f2>
+
+" split window movement mappings
+nnoremap <silent> <a-up> :wincmd k<cr>
+nnoremap <silent> <a-down> :wincmd j<cr>
+nnoremap <silent> <a-left> :wincmd h<cr>
+nnoremap <silent> <a-right> :wincmd l<cr>
 
 " open previous buffer
-nnoremap <leader>l :bprevious<CR>
+nnoremap <leader>l :bprevious<cr>
 
 " reselect previously used text (to e. g. indent pasted text)
 nnoremap <leader>m V`]
 
 " create new vertical and horizontal split and change to it
-nnoremap <leader>v <C-w>v<C-w>l
-nnoremap <leader>h <C-w>s<C-w>j
+nnoremap <leader>v <c-w>v<c-w>l
+nnoremap <leader>h <c-w>s<c-w>j
 
 " auto save on lost focus
 "autocmd FocusLost * :wa
@@ -179,9 +189,18 @@ nnoremap <leader>h <C-w>s<C-w>j
 " make vim search use less confusing regex syntax by default (perl compatible)
 nnoremap / /\v
 vnoremap / /\v
+cnoremap %s/ %s/\v
 
 " turn off search highlighting
 nnoremap <leader><cr> :noh<cr>
+
+" reformat entire file and reset cursor to last position
+noremap <silent><leader>k gg=G``
+
+" unmap help key
+inoremap <f1> <esc>
+nnoremap <f1> <esc>
+vnoremap <f1> <esc>
 
 " jump from parenthesis to parenthesis a bit easier
 nnoremap <tab> %
@@ -212,18 +231,18 @@ nnoremap <leader>stw :%s/\s\+$//<cr>:let @/=''<CR>
 "autocmd BufWritePre * :%s/\s\+$//e
 
 " fold via <space> or F9 in normal mode (and F9 in visual mode)
-nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
-vnoremap <Space> zf
-inoremap <F9> <C-O>za
-nnoremap <F9> za
-onoremap <F9> <C-C>za
-vnoremap <F9> zf
+nnoremap <silent> <space> @=(foldlevel('.')?'za':"\<space>")<cr>
+vnoremap <space> zf
+inoremap <f9> <c-o>za
+nnoremap <f9> za
+onoremap <f9> <c-c>za
+vnoremap <f9> zf
 
-augroup filetype_html
-    autocmd!
-    " fold tag
-    autocmd FileType html nnoremap <buffer> <localleader>f Vatzf
-augroup END
+"augroup filetype_html
+"    autocmd!
+"    " fold tag
+"    autocmd FileType html nnoremap <buffer> <localleader>f Vatzf
+"augroup END
 
 " append modeline after last line in buffer
 function! AppendModeline()
@@ -231,8 +250,7 @@ function! AppendModeline()
     let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
     call append(line("$"), l:modeline)
 endfunction
-nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
-
+nnoremap <silent> <Leader>ml :call AppendModeline()<cr>
 
 "
 " settings for bundles etc.
@@ -241,12 +259,35 @@ nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
 " use ack from within vim
 nnoremap <leader>a :Ack
 
+" nerdcommenter settings
+let NERDSpaceDelims = 1
+let g:NERDCustomDelimiters = {
+      \ 'puppet': { 'left': '#', 'leftAlt': '/*', 'rightAlt': '*/' }
+      \ }
+let NERDAllowAnyVisualDelims = 1
+let NERDCompactSexyComs = 0
+let NERDSexyComMarker = ""
+
 " disable folding for vim-markdown syntax highlighting
 let g:vim_markdown_folding_disabled=1
 
-" syntastic configuration and checkers
+" syntastic: check syntax on file open
+let g:syntastic_check_on_open=1
+
+" syntastic: configuration and checkers
 let g:syntastic_python_checkers=['pylint']
 let g:syntastic_php_checkers=['php'] " 'phpcs', 'phpmd'
 let g:syntastic_twig_checkers=['twig-lint']
+
+" syntastic: map for errors window
+nnoremap <LEADER>e :Errors<CR>
+
+" syntastic: autoclose error window when there are no errors
+let g:syntastic_auto_loc_list=2
+
+" syntastic: checking mode
+"let g:syntastic_mode_map = { 'mode': 'active',
+"    \ 'active_filetypes': ['ruby', 'python', 'perl', 'shell', 'puppet' ],
+"    \ 'passive_filetypes': ['php', 'html'] }
 
 " vim: set ts=4 sw=4 tw=78 et :

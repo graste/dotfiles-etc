@@ -42,7 +42,12 @@ mkdir ${HOME}/.bash
 mkdir -p ${HOME}/.vim/{autoload,bundle,backup,swap,undo}
 for (( i = 0 ; i < NUM ; i++ ))
 do
-    cp -iR ${SOURCE_DIR}/${FILES[$i]} ${HOME}/
+    if [[ $@ == *all* ]]
+    then
+        cp -R ${SOURCE_DIR}/${FILES[$i]} ${HOME}/
+    else
+        cp -iR ${SOURCE_DIR}/${FILES[$i]} ${HOME}/
+    fi
 done
 
 NUM=${#SPECIAL[@]}
