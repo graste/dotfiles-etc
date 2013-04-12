@@ -5,11 +5,12 @@ This is a list of bundles that are installed via pathogen.
 ## enabled / used
 
 - pathogen: https://github.com/tpope/vim-pathogen
-- vim-markdown: https://github.com/plasticboy/vim-markdown
 - syntastic: https://github.com/scrooloose/syntastic.git
+- vim-haml: https://github.com/tpope/vim-haml
+- vim-markdown: https://github.com/plasticboy/vim-markdown
 - vim-twig: https://github.com/lunaru/vim-twig
-- puppet-syntax-vim: https://github.com/puppetlabs/puppet-syntax-vim
 - nerdcommenter: https://github.com/scrooloose/nerdcommenter
+- puppet-syntax-vim: https://github.com/puppetlabs/puppet-syntax-vim
 - ack.vim: https://github.com/mileszs/ack.vim
 
 ## disabled / not used
