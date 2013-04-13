@@ -12,6 +12,7 @@ This is a list of bundles that are installed via pathogen.
 - nerdcommenter: https://github.com/scrooloose/nerdcommenter
 - puppet-syntax-vim: https://github.com/puppetlabs/puppet-syntax-vim
 - ack.vim: https://github.com/mileszs/ack.vim
+- gundo.vim: http://sjl.bitbucket.org/gundo.vim/
 
 ## disabled / not used
 

@@ -129,7 +129,7 @@ let g:netrw_altv=0          " control right/left splitting
 " backup and swap file related
 "
 set backup                  " create backups
-set undofile                " undo feature
+set undofile                " undo feature (even between exits)
 set writebackup             " write backup files
 set swapfile                " create .swp files
 set backupdir=~/.vim/backup,~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
@@ -289,5 +289,8 @@ let g:syntastic_auto_loc_list=2
 "let g:syntastic_mode_map = { 'mode': 'active',
 "    \ 'active_filetypes': ['ruby', 'python', 'perl', 'shell', 'puppet' ],
 "    \ 'passive_filetypes': ['php', 'html'] }
+
+" Gundo.vim plugin: toggle undo tree and preview pane
+nnoremap <F5> :GundoToggle<CR>
 
 " vim: set ts=4 sw=4 tw=78 et :
