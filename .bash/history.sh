@@ -1,5 +1,5 @@
 # don't put duplicate lines in the history or force ignoredups and ignorespace
-export HISTCONTROL=ignoredups:ignorespace
+export HISTCONTROL=ignoredups:ignorespace:erasedups
 
 # history buffer length
 export HISTSIZE=5000

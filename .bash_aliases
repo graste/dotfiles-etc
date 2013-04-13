@@ -46,7 +46,7 @@ alias cp-with-progress="rsync --progress -ravz"
 # you should use more "ack-grep" instead of "grep" :-)
 alias ack='ack-grep'
 
-
+alias history-top10="history | awk '{a[$2]++}END{for(i in a){print a[i] \" \" i}}' | sort -rn | head"
 
 #
 # safety features
