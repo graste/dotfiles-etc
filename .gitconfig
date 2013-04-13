@@ -45,7 +45,7 @@
     hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
     history = log --graph --pretty=oneline --abbrev-commit
     last = log -1 HEAD
-    lastweek = log --pretty=format:\"%h %ad | %s%d [%an]\" --since=\"7 days ago\" --graph --date=shor
+    lastweek = log --pretty=format:\"%h %ad | %s%d [%an]\" --since=\"7 days ago\" --graph --date=short
     # what's not in upstream
     noup = log --graph --decorate --pretty=oneline --abbrev-commit --all @{upstream}^..
     # search through things
