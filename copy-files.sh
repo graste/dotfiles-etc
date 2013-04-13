@@ -37,6 +37,8 @@ echo "Hello ${USER},"
 echo ""
 echo "this script will copy (and overwrite) ${NUM} items from ${SOURCE_DIR} to ${HOME}."
 echo ""
+echo "Hint: use 'all' as a command line argument to copy files in non-interactive mode."
+echo ""
 read -p "Press enter or abort via CTRL+C..." pleaseimscared
 mkdir ${HOME}/.bash
 mkdir -p ${HOME}/.vim/{autoload,bundle,backup,swap,undo}
@@ -60,6 +62,6 @@ do
     echo "If you need this file, you should copy the file (or it's content) via:"
     echo "cp -iR ${SOURCE_DIR}/${SPECIAL[$i]} ${HOME}/"
     echo ""
-    read -p "Press <enter> for next file..."
+    #read -p "Press <enter> for next file..."
 done
 

@@ -47,6 +47,7 @@ function git-local-ignore()
     fi
 }
 
+# git rm missing files
 function git-remove-missing-files()
 {
     git ls-files -d -z | xargs -0 git update-index --remove

@@ -114,3 +114,12 @@ else
     printf '~/.bash_aliases not found. Not sourcing alias definitions.\n'
 fi
 
+# source some local bash completions
+if [[ -d "${HOME}/.bash/completions" && -r "${HOME}/.bash/completions" && -x "${HOME}/.bash/completions" ]]; then
+    for i in $(LC_ALL=C command ls "${HOME}/.bash/completions"); do
+        i="${HOME}/.bash/completions"/$i
+        [[ ${i##*/} != @(*~|*.bak|*.swp|\#*\#|*.dpkg*|*.rpm@(orig|new|save)|Makefile*) && -f $i && -r $i ]] && . "$i"
+    done
+fi
+unset i
+

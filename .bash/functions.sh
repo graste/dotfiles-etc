@@ -9,6 +9,12 @@ function remind()
     fi;
 }
 
+# list configured hosts from .ssh/config file
+function ssh-list()
+{
+    awk '$1 ~ /Host$/ { print $2 }' ~/.ssh/config
+}
+
 # quick info about data files
 function i()
 {
