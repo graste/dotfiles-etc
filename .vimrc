@@ -31,6 +31,7 @@ set listchars=nbsp:¶
 set listchars=extends:»
 set listchars=precedes:«
 set showbreak=↪             " the character to put to show a line has been wrapped
+
 "
 " color and display related
 "
@@ -72,6 +73,7 @@ set history=5000            " keep 5000 lines of command line history
 set timeout timeoutlen=1000 " fix slow O inserts
 set ttimeoutlen=10          " fix slow O inserts
 set autoread                " auto reload files modified in the background
+
 "
 " folding related
 "
@@ -149,11 +151,15 @@ set wildignore+=*.swp       " ignore vim backups
 "
 " editor settings for file types and syntax highlighting specials
 "
-" define markdown filetype until I had a look at ftplugin/markdown.vim etc.
-au BufNewFile,BufRead {*.md,*.mkd,.markdown} set filetype=markdown
+autocmd FileType ruby,haml,eruby,yaml,sass setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType python set expandtab shiftwidth=4 softtabstop=4
+autocmd FileType text setlocal textwidth=78
 
-autocmd FileType ruby setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
-autocmd FileType yaml setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+autocmd BufRead,BufNewFile {*.scss,*.sass} setfiletype sass 
+autocmd BufRead,BufNewFile {*.md,*.markdown,*.mkd} set filetype=markdown autoindent formatoptions=tcroqn2 comments=n:&gt;
+
+" auto save on lost focus
+"autocmd FocusLost * :wa
 
 "
 " special mappings and functions
@@ -183,8 +189,9 @@ nnoremap <leader>m V`]
 nnoremap <leader>v <c-w>v<c-w>l
 nnoremap <leader>h <c-w>s<c-w>j
 
-" auto save on lost focus
-"autocmd FocusLost * :wa
+cnoremap %% <c-r>=expand('%:h').'/'<cr>
+map <leader>o :edit %%
+" map <leader>v :view %%
 
 " make vim search use less confusing regex syntax by default (perl compatible)
 nnoremap / /\v
@@ -244,6 +251,18 @@ vnoremap <f9> zf
 "    autocmd FileType html nnoremap <buffer> <localleader>f Vatzf
 "augroup END
 
+" rename current file to something else
+function! RenameFile()
+    let old_name = expand('%')
+    let new_name = input('New file name: ', expand('%'), 'file')
+    if new_name != '' && new_name != old_name
+        exec ':saveas ' . new_name
+        exec ':silent !rm ' . old_name
+        redraw!
+    endif
+endfunction
+map <leader>n :call RenameFile()<cr>
+
 " append modeline after last line in buffer
 function! AppendModeline()
     let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d %set :", &tabstop, &shiftwidth, &textwidth, &expandtab ? '' : 'no')
@@ -280,7 +299,7 @@ let g:syntastic_php_checkers=['php'] " 'phpcs', 'phpmd'
 let g:syntastic_twig_checkers=['twig-lint']
 
 " syntastic: map for errors window
-nnoremap <LEADER>e :Errors<CR>
+nnoremap <leader>e :Errors<cr>
 
 " syntastic: autoclose error window when there are no errors
 let g:syntastic_auto_loc_list=2
@@ -291,6 +310,6 @@ let g:syntastic_auto_loc_list=2
 "    \ 'passive_filetypes': ['php', 'html'] }
 
 " Gundo.vim plugin: toggle undo tree and preview pane
-nnoremap <F5> :GundoToggle<CR>
+nnoremap <f5> :GundoToggle<cr>
 
 " vim: set ts=4 sw=4 tw=78 et :
