@@ -12,7 +12,7 @@ export GIT_COMMITTER_EMAIL="$GIT_AUTHOR_EMAIL"
 export GIT_MERGE_VERBOSITY=3
 
 # show statistics about current repository (authers, number of commits etc.)
-function git-statistics()
+function git-show-statistics()
 {
     if [ -n "$(git symbolic-ref HEAD 2> /dev/null)" ]; then
         echo "Number of commits per author:"
@@ -33,28 +33,62 @@ function git-statistics()
         done
         echo ""
     else
-        echo "You're not in a git repository."
+        echo "You are not in a git repository."
     fi
 }
 
 # ignore given pattern only locally (instead of using .gitignore)
-function git-local-ignore()
+function git-ignore-local()
 {
-    if [ "" = "$1" ]; then
-        echo "Usage: git-local-ignore <file_or_pattern>"
+    if [ -n "$(git symbolic-ref HEAD 2> /dev/null)" ]; then
+        _exclude_file="$(git rev-parse --show-toplevel)/.git/info/exclude"
+        if [ "" = "$1" ]; then
+            echo "Usage: git-local-ignore <file_or_pattern>"
+            echo ""
+            echo "Current entries in ${_exclude_file}:"
+            echo ""
+            cat ${_exclude_file}
+            echo ""
+        else
+            echo "$1" >> ${_exclude_file}
+        fi
     else
-        echo "$1" >> .git/info/exclude
+        echo "You are not in a git repository."
+    fi
+}
+
+# change into the root directory of the current git working copy
+function git-goto-root()
+{
+    if [ -n "$(git symbolic-ref HEAD 2> /dev/null)" ]; then
+        cd $(git rev-parse --show-toplevel)
+    else
+        echo "You are not in a git repository."
+    fi
+}
+
+# show absolute path of current git working copy
+function git-root()
+{
+    if [ -n "$(git symbolic-ref HEAD 2> /dev/null)" ]; then
+        echo $(git rev-parse --show-toplevel)
+    else
+        echo "You are not in a git repository."
     fi
 }
 
 # git rm missing files
 function git-remove-missing-files()
 {
-    git ls-files -d -z | xargs -0 git update-index --remove
+    if [ -n "$(git symbolic-ref HEAD 2> /dev/null)" ]; then
+        git ls-files -d -z | xargs -0 git update-index --remove
+    else
+        echo "You are not in a git repository."
+    fi
 }
 
 # display time since the last commit
-function git-time-since-last-commit()
+function git-show-time-since-last-commit()
 {
     if [ -n "$(git symbolic-ref HEAD 2> /dev/null)" ]; then
         now=`date +%s`
@@ -66,12 +100,12 @@ function git-time-since-last-commit()
         _seconds=$(printf "scale=0;$seconds %% 60\n" | bc -l)
         printf "${_days:-0}d ${_hours:-0}h ${_minutes:-0}m ${_seconds:-0}s since last commit.\n"
     else
-        printf "You're not in a git repository."
+        printf "You are not in a git repository."
     fi
 }
 
 # show info about current working copy (e.g. if branches are up-to-date with remotes etc.)
-function git-info()
+function git-show-info()
 {
     if [ -n "$(git symbolic-ref HEAD 2> /dev/null)" ]; then
         echo "Git repository overview"
@@ -99,7 +133,7 @@ function git-info()
         fi
         echo ""
     else
-        echo "You're not in a git repository."
+        echo "You are not in a git repository."
     fi
 }
 
