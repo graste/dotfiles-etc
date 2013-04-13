@@ -312,4 +312,9 @@ let g:syntastic_auto_loc_list=2
 " Gundo.vim plugin: toggle undo tree and preview pane
 nnoremap <f5> :GundoToggle<cr>
 
+" git-commit-diff plugin to automatically view git diff while writing a commit message
+let g:git_diff_spawn_mode=1
+let g:git_diff_opts="-C -C"
+autocmd BufRead,BufNewFile COMMIT_EDITMSG setf git
+
 " vim: set ts=4 sw=4 tw=78 et :
