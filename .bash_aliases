@@ -29,9 +29,9 @@ alias mkdir='mkdir -pv'
 alias which='type -a'
 
 # time and date commands
-alias now='date +"%d-%m-%Y %T"'
-alias nowtime='date +"%T"'
-alias nowdate='date +"%d-%m-%Y"'
+alias now-datetime='date +"%d-%m-%Y %T"'
+alias now-time='date +"%T"'
+alias now-date='date +"%d-%m-%Y"'
 
 # we want vim
 alias vi=vim
@@ -159,15 +159,6 @@ alias nocomment-semicolon='grep -v -e "^$" -e"^\s*;"'
 alias lines='grep -v -e "^$" -e"^\s*#"'
 alias lines2='egrep -v "^\s*(#|$)"'
 
-# awk column print shorthand, e.g. print 2nd column: "df -h | fawk 2"
-function fawk {
-    first="awk '{print "
-    last="}' $2"
-    cmd="${first}\$${1}${last}"
-    echo $cmd
-    eval $cmd
-}
-
 # stream desktop to other ip
 alias streamlaptop="vlc screen:// :screen-fps=30 :screen-caching=100 --sout '#transcode{vcodec=mp4v,vb=4096,acodec=mpga,ab=256,scale=1,width=1280,height=800}:rtp{dst=192.168.1.101,port=1234,access=udp,mux=ts}'"
 
@@ -209,6 +200,8 @@ alias lock='gnome-screensaver-command --lock'
 
 # turn screen off
 alias screenoff='xset dpms force off'
+
+alias explain-port-forwarding="printf \"you@hotel: ssh -fCN <user>@<your_server> -L <local_port>:<your_server:<remote_port>\n-f put to background\n-N no remote commands\n-C request compression\n\""
 
 
 

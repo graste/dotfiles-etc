@@ -1,4 +1,13 @@
 
+# awk column print shorthand, e.g. print 2nd column: "df -h | fawk 2"
+function fawk {
+    first="awk '{print "
+    last="}' $2"
+    cmd="${first}\$${1}${last}"
+    echo $cmd
+    eval $cmd
+}
+
 # remind with desktop notification (ubuntu only atm)
 function remind()
 {
