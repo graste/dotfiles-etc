@@ -4,6 +4,8 @@
 filetype off
 execute pathogen#infect()
 "call pathogen#incubate()
+"call pathogen#runtime_append_all_bundles()
+call pathogen#helptags()    " generate helptag documentation for any existing bundles
 
 "
 " some basic settings
@@ -11,6 +13,7 @@ execute pathogen#infect()
 set nocompatible            " enable VIM improvements
 scriptencoding utf-8        " I like utf-8
 set encoding=utf-8          " I really do
+set fileformat=unix         " I like unix files too
 let mapleader=","           " use , instead of \ as the leader key
 
 "
@@ -27,9 +30,9 @@ set list                    " show invisible characters
 set listchars=tab:›\        " set tabulator character
 set listchars+=trail:⋅      " set trailing whitespace character
 "set listchars+=eol:¬       " set end-of-line character
-set listchars=nbsp:¶
-set listchars=extends:»
-set listchars=precedes:«
+set listchars+=nbsp:¶
+set listchars+=extends:»
+set listchars+=precedes:«
 set showbreak=↪             " the character to put to show a line has been wrapped
 
 "
@@ -38,6 +41,7 @@ set showbreak=↪             " the character to put to show a line has been wra
 color slate                 " choose color scheme
 set hlsearch!               " highlight search hits
 set showmatch               " highlight matching braces/brackets/parentheses
+set matchtime=5             " # of 10ths of a second to blink matching brackets
 "set number                 " display absolute line numbers
 set relativenumber          " display relative line numbers
 set cursorline              " highlight current line
@@ -51,6 +55,7 @@ set splitbelow              " splits show up below by default
 set splitright              " splits go to the right by default
 set title                   " set the title for gvim
 set novisualbell            " do not use a visual bell for notifications
+"set titlestring=%t%(\ %M%)%(\ (%{expand(\"%:~:.:h\")})%)%(\ %a%)
 
 "
 " search related
@@ -102,12 +107,26 @@ filetype indent on
 set statusline=%F           "full filepath - %f filepath, %t tail of filename
 set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
 set statusline+=%{&ff}]     "file format
+set statusline+=%#warningmsg#
+set statusline+=%{(&fenc!='utf-8'&&&fenc!='')?'['.&fenc.']':''} " display a warning if file encoding isn't utf-8
+set statusline+=%*
+set statusline+=%#warningmsg#
+set statusline+=%{&ff!='unix'?'['.&ff.']':''} " display a warning if fileformat isn't unix
+set statusline+=%*
 set statusline+=%h          "help file flag
 set statusline+=%m          "modified flag
 set statusline+=%r          "read only flag
 set statusline+=%y          "filetype
 set statusline+=%=          "left/right separator
+set statusline+=%{StatuslineLongLineWarning()} " display long line warnings
+set statusline+=%#error#
+set statusline+=%{StatuslineTabWarning()} " display a warning if &et is wrong, or we have mixed-indenting
+set statusline+=%*
+set statusline+=%{StatuslineTrailingSpaceWarning()}
+set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()} " syntastic errors/warnings
+set statusline+=%*
+"set statusline+=%{StatuslineCurrentHighlight()}\ \ "current highlight
 set statusline+=\ %c,       "cursor column
 set statusline+=%l/%L       "cursor line/total lines
 set statusline+=\ %P        "percent through file
@@ -155,7 +174,8 @@ autocmd FileType ruby,haml,eruby,yaml,sass setlocal expandtab shiftwidth=2 tabst
 autocmd FileType python set expandtab shiftwidth=4 softtabstop=4
 autocmd FileType text setlocal textwidth=78
 
-autocmd BufRead,BufNewFile {*.scss,*.sass} setfiletype sass 
+autocmd BufRead,BufNewFile {*.scss,*.sass} setfiletype sass
+autocmd BufRead,BufNewFile *.txt setfiletype text
 autocmd BufRead,BufNewFile {*.md,*.markdown,*.mkd} set filetype=markdown autoindent formatoptions=tcroqn2 comments=n:&gt;
 
 " auto save on lost focus
