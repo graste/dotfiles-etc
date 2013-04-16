@@ -34,7 +34,10 @@ prompt with exit code coloring and git status information:
         - `<git-branch>` name of the currently checked out branch
         - `<git-branch-tracking>` number of commits ahead/behind of remote
         - `<git-local-status>` number of staged/modified/conflicted/untracked files
-    - `<path>` current working directory shortened via `PROMPT_DIRTRIM=3` environment variable
+    - `<path>` current working directory shortened via `PROMPT_DIRTRIM=3` environment variable and colored according to user permissions
+        - in green: user owns directory
+        - in yellow: user is allowed to write in directory
+        - in red: user is not allowed to write in directory
 
 ## Bash
 
