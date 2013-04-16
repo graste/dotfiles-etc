@@ -338,4 +338,7 @@ let g:git_diff_spawn_mode=1
 let g:git_diff_opts="-C -C"
 autocmd BufRead,BufNewFile COMMIT_EDITMSG setf git
 
+" vim-numbertoggle
+let g:NumberToggleTrigger="<f3>"
+
 " vim: set ts=4 sw=4 tw=78 et :
