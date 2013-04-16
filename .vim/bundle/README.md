@@ -13,6 +13,7 @@ This is a list of bundles that are installed via pathogen.
 - puppet-syntax-vim: https://github.com/puppetlabs/puppet-syntax-vim
 - ack.vim: https://github.com/mileszs/ack.vim
 - gundo.vim: http://sjl.bitbucket.org/gundo.vim/
+- texttile.vim: https://github.com/timcharper/textile.vim.git
 
 ## disabled / not used
 
