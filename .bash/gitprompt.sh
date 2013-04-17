@@ -9,51 +9,50 @@ function setGitPrompt()
     # define colors
     local n_Co=$(tput colors)
     if [[ $n_Co == 256 ]]; then
-        YELLOW="\[\e[38;5;208m\]"
-        BLACK="\[\e[38;5;232m\]"
-        BLACKBG="\[\e[48;5;16m\]"
-        GRAT="\[\e[38;5;233m\]"
-        LGRAYBG="\[\e[48;5;236m\]"
-        LGRAY="\[\e[38;5;236m\]"
-        LLGRAY="\[\e[38;5;247m\]"
-        FCYAN="\[\e[38;5;23m\]"
-        GRAY="\[\e[38;5;235m\]"
-        GRAYBG="\[\e[48;5;235m\]"
-        GREEN="\[\e[38;5;34m\]"
-        GREENBG="\[\e[48;5;34m\]"
-        FGREEN="\[\e[38;5;22m\]"
-        CYAN="\[\e[38;5;87m\]"
-        CYANBG="\[\e[48;5;87m\]"
-        RED="\[\e[38;5;196m\]"
-        REDBG="\[\e[48;5;196m\]"
-        WHITE="\[\e[38;5;255m\]"
-        WHITEBG="\[\e[48;5;255m\]"
-        UL="\[\e[4;38;5;255m\]"
-        NOUL="\[\e[24;38;5;255m\]"
+        YELLOW="\[\033[38;5;208m\]"
+        BLACK="\[\033[38;5;232m\]"
+        BLACKBG="\[\033[48;5;16m\]"
+        GRAT="\[\033[38;5;233m\]"
+        LGRAYBG="\[\033[48;5;236m\]"
+        LGRAY="\[\033[38;5;236m\]"
+        LLGRAY="\[\033[38;5;247m\]"
+        FCYAN="\[\033[38;5;23m\]"
+        GRAY="\[\033[38;5;235m\]"
+        GRAYBG="\[\033[48;5;235m\]"
+        GREEN="\[\033[38;5;34m\]"
+        GREENBG="\[\033[48;5;34m\]"
+        FGREEN="\[\033[38;5;22m\]"
+        CYAN="\[\033[38;5;87m\]"
+        CYANBG="\[\033[48;5;87m\]"
+        RED="\[\033[38;5;196m\]"
+        REDBG="\[\033[48;5;196m\]"
+        WHITE="\[\033[38;5;255m\]"
+        WHITEBG="\[\033[48;5;255m\]"
+        UL="\[\033[4;38;5;255m\]"
+        NOUL="\[\033[24;38;5;255m\]"
     else
-        YELLOW="\[\e[33m\]"
-        GRAY="\[\e[30m\]"
-        GRAT="\[\e[30m\]"
-        GREEN="\[\e[32m\]"
-        BLACKBG="\[\e[0\]"
-        RED="\[\e[31m\]"
-        CYAN="\[\e[36m\]"
-        WHITE="\[\e[37m\]"
-        UL="\[\e[4m\]"
+        BLACKBG="\[\033[0\]"
+        GRAY="\[\033[30m\]"
+        RED="\[\033[31m\]"
+        GREEN="\[\033[32m\]"
+        YELLOW="\[\033[33m\]"
+        BLUE="\[\033[34m\]"
+        MAGENTA="\[\033[35m\]"
+        CYAN="\[\033[36m\]"
+        WHITE="\[\033[37m\]"
+        UL="\[\033[4m\]"
     fi
 
-    NORM="\[\e[0m\]"
-    BOLD="\[\e[1m\]"
-    UNBOLD="\[\e[22m\]"
-
-    BLUE="\[\e[34m\]"
-    MAG="\[\e[35m\]"
-    BG="\[\e[48;5;235m\]"
-
     RESETCOLOR="\[\033[0m\]"
-    BGreen="\[\033[1;32m\]"       # Bold Green
-    IBlack="\[\033[0;90m\]"       # High Intesity Black
-    Magenta="\[\033[1;95m\]"     # Bold High Intensity Purple
+    NORM="\[\033[0m\]"
+    BOLD="\[\033[1m\]"
+    UNBOLD="\[\033[22m\]"
+
+    BG="\[\033[48;5;235m\]"
+
+    BGREEN="\[\033[1;32m\]" # Bold Green
+    IBLACK="\[\033[0;90m\]" # High Intensity Black
+    BIMAGENTA="\[\033[1;95m\]" # Bold High Intensity Purple
 
     # error status code should be RED
     RETURNCODE="$EXITUS"
@@ -61,20 +60,33 @@ function setGitPrompt()
         RETURNCODE="$RED$BOLD$EXITUS$NORM"
     fi
 
+    # comment, time, history id, last command's exit code
     PROMPT_PREFIX="# \t \! $RETURNCODE"
+
+    # current working directory in colors
     PROMPT_PATH="\w"
+    if [[ -O ${PWD} ]]; then
+        # user owns the cwd
+        PROMPT_PATH="$GREEN\w$NORM"
+    elif [[ -w ${PWD} ]]; then
+        # user can write to the cwd
+        PROMPT_PATH="$YELLOW\w$NORM"
+    else
+        # user can only read the cwd
+        PROMPT_PATH="$RED\w$NORM"
+    fi
 
     # default values for git status info
     GIT_PROMPT_PREFIX="("
     GIT_PROMPT_SUFFIX=")"
     GIT_PROMPT_SEPARATOR="|"
-    GIT_PROMPT_BRANCH="${Magenta}"
+    GIT_PROMPT_BRANCH="${MAGENTA}"
     GIT_PROMPT_STAGED="$RED● "
     GIT_PROMPT_CONFLICTS="$RED✖ "
     GIT_PROMPT_CHANGED="$BLUE✚ "
     GIT_PROMPT_REMOTE=" "
     GIT_PROMPT_UNTRACKED="…"
-    GIT_PROMPT_CLEAN="${BGreen}✔"
+    GIT_PROMPT_CLEAN="${BGREEN}✔"
 
     # define start and end of prompt (which is somewhat static in comparison to the git part)
     PROMPT_START="$IBlack$PROMPT_PREFIX$NORM"

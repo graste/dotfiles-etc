@@ -104,7 +104,7 @@ filetype indent on
 "
 " status line relatead
 "
-set statusline=%F           "full filepath - %f filepath, %t tail of filename
+set statusline=%f           "full filepath - %f filepath, %t tail of filename
 set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
 set statusline+=%{&ff}]     "file format
 set statusline+=%#warningmsg#
@@ -118,7 +118,7 @@ set statusline+=%m          "modified flag
 set statusline+=%r          "read only flag
 set statusline+=%y          "filetype
 set statusline+=%=          "left/right separator
-set statusline+=%{StatuslineLongLineWarning()} " display long line warnings
+"set statusline+=%{StatuslineLongLineWarning()} " display long line warnings
 set statusline+=%#error#
 set statusline+=%{StatuslineTabWarning()} " display a warning if &et is wrong, or we have mixed-indenting
 set statusline+=%*
@@ -171,12 +171,13 @@ set wildignore+=*.swp       " ignore vim backups
 " editor settings for file types and syntax highlighting specials
 "
 autocmd FileType ruby,haml,eruby,yaml,sass setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
-autocmd FileType python set expandtab shiftwidth=4 softtabstop=4
+autocmd FileType python set expandtab shiftwidth=4 tabstop=4 softtabstop=4 smartindent autoindent
 autocmd FileType text setlocal textwidth=78
 
 autocmd BufRead,BufNewFile {*.scss,*.sass} setfiletype sass
 autocmd BufRead,BufNewFile *.txt setfiletype text
 autocmd BufRead,BufNewFile {*.md,*.markdown,*.mkd} set filetype=markdown autoindent formatoptions=tcroqn2 comments=n:&gt;
+autocmd BufRead,BufNewFile {*.csv,*.dat,*.tsv} setfiletype csv
 
 " auto save on lost focus
 "autocmd FocusLost * :wa
@@ -336,5 +337,8 @@ nnoremap <f5> :GundoToggle<cr>
 let g:git_diff_spawn_mode=1
 let g:git_diff_opts="-C -C"
 autocmd BufRead,BufNewFile COMMIT_EDITMSG setf git
+
+" vim-numbertoggle
+let g:NumberToggleTrigger="<f3>"
 
 " vim: set ts=4 sw=4 tw=78 et :

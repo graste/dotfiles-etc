@@ -1,58 +1,6 @@
 "
 " source: https://github.com/stick/vimfiles/blob/master/plugin/statusline.vim
 "
-" standard colorings for the statusline
-" highlight StatusLine ctermfg=black ctermbg=lightgreen cterm=NONE
-" highlight StatusLineNC ctermfg=black ctermbg=lightblue cterm=NONE
-
-" {{{ Nice statusbar
-"statusline setup
-"set statusline=%f       "tail of the filename
-
-"display a warning if fileformat isnt unix
-"set statusline+=%#warningmsg#
-"set statusline+=%{&ff!='unix'?'['.&ff.']':''}
-"set statusline+=%*
-
-"display a warning if file encoding isnt utf-8
-"set statusline+=%#warningmsg#
-"set statusline+=%{(&fenc!='utf-8'&&&fenc!='')?'['.&fenc.']':''}
-"set statusline+=%*
-
-"set statusline+=%h      "help file flag
-"set statusline+=%y      "filetype
-"set statusline+=%r      "read only flag
-"set statusline+=%m      "modified flag
-
-" display current git branch
-"set statusline+=%{fugitive#statusline()}
-
-" display long line warnings
-"set statusline+=%{StatuslineLongLineWarning()}
-
-"display a warning if &et is wrong, or we have mixed-indenting
-"set statusline+=%#error#
-"set statusline+=%{StatuslineTabWarning()}
-"set statusline+=%*
-
-"set statusline+=%{StatuslineTrailingSpaceWarning()}
-
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-
-"display a warning if &paste is set
-"set statusline+=%#error#
-"set statusline+=%{&paste?'[paste]':''}
-"set statusline+=%*
-
-"display if we are in list mode (invisibles)
-"set statusline+=%#error#
-"set statusline+=%{&list?'[list]':''}
-"set statusline+=%*
-
-"set statusline+=%{StatuslineCurrentHighlight()}\ \ "current highlight
-
 
 "return the syntax highlight group under the cursor ''
 function! StatuslineCurrentHighlight()
