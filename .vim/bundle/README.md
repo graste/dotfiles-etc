@@ -15,6 +15,9 @@ This is a list of bundles that are installed via pathogen.
 - gundo.vim: http://sjl.bitbucket.org/gundo.vim/
 - texttile.vim: https://github.com/timcharper/textile.vim.git
 - vim-numbertoggle: https://github.com/jeffkreeftmeijer/vim-numbertoggle.git
+- vim-surround: https://github.com/tpope/vim-surround.git
+- vim-repeat: https://github.com/tpope/vim-repeat.git
+- snipmate.vim: https://github.com/msanders/snipmate.vim.git
 - graste: some additional files found elsewhere and adapted for own use
 
 ## disabled / not used
