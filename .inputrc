@@ -9,3 +9,20 @@ set visible-stats on
 
 # turn off the bell completely
 set bell-style none
+
+# use up/down arrows for history search
+#"\e[A": history-search-backward
+#"\e[B": history-search-forward
+
+# use pgup/pgdn keys for history search
+"\e[5~": history-search-backward
+"\e[6~": history-search-forward
+
+#"\e[1~": beginning-of-line
+#"\e[4~": end-of-line
+#"\e[7~": beginning-of-line
+#"\e[8~": end-of-line
+#"\eOH": beginning-of-line
+#"\eOF": end-of-line
+#"\e[H": beginning-of-line
+#"\e[F": end-of-line
