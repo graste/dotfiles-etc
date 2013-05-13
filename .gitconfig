@@ -46,8 +46,10 @@
     history = log --graph --pretty=oneline --abbrev-commit
     last = log -1 HEAD
     lastweek = log --pretty=format:\"%h %ad | %s%d [%an]\" --since=\"7 days ago\" --graph --date=short
+    # subjects of log messages only: can be used with vX.X.X..vX.X.Y or --since and --until, use %B for complete commit messages
+    changelog = log --pretty=%s --first-parent --no-merges
     # what's not in upstream
-    noup = log --graph --decorate --pretty=oneline --abbrev-commit --all @{upstream}^..
+    notup = log --graph --decorate --pretty=oneline --abbrev-commit --all @{upstream}^..
     # search through things
     type = cat-file -t
     dump = cat-file -p
