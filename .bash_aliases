@@ -167,7 +167,6 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 
 # creates a simple http server within the current working directory on port 8080
 alias pyhttp='python -m SimpleHTTPServer 8080'
-alias serve='python -m SimpleHTTPServer 8080'
 
 #echo "some text" | enscript -B -f Courier-Bold16 -o- | ps2pdf - | pdftk input.pdf stamp - output output.pdf
 
