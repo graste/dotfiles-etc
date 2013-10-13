@@ -140,7 +140,7 @@ The `~/.pam_environment` file contains session-wide user-environment locale sett
 
 ## Vim bundles
 
-`pathogen` is used to handle plugins, syntax highlighting etc. For details see `.vim/bundles`.
+`pathogen` is used to handle plugins, syntax highlighting etc. For details see [`.vim/bundles`](.vim/bundles).
 
 For syntax checking with `syntastic` the following (ubuntu) packages may be useful:
 
