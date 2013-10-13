@@ -15,6 +15,7 @@ scriptencoding utf-8        " I like utf-8
 set encoding=utf-8          " I really do
 set fileformat=unix         " I like unix files too
 let mapleader=","           " use , instead of \ as the leader key
+let g:mapleader = ","
 
 "
 " text, tabs, whitespace and indentation related
@@ -166,6 +167,7 @@ set wildignore+=.git,.hg,.svn " ignore version control repos
 set wildignore+=*.pyc       " ignore Python compiled files
 set wildignore+=*.rbc       " ignore Rubinius compiled files
 set wildignore+=*.swp       " ignore vim backups
+set wildignore+=*.so,*.swp,*.zip,*.gz " ignore some more filetypes
 
 "
 " editor settings for file types and syntax highlighting specials
@@ -173,6 +175,9 @@ set wildignore+=*.swp       " ignore vim backups
 autocmd FileType ruby,haml,eruby,yaml,sass setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType python set expandtab shiftwidth=4 tabstop=4 softtabstop=4 smartindent autoindent
 autocmd FileType text setlocal textwidth=78
+autocmd FileType vim setlocal shiftwidth=2 tabstop=2
+autocmd FileType markdown setlocal shiftwidth=4 tabstop=4
+autocmd FileType make setlocal tabstop=4 noexpandtab
 
 autocmd BufRead,BufNewFile {*.scss,*.sass} setfiletype sass
 autocmd BufRead,BufNewFile *.txt setfiletype text
@@ -194,7 +199,7 @@ nnoremap <f2> :set invpaste paste?<cr>
 " <F2> toggles paste option in insert mode
 set pastetoggle=<f2>
 
-" split window movement mappings
+" split window movement mappings via alt+up/left/down/right
 nnoremap <silent> <a-up> :wincmd k<cr>
 nnoremap <silent> <a-down> :wincmd j<cr>
 nnoremap <silent> <a-left> :wincmd h<cr>
@@ -214,7 +219,7 @@ cnoremap %% <c-r>=expand('%:h').'/'<cr>
 map <leader>o :edit %%
 " map <leader>v :view %%
 
-" make vim search use less confusing regex syntax by default (perl compatible)
+" make vim search use perl compatible regex syntax by default
 nnoremap / /\v
 vnoremap / /\v
 cnoremap %s/ %s/\v
@@ -360,5 +365,21 @@ autocmd BufRead,BufNewFile COMMIT_EDITMSG setf git
 
 " vim-numbertoggle
 let g:NumberToggleTrigger="<f3>"
+
+" NerdTree (open with <Leader>n or when no cmdline args were given)
+noremap <Leader>n :NERDTreeToggle<cr>
+autocmd VimEnter * if !argc() | NERDTree | endif
+let g:NERDTreeWinSize = 60
+
+" CtrlP
+"let g:ctrlp_map = '<c-p>'
+"let g:ctrlp_cmd = 'CtrlP'
+"let g:ctrlp_working_path_mode = 'ra'
+noremap <f4> :CtrlP<cr>
+noremap <Leader>f :CtrlP<cr>
+noremap <Leader>b :CtrlPBuffer<cr>
+
+" Tabular
+command CsvAlign Tabularize /;/r1
 
 " vim: set ts=4 sw=4 tw=78 et :

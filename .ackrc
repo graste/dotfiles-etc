@@ -28,11 +28,11 @@
 --type-set=log=.log
 --type-set=django=.py,.html
 --type-set=less=.less
---type-set=sass=.sass
+--type-set=sass=.sass,.scss
 --type-set=vim=.vim
 --type-set=puppet=.pp
---type-set=frontend=.html,.js,.less,.sass,.css
---type-set=frontendadv=.html,.js,.less,.css,.sass
+--type-set=frontend=.html,.js,.less,.sass,.scss,.css
+--type-set=frontendadv=.html,.js,.less,.css,.sass,.scss
 --type-set=docs=.markdown,.md,.mdown,.mkdn,.rst
 
 # types to ignore by default
