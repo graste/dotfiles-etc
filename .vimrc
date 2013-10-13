@@ -366,9 +366,12 @@ autocmd BufRead,BufNewFile COMMIT_EDITMSG setf git
 " vim-numbertoggle
 let g:NumberToggleTrigger="<f3>"
 
-" NerdTree (open with <Leader>n or when no cmdline args were given)
+" NerdTree
+" (open with <Leader>n or when no cmdline args were given, close vim when
+" nerdtree is the last open window)
 noremap <Leader>n :NERDTreeToggle<cr>
 autocmd VimEnter * if !argc() | NERDTree | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 let g:NERDTreeWinSize = 60
 
 " CtrlP
