@@ -1,4 +1,3 @@
-"set runtimepath^=$MYVIM
 
 " load all bundles from .vim/bundles directory
 filetype off
@@ -11,52 +10,61 @@ call pathogen#helptags()    " generate helptag documentation for any existing bu
 " some basic settings
 "
 set nocompatible            " enable VIM improvements
+let mapleader=","           " use , instead of \ as the leader key
+set confirm                 " get a dialog when :q, :w, or :wq fails
+set hidden                  " buffer becomes hidden when it is abandoned
+set lazyredraw              " no redraws in macros
+set viminfo^=%              " remember info about open buffers on close
+
+"
+" encoding and newlines
+"
 scriptencoding utf-8        " I like utf-8
 set encoding=utf-8          " I really do
 set fileformat=unix         " I like unix files too
-let mapleader=","           " use , instead of \ as the leader key
-let g:mapleader = ","
 
 "
 " text, tabs, whitespace and indentation related
 "
-set expandtab               " convert tabs to type/size (spaces for us)
-set shiftwidth=4            " amount of spaces when shifting (indentation length)
-set tabstop=4               " tab width/length
-set softtabstop=4           " soft tab width in spaces
-set smarttab                " enable smart indentation
 set autoindent              " enable auto indentation
 set backspace=2             " indent,eol,start - Backspace through everything
+set expandtab               " convert tabs to type/size (spaces for us)
 set list                    " show invisible characters
-set listchars=tab:›\        " set tabulator character
-set listchars+=trail:⋅      " set trailing whitespace character
 "set listchars+=eol:¬       " set end-of-line character
-set listchars+=nbsp:¶
 set listchars+=extends:»
+set listchars+=nbsp:¶
 set listchars+=precedes:«
+set listchars+=trail:⋅      " set trailing whitespace character
+set listchars=tab:›\        " set tabulator character
+set shiftwidth=4            " amount of spaces when shifting (indentation length)
 set showbreak=↪             " the character to put to show a line has been wrapped
+set smarttab                " enable smart indentation
+set softtabstop=4           " soft tab width in spaces
+set tabstop=4               " tab width/length
 
 "
 " color and display related
 "
 color slate                 " choose color scheme
+set colorcolumn=80,120      " highlight various character limits
+set cursorcolumn            " highlight current column
+set cursorline              " highlight current line
 set hlsearch!               " highlight search hits
-set showmatch               " highlight matching braces/brackets/parentheses
+set laststatus=2            " always show the status bar even if there's only one window
+set matchpairs+=<:>         " allow ci< or di< etc. to work (instead of only ci" etc.)
 set matchtime=5             " # of 10ths of a second to blink matching brackets
+set noerrorbells            " no annoying sound on errors
+set novisualbell            " do not use a visual bell for notifications
 "set number                 " display absolute line numbers
 set relativenumber          " display relative line numbers
-set cursorline              " highlight current line
-set cursorcolumn            " highlight current column
 set ruler                   " show the cursor position all the time
-set colorcolumn=80,120      " highlight various character limits
-set laststatus=2            " always show the status bar even if there's only one window
 set showcmd                 " show command characters
+set showmatch               " highlight matching braces/brackets/parentheses
 set showmode                " show the current (paste) mode on the open buffer
 set splitbelow              " splits show up below by default
 set splitright              " splits go to the right by default
 set title                   " set the title for gvim
-set novisualbell            " do not use a visual bell for notifications
-"set titlestring=%t%(\ %M%)%(\ (%{expand(\"%:~:.:h\")})%)%(\ %a%)
+set titlestring=%t%(\ %M%)%(\ (%{expand(\"%:~:.:h\")})%)%(\ %a%)
 
 "
 " search related
@@ -68,17 +76,17 @@ set smartcase               " preserve case when replacing
 "
 " some more useful settings
 "
-"set t_Co=256               " use 256 colors
-"set t_Co=16
-set t_ti= t_te=             " enable scrolling in scrollback buffer (http://www.shallowsky.com/linux/noaltscreen.html)
-set scrolloff=999           " increase scrolling offset at buffer end - center cursor with high value
-set modelines=5             " interpret 5 lines at bottom for modelines
-set modeline                " enable vim modelines usage
-set shell=bash              " bash as shell would be nice
-set history=5000            " keep 5000 lines of command line history
-set timeout timeoutlen=1000 " fix slow O inserts
-set ttimeoutlen=10          " fix slow O inserts
 set autoread                " auto reload files modified in the background
+set history=5000            " keep 5000 lines of command line history
+set modeline                " enable vim modelines usage
+set modelines=5             " interpret 5 lines at bottom for modelines
+set scrolloff=999           " increase scrolling offset at buffer end - center cursor with high value
+set shell=bash              " bash as shell would be nice
+"set t_Co=256               " use 256 colors
+set t_ti= t_te=             " enable scrolling in scrollback buffer (http://www.shallowsky.com/linux/noaltscreen.html)
+set vb t_vb=                " no visual bell in terminals
+set timeout timeoutlen=500  " fix slow O inserts
+set ttimeoutlen=10          " fix slow O inserts
 
 "
 " folding related
@@ -151,9 +159,9 @@ let g:netrw_altv=0          " control right/left splitting
 " backup and swap file related
 "
 set backup                  " create backups
-set undofile                " undo feature (even between exits)
-set writebackup             " write backup files
 set swapfile                " create .swp files
+set writebackup             " write backup files
+set undofile                " undo feature (even between exits)
 set backupdir=~/.vim/backup,~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vim/swap,~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set undodir=~/.vim/undo,~/.vim-tmp,~/.tmp,~/tmp,/var/tmp,/tmp
@@ -172,17 +180,17 @@ set wildignore+=*.so,*.swp,*.zip,*.gz " ignore some more filetypes
 "
 " editor settings for file types and syntax highlighting specials
 "
-autocmd FileType ruby,haml,eruby,yaml,sass setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType make setlocal tabstop=4 noexpandtab
+autocmd FileType markdown setlocal shiftwidth=4 tabstop=4
 autocmd FileType python set expandtab shiftwidth=4 tabstop=4 softtabstop=4 smartindent autoindent
+autocmd FileType ruby,haml,eruby,yaml,sass setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType text setlocal textwidth=78
 autocmd FileType vim setlocal shiftwidth=2 tabstop=2
-autocmd FileType markdown setlocal shiftwidth=4 tabstop=4
-autocmd FileType make setlocal tabstop=4 noexpandtab
 
+autocmd BufRead,BufNewFile {*.csv,*.dat,*.tsv} setfiletype csv
+autocmd BufRead,BufNewFile {*.md,*.markdown,*.mkd} set filetype=markdown autoindent formatoptions=tcroqn2 comments=n:&gt;
 autocmd BufRead,BufNewFile {*.scss,*.sass} setfiletype sass
 autocmd BufRead,BufNewFile *.txt setfiletype text
-autocmd BufRead,BufNewFile {*.md,*.markdown,*.mkd} set filetype=markdown autoindent formatoptions=tcroqn2 comments=n:&gt;
-autocmd BufRead,BufNewFile {*.csv,*.dat,*.tsv} setfiletype csv
 
 " auto save on lost focus
 "autocmd FocusLost * :wa
@@ -198,6 +206,10 @@ cmap w!! %!sudo tee > /dev/null %
 nnoremap <f2> :set invpaste paste?<cr>
 " <F2> toggles paste option in insert mode
 set pastetoggle=<f2>
+
+" Remove the Windows ^M - when the encodings gets messed up
+"noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+command FixM mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 " split window movement mappings via alt+up/left/down/right
 nnoremap <silent> <a-up> :wincmd k<cr>
@@ -260,6 +272,7 @@ vnoremap <leader>Q <esc>`<i"<esc>`>lli"<esc>l
 
 " strip all trailing whitespace in the current file
 nnoremap <leader>stw :%s/\s\+$//<cr>:let @/=''<CR>
+
 " clear whitespace at the end of lines automatically when saving
 "autocmd BufWritePre * :%s/\s\+$//e
 
@@ -270,6 +283,10 @@ inoremap <f9> <c-o>za
 nnoremap <f9> za
 onoremap <f9> <c-c>za
 vnoremap <f9> zf
+
+" always jump to the last known cursor position (if possible and not in an event handler)
+" this is replaced atm by the .vim/bundle/graste/plugin/lastpos.vim
+"autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 
 "augroup filetype_html
 "    autocmd!
@@ -317,6 +334,48 @@ function! AppendModeline()
 endfunction
 nnoremap <silent> <Leader>ml :call AppendModeline()<cr>
 
+" the following two functions are from http://amix.dk/vim/vimrc.txt
+function! CmdLine(str)
+    exe "menu Foo.Bar :" . a:str
+    emenu Foo.Bar
+    unmenu Foo
+endfunction
+
+function! VisualSelection(direction) range
+    let l:saved_reg = @"
+    execute "normal! vgvy"
+
+    let l:pattern = escape(@", '\\/.*$^~[]')
+    let l:pattern = substitute(l:pattern, "\n$", "", "")
+
+    if a:direction == 'b'
+        execute "normal ?" . l:pattern . "^M"
+    elseif a:direction == 'gv'
+        call CmdLine("vimgrep " . '/'. l:pattern . '/' . ' **/*.')
+    elseif a:direction == 'replace'
+        call CmdLine("%s" . '/'. l:pattern . '/')
+    elseif a:direction == 'f'
+        execute "normal /" . l:pattern . "^M"
+    endif
+
+    let @/ = l:pattern
+    let @" = l:saved_reg
+endfunction
+" * or # searches for the current selection in visual mode
+vnoremap <silent> * :call VisualSelection('f')<cr>
+vnoremap <silent> # :call VisualSelection('b')<cr>
+" search and replace the selected text
+vnoremap <silent> <leader>r :call VisualSelection('replace')<CR>
+
+
+" delete trailing whitespace when saving certain file types
+func! DeleteTrailingWhitespace()
+  exe "normal mz"
+  %s/\s\+$//ge
+  exe "normal `z"
+endfunc
+autocmd BufWrite {*.py,*.coffee} :call DeleteTrailingWhitespace()
+
 "
 " settings for bundles etc.
 "
@@ -325,13 +384,13 @@ nnoremap <silent> <Leader>ml :call AppendModeline()<cr>
 nnoremap <leader>a :Ack
 
 " nerdcommenter settings
-let NERDSpaceDelims = 1
 let g:NERDCustomDelimiters = {
       \ 'puppet': { 'left': '#', 'leftAlt': '/*', 'rightAlt': '*/' }
       \ }
 let NERDAllowAnyVisualDelims = 1
 let NERDCompactSexyComs = 0
 let NERDSexyComMarker = ""
+let NERDSpaceDelims = 1
 
 " disable folding for vim-markdown syntax highlighting
 let g:vim_markdown_folding_disabled=1
@@ -340,8 +399,8 @@ let g:vim_markdown_folding_disabled=1
 let g:syntastic_check_on_open=1
 
 " syntastic: configuration and checkers
-let g:syntastic_python_checkers=['pylint']
 let g:syntastic_php_checkers=['php'] " 'phpcs', 'phpmd'
+let g:syntastic_python_checkers=['pylint']
 let g:syntastic_twig_checkers=['twig-lint']
 
 " syntastic: map for errors window
@@ -359,19 +418,22 @@ let g:syntastic_auto_loc_list=2
 nnoremap <f5> :GundoToggle<cr>
 
 " git-commit-diff plugin to automatically view git diff while writing a commit message
-let g:git_diff_spawn_mode=1
 let g:git_diff_opts="-C -C"
+let g:git_diff_spawn_mode=1
 autocmd BufRead,BufNewFile COMMIT_EDITMSG setf git
 
 " vim-numbertoggle
 let g:NumberToggleTrigger="<f3>"
 
 " NerdTree
-" (open with <Leader>n or when no cmdline args were given, close vim when
-" nerdtree is the last open window)
+" - open with <Leader>n
+" - open automatically when no cmdline args were given
+" - close vim automatically when nerdtree is the last open window
+" - show hidden files by default (dotfiles)
 noremap <Leader>n :NERDTreeToggle<cr>
 autocmd VimEnter * if !argc() | NERDTree | endif
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+let g:NERDTreeShowHidden = 1
 let g:NERDTreeWinSize = 60
 
 " CtrlP
