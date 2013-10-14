@@ -30,12 +30,12 @@ set autoindent              " enable auto indentation
 set backspace=2             " indent,eol,start - Backspace through everything
 set expandtab               " convert tabs to type/size (spaces for us)
 set list                    " show invisible characters
-"set listchars+=eol:¬       " set end-of-line character
+set listchars=tab:›\        " set tabulator character
 set listchars+=extends:»
 set listchars+=nbsp:¶
 set listchars+=precedes:«
 set listchars+=trail:⋅      " set trailing whitespace character
-set listchars=tab:›\        " set tabulator character
+"set listchars+=eol:¬       " set end-of-line character
 set shiftwidth=4            " amount of spaces when shifting (indentation length)
 set showbreak=↪             " the character to put to show a line has been wrapped
 set smarttab                " enable smart indentation
