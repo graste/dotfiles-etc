@@ -188,7 +188,8 @@ autocmd FileType text setlocal textwidth=78
 autocmd FileType vim setlocal shiftwidth=2 tabstop=2
 
 autocmd BufRead,BufNewFile {*.csv,*.dat,*.tsv} setfiletype csv
-autocmd BufRead,BufNewFile {*.md,*.markdown,*.mkd} set filetype=markdown autoindent formatoptions=tcroqn2 comments=n:&gt;
+"autocmd BufRead,BufNewFile {*.md,*.markdown,*.mkd} set filetype=markdown autoindent formatoptions=tcroqn2 comments=n:&gt;
+autocmd BufRead,BufNewFile {*.md,*.markdown,*.mkd} set filetype=markdown autoindent formatoptions=tcroqn2 comments=n:&gt; wrap textwidth=80 wrapmargin=0 linebreak
 autocmd BufRead,BufNewFile {*.scss,*.sass} setfiletype sass
 autocmd BufRead,BufNewFile *.txt setfiletype text
 
@@ -287,6 +288,8 @@ vnoremap <f9> zf
 " always jump to the last known cursor position (if possible and not in an event handler)
 " this is replaced atm by the .vim/bundle/graste/plugin/lastpos.vim
 "autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
+"autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+
 
 "augroup filetype_html
 "    autocmd!
@@ -367,7 +370,6 @@ vnoremap <silent> # :call VisualSelection('b')<cr>
 " search and replace the selected text
 vnoremap <silent> <leader>r :call VisualSelection('replace')<CR>
 
-
 " delete trailing whitespace when saving certain file types
 func! DeleteTrailingWhitespace()
   exe "normal mz"
@@ -384,9 +386,7 @@ autocmd BufWrite {*.py,*.coffee} :call DeleteTrailingWhitespace()
 nnoremap <leader>a :Ack
 
 " nerdcommenter settings
-let g:NERDCustomDelimiters = {
-      \ 'puppet': { 'left': '#', 'leftAlt': '/*', 'rightAlt': '*/' }
-      \ }
+let g:NERDCustomDelimiters = {'puppet': { 'left': '#', 'leftAlt': '/*', 'rightAlt': '*/' } }
 let NERDAllowAnyVisualDelims = 1
 let NERDCompactSexyComs = 0
 let NERDSexyComMarker = ""

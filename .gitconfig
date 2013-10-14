@@ -53,6 +53,9 @@
     # search through things
     type = cat-file -t
     dump = cat-file -p
+    # get access to the notes that might be available due to Github discussions on a Pull Request etc.
+    # use this via: git show HEAD --show-notes=github-comments
+    # fetch = +refs/notes/*:refs/notes/*
 [status]
     # show paths relative to repository root
     relativePaths = true
