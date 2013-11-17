@@ -63,6 +63,10 @@
     # `git di $number` shows the diff between the state `$number` revisions ago and the current state
     # found in https://github.com/mathiasbynens/dotfiles/blob/master/.gitconfig#L8
     diff-to-last = !"d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d"
+    # list tags, branches and remotes
+    tags = tag -l
+    branches = branch -a
+    remotes = remote -v
 [apply]
     # detect a new or modified line that has whitespace errors when applying a patch
     # see: core.whitespace configuration
