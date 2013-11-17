@@ -5,27 +5,27 @@
     name = Steffen Gransow
     email = graste@mivesto.de
     editor = vim
+[github]
+    user = graste
+[credential]
+    helper = cache --timeout=3600
 [core]
     # see .gitattributes docs as well: https://www.kernel.org/pub/software/scm/git/docs/gitattributes.html
     autocrlf = input
+    # one of: lf | crlf | native (default)
+    eol = native
     # warn about mixed line endings
     safecrlf = true
-    # one of: lf | crlf | native
-    eol = native
     # comma separated list of common whitespace problems to notice - use "-" to disable any of them
     whitespace = trailing-space,space-before-tab,tab-in-indent,-indent-with-non-tab,cr-at-eol,tabwidth=4
-[branch]
-    # set "pull" to use rebase instead of merge for all tracking branches (local and remote)
-    autosetuprebase = always
-[merge]
-    # <<<< |||| >>>> - includes local version in addition to left and right stuff
-    conflictstyle = diff3
-[rerere]
-    # activate recording of resolved conflicts to get auto-resolving of identical conflicts later on
-    enabled = true
-[diff]
-    # detect multiple renamed/copied files
-    renames = copies
+    # trust inode change time (may be useful to set to false)
+    trustctime = true
+[color]
+    interactive = auto
+    pager = true
+    showbranch = auto
+    status = auto
+    ui = auto
 [alias]
     # yeah...but...ehm...you know
     br = branch
@@ -39,23 +39,62 @@
     cdiff = diff --cached
     sdiff = diff --staged
     # difff = diff HEAD | pygmentize -l diff | less -R
-    # history as colored graph with relative dates and authors 
-    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+    # subjects of log messages only: can be used with vX.X.X..vX.X.Y or --since and --until, use %B for complete commit messages
+    changelog = log --pretty=%s --first-parent --no-merges
     # some aliases for history and last activities
     hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
     history = log --graph --pretty=oneline --abbrev-commit
+    # last commit
     last = log -1 HEAD
+    # all of last week's commits
     lastweek = log --pretty=format:\"%h %ad | %s%d [%an]\" --since=\"7 days ago\" --graph --date=short
-    # subjects of log messages only: can be used with vX.X.X..vX.X.Y or --since and --until, use %B for complete commit messages
-    changelog = log --pretty=%s --first-parent --no-merges
+    # history as colored graph with relative dates and authors
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
     # what's not in upstream
     notup = log --graph --decorate --pretty=oneline --abbrev-commit --all @{upstream}^..
     # search through things
-    type = cat-file -t
     dump = cat-file -p
+    type = cat-file -t
     # get access to the notes that might be available due to Github discussions on a Pull Request etc.
     # use this via: git show HEAD --show-notes=github-comments
     # fetch = +refs/notes/*:refs/notes/*
+    # show diff between the latest commit and the current state
+    diff-latest = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
+    # `git di $number` shows the diff between the state `$number` revisions ago and the current state
+    # found in https://github.com/mathiasbynens/dotfiles/blob/master/.gitconfig#L8
+    diff-to-last = !"d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d"
+[apply]
+    # detect a new or modified line that has whitespace errors when applying a patch
+    # see: core.whitespace configuration
+    # set to: nowarn | warn (default) | fix | error | error-all
+    whitespace = fix
+[branch]
+    # set "pull" to use rebase instead of merge for all tracking branches (local and remote)
+    # set to: always | local | never (default) | remote
+    autosetuprebase = always
+[diff]
+    # detect multiple renamed/copied files
+    renames = copies
+[help]
+    format = man
+    autocorrect = 0
+[merge]
+    # <<<< |||| >>>> - includes local version in addition to left and right stuff
+    conflictstyle = diff3
+    # include summaries of merged commits in newly created merge commit messages
+    log = true
+[push]
+    # current = only push to the same named remote branch
+    # matching = push all matching local branches (default for git < v2.0)
+    # simple = like upstream or current - only push the current branch used for pulling (new default for git > v2.0)
+    # set to: current | matching | nothing | simple | upstream
+    default = current
+[rebase]
+    # show a diffstat of what changed upstream since the last rebase
+    stat = true
+[rerere]
+    # activate recording of resolved conflicts to get auto-resolving of identical conflicts later on
+    enabled = true
 [status]
     # show paths relative to repository root
     relativePaths = true
@@ -63,23 +102,17 @@
     showUntrackedFiles = normal
     # summary of commits for modified submodules (true = -1 = unlimited; use a number otherwise)
     submodulesummary = true
-[credential]
-    helper = cache --timeout=3600
-[github]
-    user = graste
-[color]
-    interactive = auto
-    showbranch = auto
-    status = auto
-    pager = true
-    ui = auto
-[help]
-    format = man
-    autocorrect = 0
+
+# hack on own submodules that otherwise may be readonly (via http://neva.li/post/565899843)
+[url "git@github.com:graste/"]
+    insteadOf = "git://github.com/graste/"
+[url "git@github.com:berlinonline/"]
+    insteadOf = "git://github.com/berlinonline/"
+
 [giggle]
-	main-window-maximized = true
-	main-window-geometry = 0x0+0+0
-	history-view-vpane-position = 226
+    main-window-maximized = true
+    main-window-geometry = 0x0+0+0
+    history-view-vpane-position = 226
     main-window-view = HistoryView
     file-view-hpane-position = 286
     file-view-vpane-position = 635
