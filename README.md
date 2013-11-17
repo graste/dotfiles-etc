@@ -13,8 +13,14 @@ Various dotfiles I use and want to have available elsewhere. Probably a lot of t
 
 ## Usage
 
+Just clone the repository to a folder of your choice and copy wanted or all files:
+
     git clone git://github.com/graste/dotfiles-etc.git
-    cd dotfiles-etc && ./copy-files.sh
+    cd dotfiles-etc && ./copy-files.sh [all]
+
+Without installed `git` you can try to use `curl` or `wget`:
+
+    curl -#L https://github.com/graste/dotfiles-etc/tarball/master | tar -xzv --strip-components 1
 
 ## Screenshot
 
@@ -119,6 +125,8 @@ prompt with exit code coloring and git status information:
 - `~/.inputrc` for key bindings and other input related settings.
 - `~/.bash_profile` can be used instead of `~/.profile`, but you also need to include `~/.bashrc` if the shell is interactive.
 
+See e.g. [Unix shell initialization](https://github.com/sstephenson/rbenv/wiki/Unix-shell-initialization) for a short introduction on different shells and their startup files.
+
 ## Locale settings
 
 The `~/.pam_environment` file contains session-wide user-environment locale settings with one assignment expression per line. To activate changes to this file one has to _re-login_.
@@ -140,7 +148,7 @@ The `~/.pam_environment` file contains session-wide user-environment locale sett
 
 ## Vim bundles
 
-`pathogen` is used to handle plugins, syntax highlighting etc. For details see [`.vim/bundles`](.vim/bundles).
+`pathogen` is used to handle plugins, syntax highlighting etc. For details see [`.vim/bundle`](.vim/bundle).
 
 For syntax checking with `syntastic` the following (ubuntu) packages may be useful:
 
