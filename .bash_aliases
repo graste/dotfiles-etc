@@ -176,6 +176,8 @@ alias pyhttp='python -m SimpleHTTPServer 8080'
 # return random 7-char english names if needed
 alias random-name="cat /usr/share/dict/words | rl | grep -vP \"^\w{8,}\" | grep -vP \"'s$\" | head -1"
 
+# ROT13 stuff
+alias rot13='tr a-zA-Z n-za-mN-ZA-M'
 
 
 #
