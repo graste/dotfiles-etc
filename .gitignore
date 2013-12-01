@@ -10,9 +10,12 @@
 # logfiles
 *.log
 
-# general os and editors related stuff
+# general os, thumbs and editors related stuff
 .DS_Store
+Desktop.ini
 Thumbs.db
+.Spotlight-V100
+.Trashes
 *.sublime-project
 *.sublime-workspace
 .bundle/
@@ -40,4 +43,5 @@ svn-commit.tmp
 *.rej
 *.orig
 .*~
+._*
 *~
