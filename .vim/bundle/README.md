@@ -21,7 +21,7 @@ This is a list of bundles that are installed via pathogen.
 - vim-numbertoggle: https://github.com/jeffkreeftmeijer/vim-numbertoggle.git
 - vim-repeat: https://github.com/tpope/vim-repeat.git
 - vim-surround: https://github.com/tpope/vim-surround.git
-- vim-twig: https://github.com/lunaru/vim-twig
+- vim-twig: https://github.com/qbbr/vim-twig
 
 ## disabled / not used
 

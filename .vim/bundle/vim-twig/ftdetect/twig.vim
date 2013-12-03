@@ -1,2 +1,4 @@
-autocmd BufNewFile,BufRead *.twig set filetype=twig
-
+" Twig
+autocmd BufNewFile,BufRead *.twig set ft=twig
+" HTML Twig
+autocmd BufNewFile,BufRead *.html.twig set ft=htmltwig.twig.html
