@@ -185,6 +185,7 @@ autocmd FileType markdown setlocal shiftwidth=4 tabstop=4
 autocmd FileType python set expandtab shiftwidth=4 tabstop=4 softtabstop=4 smartindent autoindent
 autocmd FileType ruby,haml,eruby,yaml,sass setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
 autocmd FileType text setlocal textwidth=78
+autocmd FileType twig setlocal filetype=htmltwig
 autocmd FileType vim setlocal shiftwidth=2 tabstop=2
 
 autocmd BufRead,BufNewFile {*.csv,*.dat,*.tsv} setfiletype csv
