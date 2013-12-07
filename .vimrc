@@ -190,8 +190,9 @@ autocmd FileType vim setlocal shiftwidth=2 tabstop=2
 
 autocmd BufRead,BufNewFile {*.csv,*.dat,*.tsv} setfiletype csv
 "autocmd BufRead,BufNewFile {*.md,*.markdown,*.mkd} set filetype=markdown autoindent formatoptions=tcroqn2 comments=n:&gt;
-autocmd BufRead,BufNewFile {*.md,*.markdown,*.mkd} set filetype=markdown autoindent formatoptions=tcroqn2 comments=n:&gt; wrap textwidth=80 wrapmargin=0 linebreak
+autocmd BufRead,BufNewFile {*.md,*.markdown,*.mdown,*.mkd} set filetype=markdown autoindent formatoptions=tcroqn2 comments=n:&gt; wrap textwidth=80 wrapmargin=0 linebreak
 autocmd BufRead,BufNewFile {*.scss,*.sass} setfiletype sass
+autocmd BufRead,BufNewFile Vagrantfile set filetype=ruby
 autocmd BufRead,BufNewFile *.txt setfiletype text
 
 " auto save on lost focus
