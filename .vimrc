@@ -443,15 +443,18 @@ let g:NERDTreeWinSize = 60
 let g:ctrlp_clear_cache_on_exit = 0 " do not clear cache on exit
 let g:ctrlp_reuse_window = 'netrw\|help\|quickfix'
 let g:ctrlp_show_hidden = 1     " scan for dotfiles and dotdirs
-let g:ctrlp_max_files = 10000   " maximum number of files to scan (0 = no limit)
+let g:ctrlp_max_files = 50000   " maximum number of files to scan (0 = no limit)
 let g:ctrlp_max_depth = 40      " maximum depth of dirtree to recurse into
 let g:ctrlp_max_history = 100   " set to '&history' to use vim's history option
 let g:ctrlp_follow_symlinks = 0 " do not follow symlinks
 let g:ctrlp_lazy_update = 1     " update match-window after a certain time (1=250ms, >1 is interpreted as delay time in milliseconds)
 let g:ctrlp_mruf_max = 250      " number of files to remember for MRU mode (most-recently-used)
-noremap <f4> :CtrlP<cr>
-noremap <Leader>f :CtrlP<cr>
-noremap <Leader>b :CtrlPBuffer<cr>
+nmap <c-p> :CtrlPMixed<cr>
+nmap <Leader>b :CtrlPBuffer<cr>
+nmap <Leader>f :CtrlPMixed<cr><c-\>w
+nmap <f8> :<c-u>CtrlP<cr><c-\>w
+vmap <f8> :<c-u>CtrlP<cr><c-\>v
+"map <2-LeftMouse> :<c-u>CtrlP<cr><c-\>w
 
 " Tabular
 command CsvAlign Tabularize /;/r1
