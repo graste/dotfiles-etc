@@ -449,6 +449,7 @@ let g:ctrlp_max_history = 100   " set to '&history' to use vim's history option
 let g:ctrlp_follow_symlinks = 0 " do not follow symlinks
 let g:ctrlp_lazy_update = 1     " update match-window after a certain time (1=250ms, >1 is interpreted as delay time in milliseconds)
 let g:ctrlp_mruf_max = 250      " number of files to remember for MRU mode (most-recently-used)
+let g:ctrlp_custom_ignore = '\v\/(build|cache|modules-built)\/'
 nmap <c-p> :CtrlPMixed<cr>
 nmap <Leader>b :CtrlPBuffer<cr>
 nmap <Leader>f :CtrlPMixed<cr><c-\>w
