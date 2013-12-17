@@ -429,10 +429,12 @@ let g:NumberToggleTrigger="<f3>"
 
 " NerdTree
 " - open with <Leader>n
+" - match folder to currently open file with <Leader>nm
 " - open automatically when no cmdline args were given
 " - close vim automatically when nerdtree is the last open window
 " - show hidden files by default (dotfiles)
 noremap <Leader>n :NERDTreeToggle<cr>
+noremap <Leader>nm :NERDTreeFind<cr>
 autocmd VimEnter * if !argc() | NERDTree | endif
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 let g:NERDTreeShowHidden = 1
