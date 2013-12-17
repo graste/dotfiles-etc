@@ -1,0 +1,183 @@
+
+
+n  <NL>        *@:call nerdtree#invokeKeyMap("<C-j>")<CR>
+n  <C-K>       *@:call nerdtree#invokeKeyMap("<C-k>")<CR>
+n  <CR>        *@:call nerdtree#invokeKeyMap('o')<CR>
+n  ?           *@:call nerdtree#invokeKeyMap("?")<CR>
+n  A           *@:call nerdtree#invokeKeyMap("A")<CR>
+n  B           *@:call nerdtree#invokeKeyMap("B")<CR>
+n  CD          *@:call nerdtree#invokeKeyMap("CD")<CR>
+n  C           *@:call nerdtree#invokeKeyMap("C")<CR>
+n  D           *@:call nerdtree#invokeKeyMap("D")<CR>
+n  F           *@:call nerdtree#invokeKeyMap("F")<CR>
+n  I           *@:call nerdtree#invokeKeyMap("I")<CR>
+n  J           *@:call nerdtree#invokeKeyMap("J")<CR>
+n  K           *@:call nerdtree#invokeKeyMap("K")<CR>
+n  O           *@:call nerdtree#invokeKeyMap("O")<CR>
+n  P           *@:call nerdtree#invokeKeyMap("P")<CR>
+n  R           *@:call nerdtree#invokeKeyMap("R")<CR>
+n  T           *@:call nerdtree#invokeKeyMap("T")<CR>
+n  U           *@:call nerdtree#invokeKeyMap("U")<CR>
+n  X           *@:call nerdtree#invokeKeyMap("X")<CR>
+n  cd          *@:call nerdtree#invokeKeyMap("cd")<CR>
+n  e           *@:call nerdtree#invokeKeyMap("e")<CR>
+n  f           *@:call nerdtree#invokeKeyMap("f")<CR>
+n  gi          *@:call nerdtree#invokeKeyMap("gi")<CR>
+n  gs          *@:call nerdtree#invokeKeyMap("gs")<CR>
+n  go          *@:call nerdtree#invokeKeyMap("go")<CR>
+n  i           *@:call nerdtree#invokeKeyMap("i")<CR>
+n  m           *@:call nerdtree#invokeKeyMap("m")<CR>
+n  o           *@:call nerdtree#invokeKeyMap("o")<CR>
+n  p           *@:call nerdtree#invokeKeyMap("p")<CR>
+n  q           *@:call nerdtree#invokeKeyMap("q")<CR>
+n  r           *@:call nerdtree#invokeKeyMap("r")<CR>
+n  s           *@:call nerdtree#invokeKeyMap("s")<CR>
+n  t           *@:call nerdtree#invokeKeyMap("t")<CR>
+n  u           *@:call nerdtree#invokeKeyMap("u")<CR>
+n  x           *@:call nerdtree#invokeKeyMap("x")<CR>
+n  <2-LeftMouse> *@:call nerdtree#invokeKeyMap("<2-LeftMouse>")<CR>
+n  <LeftRelease> *@<LeftRelease>:call nerdtree#invokeKeyMap("<LeftRelease>")<CR>
+n  <MiddleRelease> *@:call nerdtree#invokeKeyMap("<MiddleRelease>")<CR>
+n  <C-D>       * dd
+s  <Tab>       * <Esc>i<Right><C-R>=TriggerSnippet()<CR>
+x  <Tab>       * %
+n  <Tab>       * %
+n  <C-P>         :CtrlPMixed<CR>
+s  <C-X>       * b<BS><C-X>
+v  <Space>     * zf
+n  <Space>     * @=(foldlevel('.')?'za':"\ ")<CR>
+v  #           * :call VisualSelection('b')<CR>
+s  %           * b<BS>%
+s  '           * b<BS>'
+v  *           * :call VisualSelection('f')<CR>
+n  ,ca           <Plug>NERDCommenterAltDelims
+x  ,cu           <Plug>NERDCommenterUncomment
+n  ,cu           <Plug>NERDCommenterUncomment
+x  ,cb           <Plug>NERDCommenterAlignBoth
+n  ,cb           <Plug>NERDCommenterAlignBoth
+x  ,cl           <Plug>NERDCommenterAlignLeft
+n  ,cl           <Plug>NERDCommenterAlignLeft
+n  ,cA           <Plug>NERDCommenterAppend
+x  ,cy           <Plug>NERDCommenterYank
+n  ,cy           <Plug>NERDCommenterYank
+x  ,cs           <Plug>NERDCommenterSexy
+n  ,cs           <Plug>NERDCommenterSexy
+x  ,ci           <Plug>NERDCommenterInvert
+n  ,ci           <Plug>NERDCommenterInvert
+n  ,c$           <Plug>NERDCommenterToEOL
+x  ,cn           <Plug>NERDCommenterNested
+n  ,cn           <Plug>NERDCommenterNested
+x  ,cm           <Plug>NERDCommenterMinimal
+n  ,cm           <Plug>NERDCommenterMinimal
+x  ,c<Space>     <Plug>NERDCommenterToggle
+n  ,c<Space>     <Plug>NERDCommenterToggle
+x  ,cc           <Plug>NERDCommenterComment
+n  ,cc           <Plug>NERDCommenterComment
+n  ,f            :CtrlPMixed<CR><C-\>w
+n  ,b            :CtrlPBuffer<CR>
+   ,nm         * :NERDTreeFind<CR>
+n  ,e          * :Errors<CR>
+n  ,a          * :Ack
+v  ,r          * :call VisualSelection('replace')<CR>
+n  ,ml         * :call AppendModeline()<CR>
+   ,n          * :NERDTreeToggle<CR>
+n  ,stw        * :%s/\s\+$//<CR>:let @/=''<CR>
+v  ,Q          * <Esc>`<i"<Esc>`>lli"<Esc>l
+v  ,q          * <Esc>`<i'<Esc>`>lli'<Esc>l
+n  ,'          * viw<Esc>a'<Esc>hbi'<Esc>lel
+n  ,"          * viw<Esc>a"<Esc>hbi"<Esc>lel
+   ,k          * gg=G``
+n  ,<CR>       * :noh<CR>
+   ,o            :edit %%
+n  ,h          * <C-W>s<C-W>j
+n  ,v          * <C-W>v<C-W>l
+n  ,m          * V`]
+n  ,l          * :bprevious<CR>
+n  -           * ddp
+v  /           * /\v
+n  /           * /\v
+x  S             <Plug>VSurround
+s  U           * b<BS>U
+s  \           * b<BS>\
+   \H          * :Entities 1<CR>
+   \h          * :Entities 0<CR>
+s  ^           * b<BS>^
+n  _           * ddkP
+s  `           * b<BS>`
+n  cs            <Plug>Csurround
+n  ds            <Plug>Dsurround
+n  gx            <Plug>NetrwBrowseX
+x  gS            <Plug>VgSurround
+n  ySS           <Plug>YSsurround
+n  ySs           <Plug>YSsurround
+n  yss           <Plug>Yssurround
+n  yS            <Plug>YSurround
+n  ys            <Plug>Ysurround
+s  <Left>      * <Esc>bi
+s  <Right>     * <Esc>a
+s  <BS>        * b<BS>
+s  <S-Tab>     * <Esc>i<Right><C-R>=BackwardsSnippet()<CR>
+n  <Plug>NetrwBrowseX * :call netrw#NetrwBrowseX(expand("<cWORD>"),0)<CR>
+v  <Plug>VgSurround * :<C-U>call <SNR>50_opfunc(visualmode(),visualmode() ==# 'V' ? 0 : 1)<CR>
+v  <Plug>VSurround * :<C-U>call <SNR>50_opfunc(visualmode(),visualmode() ==# 'V' ? 1 : 0)<CR>
+n  <Plug>YSurround * :<C-U>set opfunc=<SNR>50_opfunc2<CR>g@
+n  <Plug>Ysurround * :<C-U>set opfunc=<SNR>50_opfunc<CR>g@
+n  <Plug>YSsurround * :<C-U>call <SNR>50_opfunc2(v:count1)<CR>
+n  <Plug>Yssurround * :<C-U>call <SNR>50_opfunc(v:count1)<CR>
+n  <Plug>Csurround * :<C-U>call <SNR>50_changesurround()<CR>
+n  <Plug>Dsurround * :<C-U>call <SNR>50_dosurround(<SNR>50_inputtarget())<CR>
+n  <Plug>SurroundRepeat * .
+n  <F3>        * :call NumberToggle()<CR>
+n  <Plug>NERDCommenterAltDelims * :call <SNR>26_SwitchToAlternativeDelimiters(1)<CR>
+x  <Plug>NERDCommenterUncomment * :call NERDComment("x", "Uncomment")<CR>
+n  <Plug>NERDCommenterUncomment * :call NERDComment("n", "Uncomment")<CR>
+x  <Plug>NERDCommenterAlignBoth * :call NERDComment("x", "AlignBoth")<CR>
+n  <Plug>NERDCommenterAlignBoth * :call NERDComment("n", "AlignBoth")<CR>
+x  <Plug>NERDCommenterAlignLeft * :call NERDComment("x", "AlignLeft")<CR>
+n  <Plug>NERDCommenterAlignLeft * :call NERDComment("n", "AlignLeft")<CR>
+n  <Plug>NERDCommenterAppend * :call NERDComment("n", "Append")<CR>
+x  <Plug>NERDCommenterYank * :call NERDComment("x", "Yank")<CR>
+n  <Plug>NERDCommenterYank * :call NERDComment("n", "Yank")<CR>
+x  <Plug>NERDCommenterSexy * :call NERDComment("x", "Sexy")<CR>
+n  <Plug>NERDCommenterSexy * :call NERDComment("n", "Sexy")<CR>
+x  <Plug>NERDCommenterInvert * :call NERDComment("x", "Invert")<CR>
+n  <Plug>NERDCommenterInvert * :call NERDComment("n", "Invert")<CR>
+n  <Plug>NERDCommenterToEOL * :call NERDComment("n", "ToEOL")<CR>
+x  <Plug>NERDCommenterNested * :call NERDComment("x", "Nested")<CR>
+n  <Plug>NERDCommenterNested * :call NERDComment("n", "Nested")<CR>
+x  <Plug>NERDCommenterMinimal * :call NERDComment("x", "Minimal")<CR>
+n  <Plug>NERDCommenterMinimal * :call NERDComment("n", "Minimal")<CR>
+x  <Plug>NERDCommenterToggle * :call NERDComment("x", "Toggle")<CR>
+n  <Plug>NERDCommenterToggle * :call NERDComment("n", "Toggle")<CR>
+x  <Plug>NERDCommenterComment * :call NERDComment("x", "Comment")<CR>
+n  <Plug>NERDCommenterComment * :call NERDComment("n", "Comment")<CR>
+v  <F8>          :<C-U>CtrlP<CR><C-\>v
+n  <F8>          :<C-U>CtrlP<CR><C-\>w
+n  <F5>        * :GundoToggle<CR>
+v  <F9>        * zf
+o  <F9>        * <C-C>za
+n  <F9>        * za
+v  <F1>        * <Esc>
+n  <F1>        * <Esc>
+n  <M-Right>   * :wincmd l<CR>
+n  <M-Left>    * :wincmd h<CR>
+n  <M-Down>    * :wincmd j<CR>
+n  <M-Up>      * :wincmd k<CR>
+n  <F2>        * :set invpaste paste?<CR>
+
+i  <S-Tab>     * <C-R>=BackwardsSnippet()<CR>
+i  <Plug>ISurround * <C-R>=<SNR>50_insert(1)<CR>
+i  <Plug>Isurround * <C-R>=<SNR>50_insert()<CR>
+i  <Plug>NERDCommenterInsert * <Space><BS><Esc>:call NERDComment('i', "insert")<CR>
+i  <F9>        * <C-O>za
+i  <C-Space>   * <C-X><C-O>
+i  <F1>        * <Esc>
+i  <C-D>       * <Esc>ddi
+i  <C-G>S        <Plug>ISurround
+i  <C-G>s        <Plug>Isurround
+i  <Tab>       * <C-R>=TriggerSnippet()<CR>
+i  <C-R><Tab>  * <C-R>=ShowAvailableSnips()<CR>
+i  <C-S>         <Plug>Isurround
+c  %s/         * %s/\v
+c  %%          * <C-R>=expand('%:h').'/'<CR>
+c  w!!           %!sudo tee > /dev/null %
