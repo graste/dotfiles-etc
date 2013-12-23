@@ -154,7 +154,7 @@ For syntax checking with `syntastic` the following (ubuntu) packages may be usef
 
 - `sudo apt-get install pylint tidy libxml2-utils make puppet-lint`
 - for `jshint`, `jslint` and `csslint`, `less`, `sass`and `js-yaml`:
-    - `sudo apt-get install software-properties-common python-software-properties python g++ make`
+    - `sudo apt-get install software-properties-common python-software-properties python g++ make python-pygments`
     - `sudo add-apt-repository ppa:chris-lea/node.js`
     - `sudo apt-get update`
     - `sudo apt-get install nodejs`
@@ -166,5 +166,5 @@ For syntax checking with `syntastic` the following (ubuntu) packages may be usef
 
 ## Sources of inspiration
 
-- The customized git status information prompt was adapted from there: https://github.com/magicmonty/bash-git-prompt
-- various dotfiles of other people
+- The customized git status information prompt was adapted from: https://github.com/magicmonty/bash-git-prompt
+- various dotfiles of other people (e.g. bash functions `calc`, `json`, `gz`, `unidecode`, `escape` from @mathiasbynens)

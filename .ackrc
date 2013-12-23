@@ -45,4 +45,4 @@
 --ignore-dir=docs/build
 --ignore-dir=app/log
 --ignore-dir=app/cache
-
+--ignore-dir=pub/static/modules-built

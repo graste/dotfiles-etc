@@ -46,7 +46,9 @@ set tabstop=4               " tab width/length
 " color and display related
 "
 color slate                 " choose color scheme
-set colorcolumn=80,120      " highlight various character limits
+"set colorcolumn=81,121      " highlight various character limits
+call matchadd('ColorColumn', '\%81v', 100)  " only highlight 81st column in long lines
+call matchadd('ColorColumn', '\%121v', 100) " only highlight 121st column in long lines
 set cursorcolumn            " highlight current column
 set cursorline              " highlight current line
 set hlsearch!               " highlight search hits
@@ -63,8 +65,8 @@ set showmatch               " highlight matching braces/brackets/parentheses
 set showmode                " show the current (paste) mode on the open buffer
 set splitbelow              " splits show up below by default
 set splitright              " splits go to the right by default
-set title                   " set the title for gvim
 set titlestring=%t%(\ %M%)%(\ (%{expand(\"%:~:.:h\")})%)%(\ %a%)
+set title                   " set the title for gvim
 
 "
 " search related
@@ -175,7 +177,7 @@ set wildignore+=.git,.hg,.svn " ignore version control repos
 set wildignore+=*.pyc       " ignore Python compiled files
 set wildignore+=*.rbc       " ignore Rubinius compiled files
 set wildignore+=*.swp       " ignore vim backups
-set wildignore+=*.so,*.swp,*.zip,*.gz " ignore some more filetypes
+set wildignore+=*.so,*.swp,*.zip,*.gz,*.min.js,*.o " ignore some more filetypes
 
 "
 " editor settings for file types and syntax highlighting specials
@@ -461,5 +463,17 @@ vmap <f8> :<c-u>CtrlP<cr><c-\>v
 
 " Tabular
 command CsvAlign Tabularize /;/r1
+
+" vim-vertical-move
+let g:vertical_move_default_mapping = 0
+"nmap <silent> <leader>j <Plug>(vertical_move_down)
+nmap <silent> <leader><down> <Plug>(vertical_move_down)
+"nmap <silent> <leader>k <Plug>(vertical_move_up)
+nmap <silent> <leader><up> <Plug>(vertical_move_up)
+"xmap <silent> <leader>j <Plug>(vertical_move_down)
+xmap <silent> <leader><down> <Plug>(vertical_move_down)
+"xmap <silent> <leader>k <Plug>(vertical_move_up)
+xmap <silent> <leader><up> <Plug>(vertical_move_up)
+
 
 " vim: set ts=4 sw=4 tw=78 et :

@@ -12,16 +12,17 @@ This is a list of bundles that are installed via pathogen.
 - nerdtree: https://github.com/scrooloose/nerdtree
 - pathogen: https://github.com/tpope/vim-pathogen
 - puppet-syntax-vim: https://github.com/puppetlabs/puppet-syntax-vim
-- snipmate.vim: https://github.com/msanders/snipmate.vim.git
-- syntastic: https://github.com/scrooloose/syntastic.git
+- snipmate.vim: https://github.com/msanders/snipmate.vim
+- syntastic: https://github.com/scrooloose/syntastic
 - tabular: https://github.com/godlygeek/tabular
-- texttile.vim: https://github.com/timcharper/textile.vim.git
+- texttile.vim: https://github.com/timcharper/textile.vim
 - vim-haml: https://github.com/tpope/vim-haml
 - vim-markdown: https://github.com/plasticboy/vim-markdown
-- vim-numbertoggle: https://github.com/jeffkreeftmeijer/vim-numbertoggle.git
-- vim-repeat: https://github.com/tpope/vim-repeat.git
-- vim-surround: https://github.com/tpope/vim-surround.git
+- vim-numbertoggle: https://github.com/jeffkreeftmeijer/vim-numbertoggle
+- vim-repeat: https://github.com/tpope/vim-repeat
+- vim-surround: https://github.com/tpope/vim-surround
 - vim-twig: https://github.com/qbbr/vim-twig
+- vim-vertical-move: https://github.com/bruno-/vim-vertical-move
 
 ## disabled / not used
 

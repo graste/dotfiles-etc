@@ -59,14 +59,24 @@
     # use this via: git show HEAD --show-notes=github-comments
     # fetch = +refs/notes/*:refs/notes/*
     # show diff between the latest commit and the current state
-    diff-latest = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
+    diff-latest = "!git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
     # `git di $number` shows the diff between the state `$number` revisions ago and the current state
     # found in https://github.com/mathiasbynens/dotfiles/blob/master/.gitconfig#L8
-    diff-to-last = !"d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d"
+    diff-to-last = "!d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d"
     # list tags, branches and remotes
     tags = tag -l
     branches = branch -a
     remotes = remote -v
+    # find branches containing commit
+    find-branches-containing-commit = "!f() { git branch -a --contains $1; }; f"
+    # find tags containing commit
+    find-tags-containing-commit = "!f() { git describe --always --contains $1; }; f"
+    # find commits by source code
+    find-commits-by-source-code = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short -S$1; }; f"
+    # find commits by commit message
+    find-commits-by-commit-message = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep=$1; }; f"
+    # show branches that have already been merged with master
+    show-merged-branches = "!git branch --merged | grep -v '\\*'"
 [apply]
     # detect a new or modified line that has whitespace errors when applying a patch
     # see: core.whitespace configuration

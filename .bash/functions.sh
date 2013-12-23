@@ -103,8 +103,8 @@ function down4me()
 # try to determine the public ip address
 function my-public-ip()
 {
-    _response=$(curl -s checkip.dyndns.org | grep -Eo '[0-9\.]+')
-    echo -e "Your public IP address is: \033[1;32m${_response}\033[0m"
+    response=$(curl -s checkip.dyndns.org | grep -Eo '[0-9\.]+')
+    echo -e "Your public IP address is: \033[1;32m$response\033[0m"
 }
 
 # backup given file with the current timestamp
@@ -145,10 +145,10 @@ function matrix-effect()
 }'
 }
 
-# serve <port (defaults to 9999)>
-function serve {
+# serve <port> (defaults to 9999)
+function serve() {
     local usage_text="Usage: serve [port]
-Serves the current directory via HTTP on the specified port"
+Serves the current directory via HTTP on the specified port (defaults to 9999)"
 
     local help_pattern="-h|--help"
     if [[ $1 =~ $help_pattern ]]; then
@@ -156,19 +156,86 @@ Serves the current directory via HTTP on the specified port"
         return 0
     fi
 
-    local Port=$1
-    if [ -z "$Port" ]; then
-        Port=9999;
-    fi
+    local port="${1:-9999}"
 
     local port_pattern="^[0-9]+$"
-    if ! [[ $Port =~ $port_pattern ]]; then
+    if ! [[ $port =~ $port_pattern ]]; then
         echo "Invalid port argument: \"$1\""
         return 1
     fi
 
-    python -m SimpleHTTPServer $Port
+    sleep 1 && open "http://localhost:${port}/" &
+    python -c $'import SimpleHTTPServer;\nmap = SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map;\nmap[""] = "text/plain";\nfor key, value in map.items():\n\tmap[key] = value + ";charset=UTF-8";\nSimpleHTTPServer.test();' "$port"
 }
 
+# start php server from current directory with port (defaults to 4000; requires PHP v5.4+)
+function phpserver() {
+    local port="${1:-4000}"
+    local ip=$(ifconfig | grep -i inet[^6] | cut -d: -f2 | cut -d' ' -f1 | tail -n 1)
+    sleep 1 && open "http://${ip}:${port}/" &
+    php -S "${ip}:${port}"
+}
+
+# calculate
+function calc() {
+    local result=""
+    result="$(printf "scale=5;$*\n" | bc -l | tr -d '\\\n')"
+    if [[ "$result" == *.* ]]; then
+        echo $result | sed -e 's/^\./0./' -e 's/^-\./-0./' -e 's/0*$//;s/\.$//'
+    else
+        echo $result
+    fi
+}
+
+# create a data uri from a file
+function dataurl() {
+    local mimeType=$(file -b --mime-type "$1")
+    if [[ $mimeType == text/* ]]; then
+            mimeType="${mimeType};charset=utf-8"
+    fi
+    echo "data:${mimeType};base64,$(openssl base64 -in "$1" | tr -d '\n')"
+}
+
+# compare original and gzipped file sizes
+function gz() {
+    local orig_size=$(wc -c < "$1")
+    local gzip_size=$(gzip -c "$1" | wc -c)
+    local size_ratio=$(echo "scale=3; $gzip_size * 100 / $orig_size" | bc -l)
+    printf "orig: %d bytes\n" "$orig_size"
+    printf "gzip: %d bytes (%s%%)\n" "$gzip_size" "$size_ratio"
+}
+
+# escape UTF-8 characters into their 3-byte format
+function escape() {
+    printf "\\\x%s" $(printf "$@" | xxd -p -c1 -u)
+    if [ -t 1 ]; then
+        echo
+    fi
+}
+
+# decode \x{ABCD} unicode escape sequences
+function unidecode() {
+    perl -e "binmode(STDOUT, ':utf8'); print \"$@\""
+    if [ -t 1 ]; then
+        echo
+    fi
+}
+
+# get a character's unicode code point
+function codepoint() {
+    perl -e "use utf8; print sprintf('U+%04X', ord(\"$@\"))"
+    if [ -t 1 ]; then
+        echo
+    fi
+}
+
+# pretty print JSON strings or files
+function json() {
+    if [ -t 0 ]; then
+        python -mjson.tool <<< "$*" | pygmentize -l javascript
+    else
+        python -mjson.tool | pygmentize -l javascript
+    fi
+}
 
 # vim: set ts=4 sw=4 tw=0 et :
