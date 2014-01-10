@@ -82,13 +82,20 @@ set autoread                " auto reload files modified in the background
 set history=5000            " keep 5000 lines of command line history
 set modeline                " enable vim modelines usage
 set modelines=5             " interpret 5 lines at bottom for modelines
-set scrolloff=999           " increase scrolling offset at buffer end - center cursor with high value
 set shell=bash              " bash as shell would be nice
 "set t_Co=256               " use 256 colors
 set t_ti= t_te=             " enable scrolling in scrollback buffer (http://www.shallowsky.com/linux/noaltscreen.html)
 set vb t_vb=                " no visual bell in terminals
 set timeout timeoutlen=500  " fix slow O inserts
 set ttimeoutlen=10          " fix slow O inserts
+
+"
+" scrolling settings (when getting close to margins)
+"
+set scrolloff=999           " increase scrolling offset at buffer end - center cursor with high value
+set scrolloff=10
+set sidescrolloff=15
+set sidescroll=1
 
 "
 " folding related
@@ -113,7 +120,7 @@ filetype plugin on
 filetype indent on
 
 "
-" status line relatead
+" status line related
 "
 set statusline=%f           "full filepath - %f filepath, %t tail of filename
 set statusline+=[%{strlen(&fenc)?&fenc:'none'}, "file encoding
@@ -475,5 +482,25 @@ xmap <silent> <leader><down> <Plug>(vertical_move_down)
 "xmap <silent> <leader>k <Plug>(vertical_move_up)
 xmap <silent> <leader><up> <Plug>(vertical_move_up)
 
+" Reformat visual selection as JSON
+vnoremap <leader>j !python -m json.tool<cr>
+
+"
+" Highlight words in markdown files that should be avoided in technical documents
+"
+" Found in https://github.com/pengwynn/dotfiles/blob/master/vim/vimrc.symlink
+" See also http://css-tricks.com/words-avoid-educational-writing/
+"
+"   obviously, basically, simply, of course, clearly,
+"   just, everyone knows, However, So, easy
+highlight TechWordsToAvoid ctermbg=red ctermfg=white
+function MatchTechWordsToAvoid()
+    match TechWordsToAvoid /\c\<\(obviously\|basically\|simply\|of\scourse\|clearly\|just\|everyone\sknows\|however\|so,\|easy\)\>/
+endfunction
+autocmd FileType markdown call MatchTechWordsToAvoid()
+autocmd BufWinEnter *.md call MatchTechWordsToAvoid()
+autocmd InsertEnter *.md call MatchTechWordsToAvoid()
+autocmd InsertLeave *.md call MatchTechWordsToAvoid()
+autocmd BufWinLeave *.md call clearmatches()
 
 " vim: set ts=4 sw=4 tw=78 et :
