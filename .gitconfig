@@ -77,6 +77,8 @@
     find-commits-by-commit-message = "!f() { git log --pretty=format:'%C(yellow)%h  %Cblue%ad  %Creset%s%Cgreen  [%cn] %Cred%d' --decorate --date=short --grep=$1; }; f"
     # show branches that have already been merged with master
     show-merged-branches = "!git branch --merged | grep -v '\\*'"
+    # show all changes of a specific file including renames etc.
+    show-file-changes = log --follow --stat -p
 [apply]
     # detect a new or modified line that has whitespace errors when applying a patch
     # see: core.whitespace configuration
