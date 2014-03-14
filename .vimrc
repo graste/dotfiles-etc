@@ -81,7 +81,7 @@ set smartcase               " preserve case when replacing
 set autoread                " auto reload files modified in the background
 set history=5000            " keep 5000 lines of command line history
 set modeline                " enable vim modelines usage
-set modelines=5             " interpret 5 lines at bottom for modelines
+set modelines=20            " interpret N lines to check for modelines
 set shell=bash              " bash as shell would be nice
 "set t_Co=256               " use 256 colors
 set t_ti= t_te=             " enable scrolling in scrollback buffer (http://www.shallowsky.com/linux/noaltscreen.html)
