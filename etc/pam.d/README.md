@@ -1,7 +1,7 @@
 # Grab webcam picture on failed login
 
 To take pictures from the webcam upon failed login attempts you need a webcam
-and ```ffmpeg````installed.
+and ```ffmpeg``` installed.
 
 1. Copy the ```grabpicture``` script to e.g. ```/usr/local/bin/grabpicture```.
 1. Modify the ```/etc/pam.d/common-auth``` file to include a call to
