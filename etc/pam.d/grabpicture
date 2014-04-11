@@ -1,0 +1,5 @@
+#!/bin/bash
+ts=`date +%s`
+ffmpeg -f video4linux2 -s vga -i /dev/video0 -vframes 3 /tmp/failed-login-attempt-$ts.%01d.jpg
+exit 0
+
