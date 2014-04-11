@@ -204,6 +204,8 @@ alias screenoff='xset dpms force off'
 
 alias explain-port-forwarding="printf \"you@hotel: ssh -fCN <user>@<your_server> -L <local_port>:<your_server:<remote_port>\n-f put to background\n-N no remote commands\n-C request compression\n\""
 
+alias print-random-mac='printf "%02X:%02X:%02X:%02X:%02X:%02X\n" $[RANDOM%256] $[RANDOM%256] $[RANDOM%256] $[RANDOM%256] $[RANDOM%256] $[RANDOM%256]'
+
 
 
 #
