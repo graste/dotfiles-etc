@@ -33,6 +33,8 @@
     ci = commit
     di = diff
     st = status
+    # list aliases
+    aliases = "!git config -l | grep alias | cut -c 7-"
     # useful stuff
     unstage = reset HEAD -- 
     # cdiff and sdiff are the same according to man page
@@ -67,6 +69,8 @@
     tags = tag -l
     branches = branch -a
     remotes = remote -v
+    # latest tag
+    latest-tag = describe --tags --abbrev=0
     # find branches containing commit
     find-branches-containing-commit = "!f() { git branch -a --contains $1; }; f"
     # find tags containing commit
