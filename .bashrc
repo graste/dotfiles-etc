@@ -131,3 +131,7 @@ unset i
 #  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE" # if $SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
 #done
 #DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+
+# vulnerable to shellshock? http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-6271
+env x='() { :;}; echo "WARNING: SHELLSHOCK DETECTED"' bash --norc -c ':' 2>/dev/null;
+
