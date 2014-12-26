@@ -12,6 +12,7 @@
 
 # ctags files
 tags
+tags.vendor
 
 # general os, thumbs and editors related stuff
 .DS_Store
