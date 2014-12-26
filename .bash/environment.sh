@@ -13,7 +13,7 @@ export LESS="-iMFXR"
 
 #export GREP_OPTIONS='--color=auto'
 
-# base paths to use for "cd" command completion                                                                                                   
+# base paths to use for "cd" command completion
 #export CDPATH=.:~:/mnt:/media:/etc
 
 # PATHs for command lookup
@@ -21,3 +21,6 @@ export PATH=~/bin:/opt/vagrant/bin:$PATH
 
 # enable vagrant debug logs
 #export VAGRANT_LOG=debug
+
+# composer timeout is 300s by default
+export COMPOSER_PROCESS_TIMEOUT=900
