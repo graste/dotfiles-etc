@@ -172,7 +172,7 @@ Generate ctags completion files in your project's root folder like this:
 ```bash
 ctags -nR --PHP-kinds=+cf --exclude='.git' --exclude='*.phar' --exclude="*.min.js" --regex-php='/^[ \t]*trait[ \t]+([a-z0_9_]+)/\1/t,traits/i' -f tags .
 ```
-There's a bash function called `create-ctags` that may be called in project directories to create `tags` and `tags.vendor`. For details have a look into [`.bash/functions.sh`](.bash/functions.sh).
+There's a bash function called `create-ctags` that may be called in project directories to create a `tags` file (see [`.bash/functions.sh`](.bash/functions.sh)).
 
 ## Sources of inspiration
 

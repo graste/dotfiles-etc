@@ -496,8 +496,7 @@ noremap <Leader>e :call PhpExpandClass()<CR>
 " enable ctags support and tell vim to automatically
 " recursively search in parent directories for tags file
 set autochdir
-set tags=./tags,./TAGS,tags,TAGS
-set tags+=./tags.vendors,tags.vendors
+set tags=./tags;
 
 " some custom mappings for ctags
 map <leader>g <c-]>
