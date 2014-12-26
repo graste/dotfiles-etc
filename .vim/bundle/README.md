@@ -1,16 +1,16 @@
 # list of bundles
 
-This is a list of bundles that are installed via pathogen.
+This is a list of bundles that are installed via [pathogen](https://github.com/tpope/vim-pathogen).
 
 ## enabled / used
 
 - ack.vim: https://github.com/mileszs/ack.vim
 - ctrlp: https://github.com/kien/ctrlp.vim
-- graste: some additional files found elsewhere and adapted for own use
+- git-commit-diff: http://www.vim.org/scripts/script.php?script_id=1934
+- graste: some additional files found elsewhere and adapted for own use (restore last cursor position etc.)
 - gundo.vim: http://sjl.bitbucket.org/gundo.vim/
 - nerdcommenter: https://github.com/scrooloose/nerdcommenter
 - nerdtree: https://github.com/scrooloose/nerdtree
-- pathogen: https://github.com/tpope/vim-pathogen
 - puppet-syntax-vim: https://github.com/puppetlabs/puppet-syntax-vim
 - snipmate.vim: https://github.com/msanders/snipmate.vim
 - syntastic: https://github.com/scrooloose/syntastic
@@ -19,6 +19,7 @@ This is a list of bundles that are installed via pathogen.
 - vim-haml: https://github.com/tpope/vim-haml
 - vim-markdown: https://github.com/plasticboy/vim-markdown
 - vim-numbertoggle: https://github.com/jeffkreeftmeijer/vim-numbertoggle
+- vim-php-namespace: https://github.com/arnaud-lb/vim-php-namespace
 - vim-repeat: https://github.com/tpope/vim-repeat
 - vim-surround: https://github.com/tpope/vim-surround
 - vim-twig: https://github.com/qbbr/vim-twig

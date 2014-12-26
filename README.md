@@ -13,7 +13,7 @@ Various dotfiles I use and want to have available elsewhere. Probably a lot of t
 
 ## Usage
 
-Just clone the repository to a folder of your choice and copy wanted or all files:
+Clone the repository to a folder of your choice and copy wanted or all files:
 
     git clone git://github.com/graste/dotfiles-etc.git
     cd dotfiles-etc && ./copy-files.sh [all]
@@ -163,8 +163,19 @@ For syntax checking with `syntastic` the following (ubuntu) packages may be usef
 - for `twig-lint`:
     - download `http://asm89.github.com/d/twig-lint.phar` and put it into your `$PATH` (e.g. `~/bin`)
     - `cd ~/bin && chmod u+x twig-lint.phar && mv twig-lint.phar twig-lint`
+- for vim-php-namespace to work, [exuberant-ctags](http://ctags.sourceforge.net/) is necessary.
+    - `sudo apt-get install exuberant-ctags`
+
+## Ctags
+
+Generate ctags completion files in your project's root folder like this:
+```bash
+ctags -nR --PHP-kinds=+cf --exclude='.git' --exclude='*.phar' --exclude="*.min.js" --regex-php='/^[ \t]*trait[ \t]+([a-z0_9_]+)/\1/t,traits/i' -f tags .
+```
+There's a bash function called `create-ctags` that may be called in project directories to create `tags` and `tags.vendor`. For details have a look into [`.bash/functions.sh`](.bash/functions.sh).
 
 ## Sources of inspiration
 
 - The customized git status information prompt was adapted from: https://github.com/magicmonty/bash-git-prompt
 - various dotfiles of other people (e.g. bash functions `calc`, `json`, `gz`, `unidecode`, `escape` from @mathiasbynens)
+

@@ -47,7 +47,7 @@ set tabstop=4               " tab width/length
 "
 color slate                 " choose color scheme
 "set colorcolumn=81,121      " highlight various character limits
-call matchadd('ColorColumn', '\%81v', 100)  " only highlight 81st column in long lines
+"call matchadd('ColorColumn', '\%81v', 100)  " only highlight 81st column in long lines
 call matchadd('ColorColumn', '\%121v', 100) " only highlight 121st column in long lines
 set cursorcolumn            " highlight current column
 set cursorline              " highlight current line
@@ -154,7 +154,7 @@ set statusline+=\ %P        "percent through file
 "
 let g:netrw_liststyle=3     " Use tree-mode as default view
 let g:netrw_browse_split=4  " Open file in previous buffer
-let g:netrw_winsize=80      " control initial sizing (%)
+let g:netrw_winsize=60      " control initial sizing (%)
 let g:netrw_alto=0          " control above/below splitting
 let g:netrw_altv=0          " control right/left splitting
 "let g:netrw_preview=1      " preview window shown in a vertically split
@@ -198,8 +198,8 @@ autocmd FileType twig setlocal filetype=htmltwig
 autocmd FileType vim setlocal shiftwidth=2 tabstop=2
 
 autocmd BufRead,BufNewFile {*.csv,*.dat,*.tsv} setfiletype csv
-"autocmd BufRead,BufNewFile {*.md,*.markdown,*.mkd} set filetype=markdown autoindent formatoptions=tcroqn2 comments=n:&gt;
-autocmd BufRead,BufNewFile {*.md,*.markdown,*.mdown,*.mkd} set filetype=markdown autoindent formatoptions=tcroqn2 comments=n:&gt; wrap textwidth=80 wrapmargin=0 linebreak
+"autocmd BufRead,BufNewFile {*.md,*.markdown,*.mdown,*.mkd} set filetype=markdown autoindent formatoptions=tcroqn2 comments=n:&gt; wrap textwidth=80 wrapmargin=0 linebreak
+autocmd BufRead,BufNewFile {*.md,*.markdown,*.mdown,*.mkd} set filetype=markdown autoindent formatoptions=tcroqn2 comments=n:&gt;
 autocmd BufRead,BufNewFile {*.scss,*.sass} setfiletype sass
 autocmd BufRead,BufNewFile Vagrantfile set filetype=ruby
 autocmd BufRead,BufNewFile *.txt setfiletype text
@@ -224,10 +224,10 @@ set pastetoggle=<f2>
 command FixM mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 " split window movement mappings via alt+up/left/down/right
-nnoremap <silent> <a-up> :wincmd k<cr>
-nnoremap <silent> <a-down> :wincmd j<cr>
-nnoremap <silent> <a-left> :wincmd h<cr>
-nnoremap <silent> <a-right> :wincmd l<cr>
+nnoremap <silent> <c-up> :wincmd k<cr>
+nnoremap <silent> <c-down> :wincmd j<cr>
+nnoremap <silent> <c-left> :wincmd h<cr>
+nnoremap <silent> <c-right> :wincmd l<cr>
 
 " open previous buffer
 nnoremap <leader>l :bprevious<cr>
@@ -447,7 +447,7 @@ noremap <Leader>nm :NERDTreeFind<cr>
 autocmd VimEnter * if !argc() | NERDTree | endif
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 let g:NERDTreeShowHidden = 1
-let g:NERDTreeWinSize = 60
+let g:NERDTreeWinSize = 40
 
 " CtrlP
 "let g:ctrlp_cache_dir = $HOME.'/.cache/ctrlp'
@@ -484,6 +484,26 @@ xmap <silent> <leader><up> <Plug>(vertical_move_up)
 
 " Reformat visual selection as JSON
 vnoremap <leader>j !python -m json.tool<cr>
+
+" vim-php-namespace (USE statements and FQCNs)
+" insert use statement for word under cursor
+inoremap <leader>u <c-o>:call PhpInsertUse()<cr>
+noremap <leader>u :call PhpInsertUse()<cr>
+" expand class under cursor to fully qualified class name
+inoremap <Leader>e <C-O>:call PhpExpandClass()<CR>
+noremap <Leader>e :call PhpExpandClass()<CR>
+
+" enable ctags support and tell vim to automatically
+" recursively search in parent directories for tags file
+set autochdir
+set tags=./tags,./TAGS,tags,TAGS
+set tags+=./tags.vendors,tags.vendors
+
+" some custom mappings for ctags
+map <leader>g <c-]>
+map <leader>gt <c-t>
+map <leader>gh :tab split<cr>:exec("tag ".expand("<cword>"))<cr>
+map <leader>gv :vsp <cr>:exec("tag ".expand("<cword>"))<cr>
 
 "
 " Highlight words in markdown files that should be avoided in technical documents
