@@ -237,6 +237,17 @@ function codepoint() {
     fi
 }
 
+# find 10 most frequently used words in a given text file
+function words-most-freq() {
+    if [ $# -ne 1 ]
+    then
+        echo "Usage: words-most-freq <path-to-text-file>"
+        return 1
+    fi
+
+    cat $1 | tr -s '[:space:]' '\n' | tr '[:upper:]' '[:lower:]' | sort | uniq -c | sort -nr | head -10
+}
+
 # pretty print JSON strings or files
 function json() {
     if [ -t 0 ]; then
