@@ -26,6 +26,7 @@ FILES=(
     .gitignore
     .gitconfig
     .vim
+    bin
 )
 
 SPECIAL=(
@@ -41,6 +42,7 @@ echo "Hint: use 'all' as a command line argument to copy files in non-interactiv
 echo ""
 read -p "Press enter or abort via CTRL+C..." pleaseimscared
 mkdir ${HOME}/.bash
+mkdir ${HOME}/bin
 mkdir -p ${HOME}/.vim/{autoload,bundle,backup,swap,undo}
 for (( i = 0 ; i < NUM ; i++ ))
 do
