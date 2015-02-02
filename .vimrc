@@ -37,6 +37,7 @@ set listchars+=precedes:«
 set listchars+=trail:⋅      " set trailing whitespace character
 "set listchars+=eol:¬       " set end-of-line character
 set shiftwidth=4            " amount of spaces when shifting (indentation length)
+set shiftround              " round indent to multiple of shiftwidth
 set showbreak=↪             " the character to put to show a line has been wrapped
 set smarttab                " enable smart indentation
 set softtabstop=4           " soft tab width in spaces
@@ -80,14 +81,15 @@ set smartcase               " preserve case when replacing
 "
 set autoread                " auto reload files modified in the background
 set history=5000            " keep 5000 lines of command line history
-set modeline                " enable vim modelines usage
-set modelines=20            " interpret N lines to check for modelines
 set shell=bash              " bash as shell would be nice
 "set t_Co=256               " use 256 colors
 set t_ti= t_te=             " enable scrolling in scrollback buffer (http://www.shallowsky.com/linux/noaltscreen.html)
 set vb t_vb=                " no visual bell in terminals
 set timeout timeoutlen=500  " fix slow O inserts
 set ttimeoutlen=10          " fix slow O inserts
+set modeline                " enable vim modelines usage
+set modelines=20            " interpret N lines to check for modelines
+"set nomodeline              " disable modelines due to security concerns
 
 "
 " scrolling settings (when getting close to margins)
@@ -185,6 +187,8 @@ set wildignore+=*.pyc       " ignore Python compiled files
 set wildignore+=*.rbc       " ignore Rubinius compiled files
 set wildignore+=*.swp       " ignore vim backups
 set wildignore+=*.so,*.swp,*.zip,*.gz,*.min.js,*.o " ignore some more filetypes
+" ignore some files when using TAB key with :e
+set suffixes=~,.bak,.dvi,.hi,.o,.pdf,.gz,.idx,.log,.ps,.swp,.tar,.toc,.ind
 
 "
 " editor settings for file types and syntax highlighting specials
@@ -211,6 +215,10 @@ autocmd BufRead,BufNewFile *.txt setfiletype text
 " special mappings and functions
 "
 
+" switch indentation to 2 or 4 characters
+nmap <leader>2 :set tabstop=2<cr>:set shiftwidth=2<cr>
+nmap <leader>4 :set tabstop=4<cr>:set shiftwidth=4<cr>
+
 " use :w!! command to save file with sudo
 cmap w!! %!sudo tee > /dev/null %
 
@@ -223,7 +231,7 @@ set pastetoggle=<f2>
 "noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 command FixM mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
-" split window movement mappings via alt+up/left/down/right
+" split window movement mappings via ctrl+up/left/down/right
 nnoremap <silent> <c-up> :wincmd k<cr>
 nnoremap <silent> <c-down> :wincmd j<cr>
 nnoremap <silent> <c-left> :wincmd h<cr>
@@ -464,8 +472,8 @@ let g:ctrlp_custom_ignore = '\v\/(build|cache|modules-built)\/'
 nmap <c-p> :CtrlPMixed<cr>
 nmap <Leader>b :CtrlPBuffer<cr>
 nmap <Leader>f :CtrlPMixed<cr><c-\>w
-nmap <f8> :<c-u>CtrlP<cr><c-\>w
-vmap <f8> :<c-u>CtrlP<cr><c-\>v
+"nmap <f8> :<c-u>CtrlP<cr><c-\>w
+"vmap <f8> :<c-u>CtrlP<cr><c-\>v
 "map <2-LeftMouse> :<c-u>CtrlP<cr><c-\>w
 
 " Tabular
@@ -490,8 +498,8 @@ vnoremap <leader>j !python -m json.tool<cr>
 inoremap <leader>u <c-o>:call PhpInsertUse()<cr>
 noremap <leader>u :call PhpInsertUse()<cr>
 " expand class under cursor to fully qualified class name
-inoremap <Leader>e <C-O>:call PhpExpandClass()<CR>
-noremap <Leader>e :call PhpExpandClass()<CR>
+inoremap <leader>e <C-O>:call PhpExpandClass()<cr>
+noremap <leader>e :call PhpExpandClass()<cr>
 
 " enable ctags support and tell vim to automatically
 " recursively search in parent directories for tags file
