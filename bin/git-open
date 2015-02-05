@@ -5,6 +5,8 @@
 #
 # git open
 # git open [remote] [branch]
+#
+# Copyright Jason McCreary & Paul Irish. Licensed under MIT.
 
 
 # are we in a git repo?
@@ -39,9 +41,11 @@ fi
 # Github support
 if grep -q github <<<$giturl; then
     giturl=${giturl/git\@github\.com\:/https://github.com/}
+    providerUrlDifference=tree
 # bitbucket support
 elif grep -q bitbucket <<<$giturl; then
     giturl=${giturl/git\@bitbucket\.org\:/https://bitbucket.org/}
+    providerUrlDifference=branch
 fi
 giturl=${giturl%\.git}
 
@@ -49,14 +53,14 @@ giturl=${giturl%\.git}
 # get current branch
 if [ -z "$2" ]
 then
-    branch=`git symbolic-ref -q HEAD | sed -e 's|^refs/heads/||'`
+    branch=`git symbolic-ref -q --short HEAD`
 else
     branch="$2"
 fi
 
 if [ ! -z "$branch" ]
 then
-    giturl="${giturl}/tree/${branch}"
+    giturl="${giturl}/${providerUrlDifference}/${branch}"
 fi
 
 # simplify URL for master
@@ -66,10 +70,18 @@ giturl=${giturl/tree\/master/}
 if [ $(uname -s) == "Darwin" ]
 then
   open=open
+elif [ "$TERM" == "cygwin" ]
+then
+  if [ "$MSYSTEM" == "MINGW32" ]
+  then
+    open=start
+  else
+    open=cygstart
+  fi
 else
   open=xdg-open
 fi
 
 # open it in a browser
-$open $giturl
+$open $giturl &> /dev/null
 exit 0
