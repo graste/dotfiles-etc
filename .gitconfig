@@ -126,8 +126,12 @@
 # hack on own submodules that otherwise may be readonly (via http://neva.li/post/565899843)
 [url "git@github.com:graste/"]
     insteadOf = "git://github.com/graste/"
+[url "git@github.com:graste/"]
+    insteadOf = "https://github.com/graste/"
 [url "git@github.com:berlinonline/"]
     insteadOf = "git://github.com/berlinonline/"
+[url "git@github.com:berlinonline/"]
+    insteadOf = "https://github.com/berlinonline/"
 
 [giggle]
     main-window-maximized = true
