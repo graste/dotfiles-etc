@@ -61,7 +61,8 @@ function setGitPrompt()
     fi
 
     # comment, time, history id, last command's exit code
-    PROMPT_PREFIX="# \t \! $RETURNCODE"
+    #PROMPT_PREFIX="# \t \! $RETURNCODE"
+    PROMPT_PREFIX="# \t $RETURNCODE"
 
     # current working directory in colors
     PROMPT_PATH="\w"
