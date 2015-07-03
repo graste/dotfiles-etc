@@ -117,6 +117,7 @@ prompt with exit code coloring and git status information:
   - `shopt -u option_name`: disable/unset option
 - `echo $SHLVL`:  get subshell level (toplevel is 1)
 - default time format: ``TIMEFORMAT=$'\nreal\t%3lR\nuser\t%3lU\nsys\t%3lS'``
+- diff two file listings via [process substitution](http://tldp.org/LDP/abs/html/process-sub.html): ```diff <(ls -1a ./dir1) <(ls -1a ./dir2)``` or use ```diff -bur dir1 dir2```
 
 ### tl;dr
 
