@@ -1,7 +1,7 @@
 
 # name and email of author
 export GIT_AUTHOR_NAME="Steffen Gransow"
-export GIT_AUTHOR_EMAIL="graste@mivesto.de"
+export GIT_AUTHOR_EMAIL="github@mivesto.de"
 
 # name and email of committer
 export GIT_COMMITTER_NAME="$GIT_AUTHOR_NAME"
