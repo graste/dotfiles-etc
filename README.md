@@ -180,3 +180,4 @@ There's a bash function called `create-ctags` that may be called in project dire
 - The customized git status information prompt was adapted from: https://github.com/magicmonty/bash-git-prompt
 - various dotfiles of other people (e.g. bash functions `calc`, `json`, `gz`, `unidecode`, `escape` from @mathiasbynens)
 - [``bin/git-open``](https://github.com/paulirish/git-open)
+
