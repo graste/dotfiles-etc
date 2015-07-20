@@ -95,6 +95,7 @@
 [diff]
     # detect multiple renamed/copied files
     renames = copies
+    renameLimit = 9999
 [help]
     format = man
     autocorrect = 0
