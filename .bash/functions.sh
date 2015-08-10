@@ -3,7 +3,7 @@ function create-ctags()
 {
     #ctags -nR --PHP-kinds=+cf --exclude='.git' --exclude=".svn" --exclude="cache" --exclude="*.phar" --exclude="log" --exclude="node_modules" --exclude="bower_components" --exclude="*.min.js" --regex-php='/^[ \t]*trait[ \t]+([a-z0_9_]+)/\1/t,traits/i' -f tags.vendor vendor
     #ctags -nR --PHP-kinds=+cf --exclude='.git' --exclude=".svn" --exclude="cache" --exclude="*.phar" --exclude="log" --exclude="node_modules" --exclude="bower_components" --exclude="*.min.js" --exclude="vendor" --regex-php='/^[ \t]*trait[ \t]+([a-z0_9_]+)/\1/t,traits/i' -f tags .
-    ctags -nR --PHP-kinds=+cf --exclude='.git' --exclude=".svn" --exclude="cache" --exclude="*.phar" --exclude="log" --exclude="node_modules" --exclude="bower_components" --exclude="*.min.js" --regex-php='/^[ \t]*trait[ \t]+([a-z0_9_]+)/\1/t,traits/i' -f tags .
+    ctags -nR --PHP-kinds=+cf --exclude='.git' --exclude=".svn" --exclude="cache" --exclude="codecache" --exclude="*.phar" --exclude="log" --exclude="node_modules" --exclude="bower_components" --exclude="*.min.js" --regex-php='/^[ \t]*trait[ \t]+([a-z0_9_]+)/\1/t,traits/i' -f tags .
 }
 
 # awk column print shorthand, e.g. print 2nd column: "df -h | fawk 2"
