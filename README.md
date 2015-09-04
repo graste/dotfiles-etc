@@ -79,6 +79,7 @@ prompt with exit code coloring and git status information:
 - `!$` reuse the 'end' of the last command (reuse the last word)
 - `!$:p` print last argument from previous command (`:p` is a `word modifier`)
 - `!*` reuse all arguments from previous command
+- `!#:1` reuse second argument from current command (```ls foo !#:1``` => ```ls foo foo```)
 - `^error^correction` correct and execute previous command (replace and execute)
 - given the command `cat /usr/local/share/doc/foo/bar.baz`:
     - `cd !$:h` change to directory (`:h` removes `bar.baz`)
