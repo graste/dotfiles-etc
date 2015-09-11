@@ -6,6 +6,12 @@ function create-ctags()
     ctags -nR --PHP-kinds=+cf --exclude='.git' --exclude=".svn" --exclude="cache" --exclude="codecache" --exclude="*.phar" --exclude="log" --exclude="node_modules" --exclude="bower_components" --exclude="*.min.js" --regex-php='/^[ \t]*trait[ \t]+([a-z0_9_]+)/\1/t,traits/i' -f tags .
 }
 
+function getcomposer()
+{
+    curl -sS https://getcomposer.org/installer | php
+    sudo mv composer.phar /usr/local/bin/composer
+}
+
 # awk column print shorthand, e.g. print 2nd column: "df -h | fawk 2"
 function fawk
 {
