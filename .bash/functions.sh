@@ -3,7 +3,12 @@ function create-ctags()
 {
     #ctags -nR --PHP-kinds=+cf --exclude='.git' --exclude=".svn" --exclude="cache" --exclude="*.phar" --exclude="log" --exclude="node_modules" --exclude="bower_components" --exclude="*.min.js" --regex-php='/^[ \t]*trait[ \t]+([a-z0_9_]+)/\1/t,traits/i' -f tags.vendor vendor
     #ctags -nR --PHP-kinds=+cf --exclude='.git' --exclude=".svn" --exclude="cache" --exclude="*.phar" --exclude="log" --exclude="node_modules" --exclude="bower_components" --exclude="*.min.js" --exclude="vendor" --regex-php='/^[ \t]*trait[ \t]+([a-z0_9_]+)/\1/t,traits/i' -f tags .
-    ctags -nR --PHP-kinds=+cf --exclude='.git' --exclude=".svn" --exclude="cache" --exclude="codecache" --exclude="*.phar" --exclude="log" --exclude="node_modules" --exclude="bower_components" --exclude="*.min.js" --regex-php='/^[ \t]*trait[ \t]+([a-z0_9_]+)/\1/t,traits/i' -f tags .
+    ctags -nR --PHP-kinds=+cf --exclude='.git' --exclude=".svn" --exclude="cache" --exclude="codecache" --exclude="*.phar" --exclude="log" --exclude="node_modules" --exclude="bower_components" --exclude=".tmp" --exclude="*.min.js" --regex-php='/^[ \t]*trait[ \t]+([a-z0_9_]+)/\1/t,traits/i' -f tags .
+}
+
+function git-pull-rebase-all-folders()
+{
+    find . -mindepth 1 -maxdepth 1 -type d -exec bash -c 'cd "$1"; echo "$1"; git pull --rebase' -- {} \;
 }
 
 function getcomposer()
