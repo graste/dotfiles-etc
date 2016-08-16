@@ -11,11 +11,11 @@
     helper = cache --timeout=3600
 [core]
     # see .gitattributes docs as well: https://www.kernel.org/pub/software/scm/git/docs/gitattributes.html
-    autocrlf = input
+    #autocrlf = input
     # one of: lf | crlf | native (default)
     eol = native
     # warn about mixed line endings
-    safecrlf = true
+    #safecrlf = true
     # comma separated list of common whitespace problems to notice - use "-" to disable any of them
     whitespace = trailing-space,space-before-tab,tab-in-indent,-indent-with-non-tab,cr-at-eol,tabwidth=4
     # trust inode change time (may be useful to set to false)
@@ -125,14 +125,14 @@
     submodulesummary = true
 
 # hack on own submodules that otherwise may be readonly (via http://neva.li/post/565899843)
-[url "git@github.com:graste/"]
-    insteadOf = "git://github.com/graste/"
-[url "git@github.com:graste/"]
-    insteadOf = "https://github.com/graste/"
-[url "git@github.com:berlinonline/"]
-    insteadOf = "git://github.com/berlinonline/"
-[url "git@github.com:berlinonline/"]
-    insteadOf = "https://github.com/berlinonline/"
+# and when you want to force one protocol over another; pushinsteadOf etc. is available as well
+[url "ssh://git@github.com/"]
+    insteadOf = "git@github.com:"
+    insteadOf = "https://github.com/"
+
+[url "ssh://git@gitlab.berlinonline.net/"]
+    insteadOf = "git@gitlab.berlinonline.net:"
+    insteadOf = "https://gitlab.berlinonline.net/"
 
 [giggle]
     main-window-maximized = true
