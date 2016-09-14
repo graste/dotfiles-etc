@@ -53,6 +53,7 @@
 --ignore-dir=app/log
 --ignore-dir=app/cache
 --ignore-dir=pub/static/modules-built
+--ignore-dir=codecache
 
 # files to ignore by default
 #--ignore-file='match:/foo|bar/'
