@@ -23,7 +23,7 @@ FILES=(
     .profile
     .screenrc
     .vimrc
-    .gitignore
+    .gitignore_global
     .gitconfig
     .vim
     bin

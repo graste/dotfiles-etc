@@ -1,0 +1,94 @@
+# logfiles
+*.log
+
+# ctags related
+tags
+!tags/
+TAGS
+!TAGS/
+
+# php and composer related
+composer.phar
+
+# SVN/CVS/HG
+.svn/
+svn-commit.tmp
+/CVS/*
+**/CVS/*
+.cvsignore
+*/.cvsignore
+.hg/
+.hgignore
+.hgsigs
+.hgsub
+.hgsubstate
+.hgtags
+
+# OS related
+.AppleDB
+.AppleDesktop
+.AppleDouble
+.DS_Store
+.DS_Store?
+.DocumentRevisions-V100
+.LSOverride
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.fseventsd
+Desktop.ini
+Thumbs.db
+ehthumbs.db
+
+# sass/scss/less
+.sass-cache/
+
+# python byte-compiled/optimized/dll files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Vagrant related
+.vagrant/
+
+# editors/IDEs related
+*.bak
+*.iml
+*.ipr
+*.launch
+*.orig
+*.pydevproject
+*.rej
+*.stTheme.cache
+*.sublime-workspace
+*.swp
+*.tmPreferences.cache
+*.tmlanguage.cache
+*.tmproj
+*.tmproject
+*~
+.*.rej
+.buildpath
+.classpath
+.externalToolBuilders/
+.idea/
+.loadpath
+.metadata
+.nb-gradle/
+.netrwhist
+.project
+.settings/
+.tgitconfig
+.~lock.*
+Session.vim
+nbproject/private/
+tmtags
+
+# Dropbox settings and caches
+.dropbox
+.dropbox.attr
+.dropbox.cache

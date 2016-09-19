@@ -20,6 +20,8 @@
     whitespace = trailing-space,space-before-tab,tab-in-indent,-indent-with-non-tab,cr-at-eol,tabwidth=4
     # trust inode change time (may be useful to set to false)
     trustctime = true
+    # global .gitignore
+    excludesFile = ~/.gitignore_global
 [color]
     interactive = auto
     pager = true
@@ -123,7 +125,9 @@
     showUntrackedFiles = normal
     # summary of commits for modified submodules (true = -1 = unlimited; use a number otherwise)
     submodulesummary = true
-
+[pack]
+    # autodetect number of cpu cores – this is faster, but hijacks all cpu cores on huge repos
+    threads = 0
 # hack on own submodules that otherwise may be readonly (via http://neva.li/post/565899843)
 # and when you want to force one protocol over another; pushinsteadOf etc. is available as well
 [url "ssh://git@github.com/"]
