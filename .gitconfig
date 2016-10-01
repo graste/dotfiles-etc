@@ -44,6 +44,10 @@
     # search through things
     dump = cat-file -p
     type = cat-file -t
+    # stash untracked and tracked files
+    stash = stash --include-untracked
+    # stash ignored, untracked, and tracked files
+    stash-all = stash --all
     # get access to the notes that might be available due to Github discussions on a Pull Request etc.
     # use this via: git show HEAD --show-notes=github-comments
     # fetch = +refs/notes/*:refs/notes/*
