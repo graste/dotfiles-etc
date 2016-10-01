@@ -7,36 +7,21 @@
     editor = vim
 [github]
     user = graste
-[credential]
-    helper = cache --timeout=3600
-[core]
-    # see .gitattributes docs as well: https://www.kernel.org/pub/software/scm/git/docs/gitattributes.html
-    #autocrlf = input
-    # one of: lf | crlf | native (default)
-    eol = native
-    # warn about mixed line endings
-    #safecrlf = true
-    # comma separated list of common whitespace problems to notice - use "-" to disable any of them
-    whitespace = trailing-space,space-before-tab,tab-in-indent,-indent-with-non-tab,cr-at-eol,tabwidth=4
-    # trust inode change time (may be useful to set to false)
-    trustctime = true
-    # global .gitignore
-    excludesFile = ~/.gitignore_global
-[color]
-    interactive = auto
-    pager = true
-    showbranch = auto
-    status = auto
-    ui = auto
 [alias]
+    # list aliases
+    aliases = "!git config -l | grep alias | cut -c 7-"
     # yeah...but...ehm...you know
     br = branch
     co = checkout
     ci = commit
     di = diff
     st = status
-    # list aliases
-    aliases = "!git config -l | grep alias | cut -c 7-"
+    # list tags, branches and remotes
+    tags = tag -l
+    branches = branch -a
+    remotes = remote -v
+    # latest tag
+    latest-tag = describe --tags --abbrev=0
     # useful stuff
     unstage = reset HEAD -- 
     # cdiff and sdiff are the same according to man page
@@ -67,12 +52,6 @@
     # `git di $number` shows the diff between the state `$number` revisions ago and the current state
     # found in https://github.com/mathiasbynens/dotfiles/blob/master/.gitconfig#L8
     diff-to-last = "!d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d"
-    # list tags, branches and remotes
-    tags = tag -l
-    branches = branch -a
-    remotes = remote -v
-    # latest tag
-    latest-tag = describe --tags --abbrev=0
     # find branches containing commit
     find-branches-containing-commit = "!f() { git branch -a --contains $1; }; f"
     # find tags containing commit
@@ -91,43 +70,100 @@
     # set to: nowarn | warn (default) | fix | error | error-all
     whitespace = fix
 [branch]
+    # set "pull" to use merge for all tracking branches (local and remote)
+    # set to: false | true (default) | always
+    autoSetupMerge = always
     # set "pull" to use rebase instead of merge for all tracking branches (local and remote)
     # set to: always | local | never (default) | remote
-    autosetuprebase = always
+    autoSetupRebase = always
+[clean]
+    # make git-clean do nothing unless given -f, -i or -n
+    requireForce = true
+[color]
+    branch = auto
+    diff = auto
+    grep = auto
+    interactive = auto
+    pager = true
+    showBranch = auto
+    status = auto
+    ui = auto
+[core]
+    # see .gitattributes docs as well: https://www.kernel.org/pub/software/scm/git/docs/gitattributes.html
+    #autocrlf = input
+    # one of: lf | crlf | native (default)
+    eol = native
+    # warn about mixed line endings
+    #safecrlf = true
+    # comma separated list of common whitespace problems to notice - use "-" to disable any of them
+    whitespace = trailing-space,space-before-tab,tab-in-indent,-indent-with-non-tab,cr-at-eol,tabwidth=4
+    # trust inode change time (may be useful to set to false)
+    trustctime = true
+    # global .gitignore
+    excludesFile = ~/.gitignore_global
+[credential]
+    helper = cache --timeout=3600
 [diff]
     # detect multiple renamed/copied files
     renames = copies
     renameLimit = 9999
+    # one of: myers (default) | minimal | patience | histogram
+    algorithm = histogram
 [help]
     format = man
-    autocorrect = 0
+    # 0 = show mistyped command candidate | n = number of deciseconds prior to automatic execution of the one candidate
+    autoCorrect = 50
 [merge]
     # <<<< |||| >>>> - includes local version in addition to left and right stuff
     conflictstyle = diff3
     # include summaries of merged commits in newly created merge commit messages
     log = true
+[pack]
+    # autodetect number of cpu cores – this is faster, but hijacks all cpu cores on huge repos
+    threads = 0
 [push]
     # current = only push to the same named remote branch
     # matching = push all matching local branches (default for git < v2.0)
     # simple = like upstream or current - only push the current branch used for pulling (new default for git > v2.0)
     # set to: current | matching | nothing | simple | upstream
     default = current
+    # automatically push relevant tags as well
+    followTags = true
 [rebase]
     # show a diffstat of what changed upstream since the last rebase
     stat = true
+    # automatic handling of !squash commit messages; only applies to --interactive rebasing
+    autoSquash = true
+    # automatic stash and apply – beware: may lead to hard to resolve conflicts
+    autoStash = true
+    # "git rebase -i" behaviour: warn | error | ignore (default)
+    missingCommitsCheck = warn
+[receive]
+    # defaults to 5 seconds, 0 disables it
+    keepAlive = 20
 [rerere]
     # activate recording of resolved conflicts to get auto-resolving of identical conflicts later on
     enabled = true
+    # update index w/ result of cleanly resolved conflicts using previously recorded resolution
+    autoUpdate = true
 [status]
+    # show branch and tracking info (event in short status)
+    branch = true
     # show paths relative to repository root
-    relativePaths = true
+    relativePaths = false
     # normal | no | all
     showUntrackedFiles = normal
     # summary of commits for modified submodules (true = -1 = unlimited; use a number otherwise)
     submodulesummary = true
-[pack]
-    # autodetect number of cpu cores – this is faster, but hijacks all cpu cores on huge repos
-    threads = 0
+[stash]
+    # "git stash show" displays patch
+    showPatch = true
+    # "git stash show" displays diff stats
+    showStat = true
+[uploadpack]
+    # defaults to 5 seconds, 0 disables it
+    keepAlive = 20
+
 # hack on own submodules that otherwise may be readonly (via http://neva.li/post/565899843)
 # and when you want to force one protocol over another; pushinsteadOf etc. is available as well
 [url "ssh://git@github.com/"]
@@ -137,11 +173,3 @@
 [url "ssh://git@gitlab.berlinonline.net/"]
     insteadOf = "git@gitlab.berlinonline.net:"
     insteadOf = "https://gitlab.berlinonline.net/"
-
-[giggle]
-    main-window-maximized = true
-    main-window-geometry = 0x0+0+0
-    history-view-vpane-position = 226
-    main-window-view = HistoryView
-    file-view-hpane-position = 286
-    file-view-vpane-position = 635
