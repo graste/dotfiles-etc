@@ -24,6 +24,7 @@ This is a list of bundles that are installed via [pathogen](https://github.com/t
 - vim-surround: https://github.com/tpope/vim-surround
 - vim-twig: https://github.com/qbbr/vim-twig
 - vim-vertical-move: https://github.com/bruno-/vim-vertical-move
+- vim-php-refactoring-toolbox: https://github.com/adoy/vim-php-refactoring-toolbox
 
 ## disabled / not used
 
