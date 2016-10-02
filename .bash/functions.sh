@@ -13,8 +13,24 @@ function git-pull-rebase-all-folders()
 
 function getcomposer()
 {
-    curl -sS https://getcomposer.org/installer | php
-    sudo mv composer.phar /usr/local/bin/composer
+    #curl -sS https://getcomposer.org/installer | php
+    EXPECTED_SIGNATURE=$(wget https://composer.github.io/installer.sig -O - -q)
+    php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+    ACTUAL_SIGNATURE=$(php -r "echo hash_file('SHA384', 'composer-setup.php');")
+    if [ "$EXPECTED_SIGNATURE" = "$ACTUAL_SIGNATURE" ]
+    then
+        php composer-setup.php
+        RESULT=$?
+        if [[ $RESULT -ne 0 ]] ; then
+            echo "INSTALLATION OF COMPOSER FAILED!"
+        else
+            mv composer.phar ~/bin/composer
+            echo "Composer installed: ~/bin/composer"
+        fi
+    else
+        >&2 echo 'ERROR: Invalid installer signature'
+    fi
+    rm composer-setup.php
 }
 
 # awk column print shorthand, e.g. print 2nd column: "df -h | fawk 2"
