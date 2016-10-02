@@ -25,8 +25,3 @@ This is a list of bundles that are installed via [pathogen](https://github.com/t
 - vim-twig: https://github.com/qbbr/vim-twig
 - vim-vertical-move: https://github.com/bruno-/vim-vertical-move
 - vim-php-refactoring-toolbox: https://github.com/adoy/vim-php-refactoring-toolbox
-
-## disabled / not used
-
-- vim-colors-solarized: https://github.com/altercation/vim-colors-solarized
-    - additionally for gnome: https://github.com/sigurdga/gnome-terminal-colors-solarized
