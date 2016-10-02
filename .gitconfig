@@ -177,3 +177,7 @@
 [url "ssh://git@gitlab.berlinonline.net/"]
     insteadOf = "git@gitlab.berlinonline.net:"
     insteadOf = "https://gitlab.berlinonline.net/"
+
+# bin/git-open bash script needs this to know the gitlab url to use
+[gitopen "gitlab"]
+        domain = https://gitlab.berlinonline.net/
