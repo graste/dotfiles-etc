@@ -153,8 +153,8 @@
 [status]
     # show branch and tracking info (event in short status)
     branch = true
-    # show paths relative to repository root
-    relativePaths = false
+    # show paths relative to repository root?
+    relativePaths = true
     # normal | no | all
     showUntrackedFiles = normal
     # summary of commits for modified submodules (true = -1 = unlimited; use a number otherwise)

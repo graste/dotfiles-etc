@@ -1,16 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# $(dirname ${BASH_SOURCE[0]})
-# DOTFILES_DIR=$(dirname "$0")
-
-if [ -L $0 ] ; then
-    ME=$(readlink $0)
-else
-    ME=$0
-fi
-
-DOTFILES_DIR=$(dirname $ME)
-SOURCE_DIR=$(pwd -P $DOTFILES_DIR)
+SOURCE_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )/" && pwd )
 
 FILES=(
     .ackrc
