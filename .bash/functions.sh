@@ -1,19 +1,18 @@
-# create ctags files in current folder - plus one for the VENDOR directory
+# create ctags file in current folder
 function create-ctags()
 {
-    #ctags -nR --PHP-kinds=+cf --exclude='.git' --exclude=".svn" --exclude="cache" --exclude="*.phar" --exclude="log" --exclude="node_modules" --exclude="bower_components" --exclude="*.min.js" --regex-php='/^[ \t]*trait[ \t]+([a-z0_9_]+)/\1/t,traits/i' -f tags.vendor vendor
-    #ctags -nR --PHP-kinds=+cf --exclude='.git' --exclude=".svn" --exclude="cache" --exclude="*.phar" --exclude="log" --exclude="node_modules" --exclude="bower_components" --exclude="*.min.js" --exclude="vendor" --regex-php='/^[ \t]*trait[ \t]+([a-z0_9_]+)/\1/t,traits/i' -f tags .
     ctags -nR --PHP-kinds=+cf --exclude='.git' --exclude=".svn" --exclude="cache" --exclude="codecache" --exclude="*.phar" --exclude="log" --exclude="node_modules" --exclude="bower_components" --exclude=".tmp" --exclude="*.min.js" --regex-php='/^[ \t]*trait[ \t]+([a-z0_9_]+)/\1/t,traits/i' -f tags .
 }
 
+# traverse into every folder and pull rebase changes (but don't autostash local modifications)
 function git-pull-rebase-all-folders()
 {
-    find . -mindepth 1 -maxdepth 1 -type d -exec bash -c 'cd "$1"; echo "$1"; git pull --rebase' -- {} \;
+    find . -mindepth 1 -maxdepth 1 -type d -exec bash -c 'cd "$1"; echo "$1"; git pull --rebase --no-autostash' -- {} \;
 }
 
+# curl -sS https://getcomposer.org/installer | php
 function getcomposer()
 {
-    #curl -sS https://getcomposer.org/installer | php
     EXPECTED_SIGNATURE=$(wget https://composer.github.io/installer.sig -O - -q)
     php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
     ACTUAL_SIGNATURE=$(php -r "echo hash_file('SHA384', 'composer-setup.php');")

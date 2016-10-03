@@ -8,6 +8,8 @@
 
 let s:capture = 0
 
+let g:php_namespace_sort_after_insert = get(g:, 'php_namespace_sort_after_insert', 0)
+
 function! PhpFindMatchingUse(clazz)
 
     " matches use Foo\Bar as <class>
@@ -121,6 +123,9 @@ function! PhpInsertUse()
         else
             call append(1, use)
         endif
+        if g:php_namespace_sort_after_insert
+            call PhpSortUse()
+        endif
     catch /.*/
         echoerr v:exception
     finally
@@ -156,3 +161,13 @@ function! s:saveCapture(capture)
     let s:capture = a:capture
 endfunction
 
+function! PhpSortUse()
+    let restorepos = line(".") . "normal!" . virtcol(".") . "|"
+     " insert after last use or namespace or <?php
+    if search('^use\_s\_[[:alnum:][:blank:]\\_]*;', 'be') > 0
+        execute "'{,'}-1sort"
+    else
+        throw "No use statements found."
+    endif
+    exe restorepos
+endfunction

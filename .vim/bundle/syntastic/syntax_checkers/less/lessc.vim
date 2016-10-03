@@ -10,49 +10,50 @@
 "
 "============================================================================
 
-" To send additional options to less use the variable g:syntastic_less_options.
-" The default is
-"   let g:syntastic_less_options = "--no-color"
-"
-" To use less-lint instead of less set the variable
-" g:syntastic_less_use_less_lint.
-
-if exists("g:loaded_syntastic_less_lessc_checker")
+if exists('g:loaded_syntastic_less_lessc_checker')
     finish
 endif
-let g:loaded_syntastic_less_lessc_checker=1
+let g:loaded_syntastic_less_lessc_checker = 1
 
-if !exists("g:syntastic_less_options")
-    let g:syntastic_less_options = "--no-color"
-endif
-
-if !exists("g:syntastic_less_use_less_lint")
+if !exists('g:syntastic_less_use_less_lint')
     let g:syntastic_less_use_less_lint = 0
 endif
 
-if g:syntastic_less_use_less_lint
-    let s:check_file = 'node ' . expand('<sfile>:p:h') . '/less-lint.js'
-else
-    let s:check_file = 'lessc'
-end
+let s:save_cpo = &cpo
+set cpo&vim
 
-function! SyntaxCheckers_less_lessc_IsAvailable()
-    return executable('lessc')
+let s:node_file = 'node ' . syntastic#util#shescape(expand('<sfile>:p:h', 1) . syntastic#util#Slash() . 'less-lint.js')
+
+function! SyntaxCheckers_less_lessc_IsAvailable() dict
+    call self.log('g:syntastic_less_use_less_lint =', g:syntastic_less_use_less_lint)
+    return g:syntastic_less_use_less_lint ? executable('node') : executable(self.getExec())
 endfunction
 
-function! SyntaxCheckers_less_lessc_GetLocList()
-    let makeprg = syntastic#makeprg#build({
-                \ 'exe': s:check_file,
-                \ 'args': g:syntastic_less_options,
-                \ 'tail': syntastic#util#DevNull(),
-                \ 'subchecker': 'lessc' })
-    let errorformat = '%m in %f:%l:%c'
+function! SyntaxCheckers_less_lessc_GetLocList() dict
+    call syntastic#log#deprecationWarn('less_options', 'less_lessc_args')
 
-    return SyntasticMake({ 'makeprg': makeprg,
-                         \ 'errorformat': errorformat,
-                         \ 'defaults': {'bufnr': bufnr(""), 'text': "Syntax error"} })
+    let makeprg = self.makeprgBuild({
+        \ 'exe': (g:syntastic_less_use_less_lint ? s:node_file : self.getExecEscaped()),
+        \ 'args_after': '--no-color',
+        \ 'tail': '> ' . syntastic#util#DevNull() })
+
+    let errorformat =
+        \ '%m in %f on line %l\, column %c:,' .
+        \ '%m in %f:%l:%c,' .
+        \ '%-G%.%#'
+
+    return SyntasticMake({
+        \ 'makeprg': makeprg,
+        \ 'errorformat': errorformat,
+        \ 'postprocess': ['guards'],
+        \ 'defaults': {'bufnr': bufnr(''), 'text': 'Syntax error'} })
 endfunction
 
 call g:SyntasticRegistry.CreateAndRegisterChecker({
     \ 'filetype': 'less',
     \ 'name': 'lessc'})
+
+let &cpo = s:save_cpo
+unlet s:save_cpo
+
+" vim: set sw=4 sts=4 et fdm=marker:

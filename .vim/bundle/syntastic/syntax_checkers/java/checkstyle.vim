@@ -10,39 +10,76 @@
 "
 " Tested with checkstyle 5.5
 "============================================================================
-if exists("g:loaded_syntastic_java_checkstyle_checker")
+
+if exists('g:loaded_syntastic_java_checkstyle_checker')
     finish
 endif
-let g:loaded_syntastic_java_checkstyle_checker=1
+let g:loaded_syntastic_java_checkstyle_checker = 1
 
-if !exists("g:syntastic_java_checkstyle_classpath")
-    let g:syntastic_java_checkstyle_classpath = 'checkstyle-5.5-all.jar'
+if !exists('g:syntastic_java_checkstyle_classpath')
+    let g:syntastic_java_checkstyle_classpath = 'checkstyle-6.10.1-all.jar'
 endif
 
-if !exists("g:syntastic_java_checkstyle_conf_file")
+if !exists('g:syntastic_java_checkstyle_conf_file')
     let g:syntastic_java_checkstyle_conf_file = 'sun_checks.xml'
 endif
 
-function! SyntaxCheckers_java_checkstyle_IsAvailable()
-    return executable('java')
+let s:save_cpo = &cpo
+set cpo&vim
+
+function! SyntaxCheckers_java_checkstyle_IsAvailable() dict
+    if !executable(self.getExec())
+        return 0
+    endif
+
+    let conf_file = expand(g:syntastic_java_checkstyle_conf_file, 1)
+    call self.log('filereadable(' . string(conf_file) . ') = ' . filereadable(conf_file))
+
+    return filereadable(conf_file)
 endfunction
 
-function! SyntaxCheckers_java_checkstyle_GetLocList()
-    let makeprg = syntastic#makeprg#build({
-                \ 'exe': 'java',
-                \ 'args': '-cp ' . g:syntastic_java_checkstyle_classpath . ' com.puppycrawl.tools.checkstyle.Main -c ' . g:syntastic_java_checkstyle_conf_file,
-                \ 'fname': expand ( '%:p:h' ) . '/' . expand ( '%:t' ),
-                \ 'tail': '2>&1',
-                \ 'subchecker': 'checkstyle' })
+function! SyntaxCheckers_java_checkstyle_GetLocList() dict
 
-    " check style format
-    let errorformat = '%f:%l:%c:\ %m,%f:%l:\ %m'
+    " classpath
+    if !exists('s:sep')
+        let s:sep = syntastic#util#isRunningWindows() || has('win32unix') ? ';' : ':'
+    endif
+    let classpath = join(map( split(g:syntastic_java_checkstyle_classpath, s:sep, 1), 'expand(v:val, 1)' ), s:sep)
+    call self.log('classpath =', classpath)
 
-    return SyntasticMake({ 'makeprg': makeprg, 'errorformat': errorformat })
+    " forced options
+    let opts = []
+    if classpath !=# ''
+        call extend(opts, ['-cp', classpath])
+    endif
+    call extend(opts, [
+        \ 'com.puppycrawl.tools.checkstyle.Main',
+        \ '-c', expand(g:syntastic_java_checkstyle_conf_file, 1),
+        \ '-f', 'xml' ])
 
+    " filename
+    let fname = syntastic#util#shescape( expand('%:p:h', 1) . syntastic#util#Slash() . expand('%:t', 1) )
+    if has('win32unix')
+        let fname = substitute(syntastic#util#system('cygpath -m ' . fname), '\m\%x00', '', 'g')
+    endif
+
+    let makeprg = self.makeprgBuild({ 'args_after': opts, 'fname': fname })
+
+    let errorformat = '%f:%t:%l:%c:%m'
+
+    return SyntasticMake({
+        \ 'makeprg': makeprg,
+        \ 'errorformat': errorformat,
+        \ 'preprocess': 'checkstyle',
+        \ 'subtype': 'Style' })
 endfunction
 
 call g:SyntasticRegistry.CreateAndRegisterChecker({
     \ 'filetype': 'java',
-    \ 'name': 'checkstyle'})
+    \ 'name': 'checkstyle',
+    \ 'exec': 'java'})
 
+let &cpo = s:save_cpo
+unlet s:save_cpo
+
+" vim: set sw=4 sts=4 et fdm=marker:

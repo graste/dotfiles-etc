@@ -10,33 +10,47 @@
 "
 "============================================================================
 
-if exists("g:loaded_syntastic_haskell_hdevtools_checker")
+if exists('g:loaded_syntastic_haskell_hdevtools_checker')
     finish
 endif
-let g:loaded_syntastic_haskell_hdevtools_checker=1
+let g:loaded_syntastic_haskell_hdevtools_checker = 1
 
-function! SyntaxCheckers_haskell_hdevtools_IsAvailable()
-    return executable('hdevtools')
-endfunction
+let s:save_cpo = &cpo
+set cpo&vim
 
-function! SyntaxCheckers_haskell_hdevtools_GetLocList()
-    let makeprg = syntastic#makeprg#build({
-                \ 'exe': 'hdevtools check',
-                \ 'args': get(g:, 'hdevtools_options', ''),
-                \ 'subchecker': 'hdevtools' })
+function! SyntaxCheckers_haskell_hdevtools_GetLocList() dict
+    if !exists('g:syntastic_haskell_hdevtools_args') && exists('g:hdevtools_options')
+        call syntastic#log#oneTimeWarn('variable g:hdevtools_options is deprecated, ' .
+            \ 'please use g:syntastic_haskell_hdevtools_args instead')
+        let g:syntastic_haskell_hdevtools_args = g:hdevtools_options
+    endif
 
-    let errorformat= '\%-Z\ %#,'.
-                \ '%W%f:%l:%c:\ Warning:\ %m,'.
-                \ '%E%f:%l:%c:\ %m,'.
-                \ '%E%>%f:%l:%c:,'.
-                \ '%+C\ \ %#%m,'.
-                \ '%W%>%f:%l:%c:,'.
-                \ '%+C\ \ %#%tarning:\ %m,'
+    let makeprg = self.makeprgBuild({
+        \ 'exe_after': 'check',
+        \ 'fname': syntastic#util#shexpand('%:p') })
 
-    return SyntasticMake({ 'makeprg': makeprg, 'errorformat': errorformat })
+    let errorformat =
+        \ '%-Z %#,'.
+        \ '%W%\m%f:%l:%v%\%%(-%\d%\+%\)%\=: Warning: %m,'.
+        \ '%W%\m%f:%l:%v%\%%(-%\d%\+%\)%\=: Warning:,'.
+        \ '%E%\m%f:%l:%v%\%%(-%\d%\+%\)%\=: %m,'.
+        \ '%E%>%\m%f:%l:%v%\%%(-%\d%\+%\)%\=:,'.
+        \ '%+C  %#%m,'.
+        \ '%W%>%\m%f:%l:%v%\%%(-%\d%\+%\)%\=:,'.
+        \ '%+C  %#%tarning: %m,'
+
+    return SyntasticMake({
+        \ 'makeprg': makeprg,
+        \ 'errorformat': errorformat,
+        \ 'defaults': {'vcol': 1},
+        \ 'postprocess': ['compressWhitespace'] })
 endfunction
 
 call g:SyntasticRegistry.CreateAndRegisterChecker({
     \ 'filetype': 'haskell',
     \ 'name': 'hdevtools'})
 
+let &cpo = s:save_cpo
+unlet s:save_cpo
+
+" vim: set sw=4 sts=4 et fdm=marker:

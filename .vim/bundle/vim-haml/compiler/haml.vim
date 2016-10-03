@@ -1,3 +1,8 @@
+" Vim compiler file
+" Compiler:	Haml
+" Maintainer:	Tim Pope <vimNOSPAM@tpope.org>
+" Last Change:	2013 May 30
+
 if exists("current_compiler")
   finish
 endif
@@ -10,7 +15,7 @@ endif
 let s:cpo_save = &cpo
 set cpo-=C
 
-CompilerSet makeprg=haml\ -c
+CompilerSet makeprg=haml
 
 CompilerSet errorformat=
       \Haml\ %trror\ on\ line\ %l:\ %m,

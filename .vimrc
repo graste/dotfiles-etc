@@ -194,11 +194,11 @@ set suffixes=~,.bak,.dvi,.hi,.o,.pdf,.gz,.idx,.log,.ps,.swp,.tar,.toc,.ind
 " editor settings for file types and syntax highlighting specials
 "
 autocmd FileType make setlocal tabstop=4 noexpandtab
-autocmd FileType markdown setlocal shiftwidth=4 tabstop=4
+autocmd FileType markdown setlocal shiftwidth=2 tabstop=2
 autocmd FileType python set expandtab shiftwidth=4 tabstop=4 softtabstop=4 smartindent autoindent
 autocmd FileType ruby,haml,eruby,yaml,sass setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
 autocmd FileType text setlocal textwidth=78
-autocmd FileType twig setlocal filetype=htmltwig
+" autocmd FileType twig setlocal filetype=twig
 autocmd FileType vim setlocal shiftwidth=2 tabstop=2
 
 autocmd BufRead,BufNewFile {*.csv,*.dat,*.tsv} setfiletype csv
@@ -309,6 +309,8 @@ vnoremap <f9> zf
 "autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif
 "autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
+" reindent current buffer
+map <F7> mzgg=G`z
 
 "augroup filetype_html
 "    autocmd!
@@ -406,19 +408,32 @@ nnoremap <leader>a :Ack
 
 " nerdcommenter settings
 let g:NERDCustomDelimiters = {'puppet': { 'left': '#', 'leftAlt': '/*', 'rightAlt': '*/' } }
-let NERDAllowAnyVisualDelims = 1
-let NERDCompactSexyComs = 0
-let NERDSexyComMarker = ""
-let NERDSpaceDelims = 1
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+" Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1
 
 " disable folding for vim-markdown syntax highlighting
-let g:vim_markdown_folding_disabled=1
+let g:vim_markdown_folding_disabled = 1
+let g:vim_markdown_fenced_languages = [ 'viml=vim', 'bash=sh', 'ini=dosini', 'csharp=cs', 'twig=twig', 'php=php', 'yaml=yaml', 'html=html', 'sh=sh', 'xml=xml', 'xsl=xml', 'c++=cpp', 'ruby=ruby', 'python=python', 'java=java' ]
+let g:vim_markdown_new_list_item_indent = 2
+
+" vim-json: don't conceal json syntax
+let g:vim_json_syntax_conceal = 0
 
 " syntastic: check syntax on file open
-let g:syntastic_check_on_open=1
-
+let g:syntastic_check_on_open = 1
+let g:syntastic_always_populate_loc_list = 0
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_check_on_wq = 0
+" on open jump to 1st error if any, but no jumping on warnings
+let g:syntastic_auto_jump = 3
 " syntastic: configuration and checkers
-let g:syntastic_php_checkers=['php'] " 'phpcs', 'phpmd'
+let g:syntastic_php_checkers=['php', 'vendor/bin/phpcs', 'vendor/bin/phpmd'] " 'phpcs', 'phpmd'
 let g:syntastic_python_checkers=['pylint']
 let g:syntastic_twig_checkers=['twig-lint']
 
@@ -494,12 +509,24 @@ xmap <silent> <leader><up> <Plug>(vertical_move_up)
 vnoremap <leader>j !python -m json.tool<cr>
 
 " vim-php-namespace (USE statements and FQCNs)
+let g:php_namespace_sort_after_insert = 1
 " insert use statement for word under cursor
-inoremap <leader>u <c-o>:call PhpInsertUse()<cr>
-noremap <leader>u :call PhpInsertUse()<cr>
+function! IPhpInsertUse()
+    call PhpInsertUse()
+    call feedkeys('a',  'n')
+endfunction
+autocmd FileType php inoremap <Leader>u <Esc>:call IPhpInsertUse()<CR>
+autocmd FileType php noremap <Leader>u :call PhpInsertUse()<CR>
 " expand class under cursor to fully qualified class name
-inoremap <leader>e <C-O>:call PhpExpandClass()<cr>
-noremap <leader>e :call PhpExpandClass()<cr>
+function! IPhpExpandClass()
+    call PhpExpandClass()
+    call feedkeys('a', 'n')
+endfunction
+autocmd FileType php inoremap <Leader>e <Esc>:call IPhpExpandClass()<CR>
+autocmd FileType php noremap <Leader>e :call PhpExpandClass()<CR>
+" sort existing use statements
+autocmd FileType php inoremap <Leader>s <Esc>:call PhpSortUse()<CR>
+autocmd FileType php noremap <Leader>s :call PhpSortUse()<CR>
 
 " enable ctags support and tell vim to automatically
 " recursively search in parent directories for tags file
@@ -529,5 +556,14 @@ autocmd BufWinEnter *.md call MatchTechWordsToAvoid()
 autocmd InsertEnter *.md call MatchTechWordsToAvoid()
 autocmd InsertLeave *.md call MatchTechWordsToAvoid()
 autocmd BufWinLeave *.md call clearmatches()
+
+" generate vim_keys.txt file:
+function GenerateVimKeysTxtFile()
+    redir! > vim_keys.txt
+    silent map
+    silent vmap
+    silent imap
+    redir END
+endfunction
 
 " vim: set ts=4 sw=4 tw=78 et :

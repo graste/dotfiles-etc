@@ -273,7 +273,7 @@ def _undo_to(n):
 
 INLINE_HELP = '''\
 " Gundo for %s (%d)
-" j/k  - move between undo states
+" %s/%s  - move between undo states
 " p    - preview diff of selected and current states
 " <cr> - revert to selected state
 
@@ -336,7 +336,7 @@ def _fmt_time(t):
 def _output_preview_text(lines):
     _goto_window_for_buffer_name('__Gundo_Preview__')
     vim.command('setlocal modifiable')
-    vim.current.buffer[:] = lines
+    vim.current.buffer[:] = [line.rstrip('\n') for line in lines]
     vim.command('setlocal nomodifiable')
 
 def _generate_preview_diff(current, node_before, node_after):
@@ -361,7 +361,7 @@ def _generate_preview_diff(current, node_before, node_after):
 
         before_name = 'Original'
         before_time = ''
-        after_name = node_after.n
+        after_name = str(node_after.n)
         after_time = _fmt_time(node_after.time)
     else:
         _undo_to(node_before.n)
@@ -370,9 +370,9 @@ def _generate_preview_diff(current, node_before, node_after):
         _undo_to(node_after.n)
         after_lines = vim.current.buffer[:]
 
-        before_name = node_before.n
+        before_name = str(node_before.n)
         before_time = _fmt_time(node_before.time)
-        after_name = node_after.n
+        after_name = str(node_after.n)
         after_time = _fmt_time(node_after.time)
 
     _undo_to(current)
@@ -390,9 +390,9 @@ def _generate_change_preview_diff(current, node_before, node_after):
     _undo_to(node_after.n)
     after_lines = vim.current.buffer[:]
 
-    before_name = node_before.n or 'Original'
+    before_name = str(node_before.n or 'Original')
     before_time = node_before.time and _fmt_time(node_before.time) or ''
-    after_name = node_after.n or 'Original'
+    after_name = str(node_after.n or 'Original')
     after_time = node_after.time and _fmt_time(node_after.time) or ''
 
     _undo_to(current)
@@ -424,9 +424,11 @@ def GundoRenderGraph():
     result = [' ' + l for l in result]
 
     target = (vim.eval('g:gundo_target_f'), int(vim.eval('g:gundo_target_n')))
+    mappings = (vim.eval('g:gundo_map_move_older'),
+                vim.eval('g:gundo_map_move_newer'))
 
     if int(vim.eval('g:gundo_help')):
-        header = (INLINE_HELP % target).splitlines()
+        header = (INLINE_HELP % (target + mappings)).splitlines()
     else:
         header = []
 
@@ -513,7 +515,8 @@ def GundoRevert():
     _undo_to(target_n)
 
     vim.command('GundoRenderGraph')
-    _goto_window_for_buffer(back)
+    if int(vim.eval('g:gundo_return_on_revert')):
+        _goto_window_for_buffer(back)
 
     if int(vim.eval('g:gundo_close_on_revert')):
         vim.command('GundoToggle')
@@ -524,6 +527,7 @@ def GundoPlayTo():
 
     target_n = int(vim.eval('s:GundoGetTargetState()'))
     back = int(vim.eval('g:gundo_target_n'))
+    delay = int(vim.eval('g:gundo_playback_delay'))
 
     vim.command('echo "%s"' % back)
 
@@ -570,7 +574,7 @@ def GundoPlayTo():
         normal('zz')
         _goto_window_for_buffer(back)
         vim.command('redraw')
-        vim.command('sleep 60m')
+        vim.command('sleep %dm' % delay)
 
 def initPythonModule():
     if sys.version_info[:2] < (2, 4):

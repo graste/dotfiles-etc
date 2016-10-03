@@ -55,54 +55,84 @@ The following features and functionality are provided by the NERD tree:
 Installation
 ------------
 
-[pathogen.vim](https://github.com/tpope/vim-pathogen) is the recommended way to install nerdtree.
+####[pathogen.vim](https://github.com/tpope/vim-pathogen)
 
-    cd ~/.vim/bundle
-    git clone https://github.com/scrooloose/nerdtree.git
+    git clone https://github.com/scrooloose/nerdtree.git ~/.vim/bundle/nerdtree
 
-Then reload vim, run `:helptags`, and check out `:help NERD_tree.txt`.
+Then reload vim, run `:helptags ~/.vim/bundle/nerdtree/doc/`, and check out `:help NERD_tree.txt`.
+
+
+####[apt-vim](https://github.com/egalpin/apt-vim)
+
+    apt-vim install -y https://github.com/scrooloose/nerdtree.git
+
 
 
 Faq
 ---
 
-__Q. Can I have the nerdtree on every tab automatically?__
+> Is there any support for `git` flags?
 
-A. Nope. If this is something you want then chances are you aren't using tabs
-   and buffers as they were intended to be used. Read this
-   http://stackoverflow.com/questions/102384/using-vims-tabs-like-buffers
+Yes, install [nerdtree-git-plugin](https://github.com/Xuyuanp/nerdtree-git-plugin).
 
-   If you are interested in this behaviour then consider [vim-nerdtree-tabs](https://github.com/jistr/vim-nerdtree-tabs)
+---
 
-__Q. How can I open a NERDTree automatically when vim starts up?__
+> Can I have the nerdtree on every tab automatically?
 
-A. Stick this in your vimrc: `autocmd vimenter * NERDTree`
+Nope. If this is something you want then chances are you aren't using tabs and
+buffers as they were intended to be used. Read this
+http://stackoverflow.com/questions/102384/using-vims-tabs-like-buffers
 
-__Q. How can I open a NERDTree automatically when vim starts up if no files were specified?__
+If you are interested in this behaviour then consider [vim-nerdtree-tabs](https://github.com/jistr/vim-nerdtree-tabs)
 
-A. Stick this in your vimrc `autocmd vimenter * if !argc() | NERDTree | endif`
+---
+> How can I open a NERDTree automatically when vim starts up?
 
-__Q. How can I map a specific key or shortcut to open NERDTree?__
+Stick this in your vimrc: `autocmd vimenter * NERDTree`
 
-A. Stick this in your vimrc to open NERDTree with `Ctrl+n` (you can set whatever key you want): `map <C-n> :NERDTreeToggle<CR>`
+---
+> How can I open a NERDTree automatically when vim starts up if no files were specified?
 
-__Q. How can I close vim if the only window left open is a NERDTree?__
+Stick this in your vimrc:
 
-A. Stick this in your vimrc:
+    autocmd StdinReadPre * let s:std_in=1
+    autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
-   `autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif`
+Note: Now start vim with plain `vim`, not `vim .`
 
+---
+> How can I open NERDTree on startup, and have my cursor start in the other window?
 
-Changelog
----------
+Stick this in your vimrc:
 
-4.2.0 (2011-12-28)
+    autocmd vimenter * NERDTree
+    autocmd vimenter * wincmd p
 
- * Add NERDTreeDirArrows option to make the UI use pretty arrow chars instead of the old +~| chars to define the tree structure (sickill)
- * shift the syntax highlighting out into its own syntax file (gnap) * add some mac specific options to the filesystem menu - for macvim only (andersonfreitas)
- * Add NERDTreeMinimalUI option to remove some non functional parts of the nerdtree ui (camthompson)
- * tweak the behaviour of :NERDTreeFind - see :help :NERDTreeFind for the new behaviour (benjamingeiger)
- * if no name is given to :Bookmark, make it default to the name of the target file/dir (minyoung)
- * use 'file' completion when doing copying, create, and move operations (EvanDotPro)
- * lots of misc bug fixes (paddyoloughlin, sdewald, camthompson, Vitaly Bogdanov, AndrewRadev, mathias, scottstvnsn, kml, wycats, me RAWR!)
+ *via [stackoverflow/Yohann](http://stackoverflow.com/questions/4277808/nerdtree-auto-focus-to-file-when-opened-in-new-tab/19330023#19330023)*
+ 
+---
+> How can I map a specific key or shortcut to open NERDTree?
 
+Stick this in your vimrc to open NERDTree with `Ctrl+n` (you can set whatever key you want):
+
+    map <C-n> :NERDTreeToggle<CR>
+
+---
+> How can I close vim if the only window left open is a NERDTree?
+
+Stick this in your vimrc:
+
+    autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+---
+> Can I have different highlighting for different file extensions?
+
+See here: https://github.com/scrooloose/nerdtree/issues/433#issuecomment-92590696
+
+---
+> How can I change default arrows?
+
+Use these variables in your vimrc. Note that below are default arrow symbols
+
+    let g:NERDTreeDirArrowExpandable = '►'
+    let g:NERDTreeDirArrowCollapsible = '▼'

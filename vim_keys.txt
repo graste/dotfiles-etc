@@ -1,0 +1,228 @@
+
+
+n  <C-D>       * dd
+v  <Tab>       * %
+n  <Tab>       * %
+   <C-P>         <Plug>(ctrlp)
+v  <Space>     * zf
+n  <Space>     * @=(foldlevel('.')?'za':"\ ")<CR>
+v  #           * :call VisualSelection('b')<CR>
+v  *           * :call VisualSelection('f')<CR>
+n  ,da         * :call PhpDocAll()<CR>
+n  ,sg         * :call PhpCreateSettersAndGetters()<CR>
+v  ,==         * :call PhpAlignAssigns()<CR>
+n  ,du         * :call PhpDetectUnusedUseStatements()<CR>
+n  ,np         * :call PhpCreateProperty()<CR>
+v  ,em         * :call PhpExtractMethod()<CR>
+n  ,ep         * :call PhpExtractClassProperty()<CR>
+v  ,ec         * :call PhpExtractConst()<CR>
+n  ,rm         * :call PhpRenameMethod()<CR>
+n  ,eu         * :call PhpExtractUse()<CR>
+n  ,rcv        * :call PhpRenameClassVariable()<CR>
+n  ,rlv        * :call PhpRenameLocalVariable()<CR>
+n  ,ca           <Plug>NERDCommenterAltDelims
+x  ,cu           <Plug>NERDCommenterUncomment
+n  ,cu           <Plug>NERDCommenterUncomment
+x  ,cb           <Plug>NERDCommenterAlignBoth
+n  ,cb           <Plug>NERDCommenterAlignBoth
+x  ,cl           <Plug>NERDCommenterAlignLeft
+n  ,cl           <Plug>NERDCommenterAlignLeft
+n  ,cA           <Plug>NERDCommenterAppend
+x  ,cy           <Plug>NERDCommenterYank
+n  ,cy           <Plug>NERDCommenterYank
+x  ,cs           <Plug>NERDCommenterSexy
+n  ,cs           <Plug>NERDCommenterSexy
+x  ,ci           <Plug>NERDCommenterInvert
+n  ,ci           <Plug>NERDCommenterInvert
+n  ,c$           <Plug>NERDCommenterToEOL
+x  ,cn           <Plug>NERDCommenterNested
+n  ,cn           <Plug>NERDCommenterNested
+x  ,cm           <Plug>NERDCommenterMinimal
+n  ,cm           <Plug>NERDCommenterMinimal
+x  ,c<Space>     <Plug>NERDCommenterToggle
+n  ,c<Space>     <Plug>NERDCommenterToggle
+x  ,cc           <Plug>NERDCommenterComment
+n  ,cc           <Plug>NERDCommenterComment
+   ,gv           :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+   ,gh           :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+   ,gt           <C-T>
+   ,g            <C-]>
+v  ,j          * !python -m json.tool<CR>
+x  ,<Up>         <Plug>(vertical_move_up)
+x  ,<Down>       <Plug>(vertical_move_down)
+n  ,<Up>         <Plug>(vertical_move_up)
+n  ,<Down>       <Plug>(vertical_move_down)
+n  ,f            :CtrlPMixed<CR><C-\>w
+n  ,b            :CtrlPBuffer<CR>
+   ,nm         * :NERDTreeFind<CR>
+n  ,e          * :Errors<CR>
+n  ,a          * :Ack
+v  ,r          * :call VisualSelection('replace')<CR>
+n  ,ml         * :call AppendModeline()<CR>
+   ,n          * :NERDTreeToggle<CR>
+n  ,stw        * :%s/\s\+$//<CR>:let @/=''<CR>
+v  ,Q          * <Esc>`<i"<Esc>`>lli"<Esc>l
+v  ,q          * <Esc>`<i'<Esc>`>lli'<Esc>l
+n  ,'          * viw<Esc>a'<Esc>hbi'<Esc>lel
+n  ,"          * viw<Esc>a"<Esc>hbi"<Esc>lel
+   ,k          * gg=G``
+n  ,<CR>       * :noh<CR>
+   ,o            :edit %%
+n  ,h          * <C-W>s<C-W>j
+n  ,v          * <C-W>v<C-W>l
+n  ,m          * V`]
+n  ,l          * :bprevious<CR>
+n  ,4            :set tabstop=4<CR>:set shiftwidth=4<CR>
+n  ,2            :set tabstop=2<CR>:set shiftwidth=2<CR>
+n  -           * ddp
+v  /           * /\v
+n  /           * /\v
+x  S             <Plug>VSurround
+   \H          * :Entities 1<CR>
+   \h          * :Entities 0<CR>
+n  _           * ddkP
+n  cS            <Plug>CSurround
+n  cs            <Plug>Csurround
+n  ds            <Plug>Dsurround
+n  gx            <Plug>NetrwBrowseX
+x  gS            <Plug>VgSurround
+n  ySS           <Plug>YSsurround
+n  ySs           <Plug>YSsurround
+n  yss           <Plug>Yssurround
+n  yS            <Plug>YSurround
+n  ys            <Plug>Ysurround
+s  <S-Tab>       <Plug>snipMateBack
+n  <Plug>NetrwBrowseX * :call netrw#NetrwBrowseX(expand("<cWORD>"),0)<CR>
+o  <Plug>(vertical_move_up) * :<C-U>call vertical_move#PendingUp(v:count1)<CR>
+o  <Plug>(vertical_move_down) * :<C-U>call vertical_move#PendingDown(v:count1)<CR>
+x  <Plug>(vertical_move_up) * :<C-U>call vertical_move#Up('v', v:count1)<CR>
+x  <Plug>(vertical_move_down) * :<C-U>call vertical_move#Down('v', v:count1)<CR>
+n  <Plug>(vertical_move_up) * :<C-U>call vertical_move#Up('', v:count1)<CR>
+n  <Plug>(vertical_move_down) * :<C-U>call vertical_move#Down('', v:count1)<CR>
+v  <Plug>VgSurround * :<C-U>call <SNR>67_opfunc(visualmode(),visualmode() ==# 'V' ? 0 : 1)<CR>
+v  <Plug>VSurround * :<C-U>call <SNR>67_opfunc(visualmode(),visualmode() ==# 'V' ? 1 : 0)<CR>
+n  <Plug>YSurround * :<C-U>set opfunc=<SNR>67_opfunc2<CR>g@
+n  <Plug>Ysurround * :<C-U>set opfunc=<SNR>67_opfunc<CR>g@
+n  <Plug>YSsurround * :<C-U>call <SNR>67_opfunc2(v:count1)<CR>
+n  <Plug>Yssurround * :<C-U>call <SNR>67_opfunc(v:count1)<CR>
+n  <Plug>CSurround * :<C-U>call <SNR>67_changesurround(1)<CR>
+n  <Plug>Csurround * :<C-U>call <SNR>67_changesurround()<CR>
+n  <Plug>Dsurround * :<C-U>call <SNR>67_dosurround(<SNR>67_inputtarget())<CR>
+n  <Plug>SurroundRepeat * .
+x  <Plug>snipMateVisual * :<C-U>call <SNR>65_grab_visual()<CR>gv"_c
+s  <Plug>snipMateBack * <Esc>a<C-R>=snipMate#BackwardsSnippet()<CR>
+s  <Plug>snipMateNextOrTrigger * <Esc>a<C-R>=snipMate#TriggerSnippet()<CR>
+n  <F3>        * :call NumberToggle()<CR>
+n  <Plug>NERDCommenterAltDelims * :call <SNR>27_SwitchToAlternativeDelimiters(1)<CR>
+x  <Plug>NERDCommenterUncomment * :call NERDComment("x", "Uncomment")<CR>
+n  <Plug>NERDCommenterUncomment * :call NERDComment("n", "Uncomment")<CR>
+x  <Plug>NERDCommenterAlignBoth * :call NERDComment("x", "AlignBoth")<CR>
+n  <Plug>NERDCommenterAlignBoth * :call NERDComment("n", "AlignBoth")<CR>
+x  <Plug>NERDCommenterAlignLeft * :call NERDComment("x", "AlignLeft")<CR>
+n  <Plug>NERDCommenterAlignLeft * :call NERDComment("n", "AlignLeft")<CR>
+n  <Plug>NERDCommenterAppend * :call NERDComment("n", "Append")<CR>
+x  <Plug>NERDCommenterYank * :call NERDComment("x", "Yank")<CR>
+n  <Plug>NERDCommenterYank * :call NERDComment("n", "Yank")<CR>
+x  <Plug>NERDCommenterSexy * :call NERDComment("x", "Sexy")<CR>
+n  <Plug>NERDCommenterSexy * :call NERDComment("n", "Sexy")<CR>
+x  <Plug>NERDCommenterInvert * :call NERDComment("x", "Invert")<CR>
+n  <Plug>NERDCommenterInvert * :call NERDComment("n", "Invert")<CR>
+n  <Plug>NERDCommenterToEOL * :call NERDComment("n", "ToEOL")<CR>
+x  <Plug>NERDCommenterNested * :call NERDComment("x", "Nested")<CR>
+n  <Plug>NERDCommenterNested * :call NERDComment("n", "Nested")<CR>
+x  <Plug>NERDCommenterMinimal * :call NERDComment("x", "Minimal")<CR>
+n  <Plug>NERDCommenterMinimal * :call NERDComment("n", "Minimal")<CR>
+x  <Plug>NERDCommenterToggle * :call NERDComment("x", "Toggle")<CR>
+n  <Plug>NERDCommenterToggle * :call NERDComment("n", "Toggle")<CR>
+x  <Plug>NERDCommenterComment * :call NERDComment("x", "Comment")<CR>
+n  <Plug>NERDCommenterComment * :call NERDComment("n", "Comment")<CR>
+n  <Plug>(ctrlp) * :<C-U>CtrlP<CR>
+n  <F5>        * :GundoToggle<CR>
+   <F7>          mzgg=G`z
+v  <F9>        * zf
+o  <F9>        * <C-C>za
+n  <F9>        * za
+v  <F1>        * <Esc>
+n  <F1>        * <Esc>
+n  <C-Right>   * :wincmd l<CR>
+n  <C-Left>    * :wincmd h<CR>
+n  <C-Down>    * :wincmd j<CR>
+n  <C-Up>      * :wincmd k<CR>
+n  <F2>        * :set invpaste paste?<CR>
+
+v  <Tab>       * %
+   <C-P>         <Plug>(ctrlp)
+v  <Space>     * zf
+v  #           * :call VisualSelection('b')<CR>
+v  *           * :call VisualSelection('f')<CR>
+v  ,==         * :call PhpAlignAssigns()<CR>
+v  ,em         * :call PhpExtractMethod()<CR>
+v  ,ec         * :call PhpExtractConst()<CR>
+x  ,cu           <Plug>NERDCommenterUncomment
+x  ,cb           <Plug>NERDCommenterAlignBoth
+x  ,cl           <Plug>NERDCommenterAlignLeft
+x  ,cy           <Plug>NERDCommenterYank
+x  ,cs           <Plug>NERDCommenterSexy
+x  ,ci           <Plug>NERDCommenterInvert
+x  ,cn           <Plug>NERDCommenterNested
+x  ,cm           <Plug>NERDCommenterMinimal
+x  ,c<Space>     <Plug>NERDCommenterToggle
+x  ,cc           <Plug>NERDCommenterComment
+   ,gv           :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+   ,gh           :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+   ,gt           <C-T>
+   ,g            <C-]>
+v  ,j          * !python -m json.tool<CR>
+x  ,<Up>         <Plug>(vertical_move_up)
+x  ,<Down>       <Plug>(vertical_move_down)
+   ,nm         * :NERDTreeFind<CR>
+v  ,r          * :call VisualSelection('replace')<CR>
+   ,n          * :NERDTreeToggle<CR>
+v  ,Q          * <Esc>`<i"<Esc>`>lli"<Esc>l
+v  ,q          * <Esc>`<i'<Esc>`>lli'<Esc>l
+   ,k          * gg=G``
+   ,o            :edit %%
+v  /           * /\v
+x  S             <Plug>VSurround
+   \H          * :Entities 1<CR>
+   \h          * :Entities 0<CR>
+x  gS            <Plug>VgSurround
+s  <S-Tab>       <Plug>snipMateBack
+x  <Plug>(vertical_move_up) * :<C-U>call vertical_move#Up('v', v:count1)<CR>
+x  <Plug>(vertical_move_down) * :<C-U>call vertical_move#Down('v', v:count1)<CR>
+v  <Plug>VgSurround * :<C-U>call <SNR>67_opfunc(visualmode(),visualmode() ==# 'V' ? 0 : 1)<CR>
+v  <Plug>VSurround * :<C-U>call <SNR>67_opfunc(visualmode(),visualmode() ==# 'V' ? 1 : 0)<CR>
+x  <Plug>snipMateVisual * :<C-U>call <SNR>65_grab_visual()<CR>gv"_c
+s  <Plug>snipMateBack * <Esc>a<C-R>=snipMate#BackwardsSnippet()<CR>
+s  <Plug>snipMateNextOrTrigger * <Esc>a<C-R>=snipMate#TriggerSnippet()<CR>
+x  <Plug>NERDCommenterUncomment * :call NERDComment("x", "Uncomment")<CR>
+x  <Plug>NERDCommenterAlignBoth * :call NERDComment("x", "AlignBoth")<CR>
+x  <Plug>NERDCommenterAlignLeft * :call NERDComment("x", "AlignLeft")<CR>
+x  <Plug>NERDCommenterYank * :call NERDComment("x", "Yank")<CR>
+x  <Plug>NERDCommenterSexy * :call NERDComment("x", "Sexy")<CR>
+x  <Plug>NERDCommenterInvert * :call NERDComment("x", "Invert")<CR>
+x  <Plug>NERDCommenterNested * :call NERDComment("x", "Nested")<CR>
+x  <Plug>NERDCommenterMinimal * :call NERDComment("x", "Minimal")<CR>
+x  <Plug>NERDCommenterToggle * :call NERDComment("x", "Toggle")<CR>
+x  <Plug>NERDCommenterComment * :call NERDComment("x", "Comment")<CR>
+   <F7>          mzgg=G`z
+v  <F9>        * zf
+v  <F1>        * <Esc>
+
+i  <S-Tab>       <Plug>snipMateBack
+i  <Plug>ISurround * <C-R>=<SNR>67_insert(1)<CR>
+i  <Plug>Isurround * <C-R>=<SNR>67_insert()<CR>
+i  <Plug>snipMateShow * <C-R>=snipMate#ShowAvailableSnips()<CR>
+i  <Plug>snipMateBack * <C-R>=snipMate#BackwardsSnippet()<CR>
+i  <Plug>snipMateTrigger * <C-R>=snipMate#TriggerSnippet(1)<CR>
+i  <Plug>snipMateNextOrTrigger * <C-R>=snipMate#TriggerSnippet()<CR>
+i  <Plug>NERDCommenterInsert * <Space><BS><Esc>:call NERDComment('i', "insert")<CR>
+i  <F9>        * <C-O>za
+i  <C-Space>   * <C-X><C-O>
+i  <F1>        * <Esc>
+i  <C-D>       * <Esc>ddi
+i  <C-G>S        <Plug>ISurround
+i  <C-G>s        <Plug>Isurround
+i  <Tab>         <Plug>snipMateNextOrTrigger
+i  <C-R><Tab>    <Plug>snipMateShow
+i  <C-S>         <Plug>Isurround
