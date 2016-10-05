@@ -15,12 +15,12 @@ Various dotfiles I use and want to have available elsewhere. Probably a lot of t
 
 Clone the repository to a folder of your choice and copy wanted or all files:
 
-    git clone git://github.com/graste/dotfiles-etc.git
+    git clone --depth=1 git://github.com/graste/dotfiles-etc.git
     cd dotfiles-etc && ./copy-files.sh [all]
 
 Without installed `git` you can try to use `curl` or `wget`:
 
-    curl -#L https://github.com/graste/dotfiles-etc/tarball/master | tar -xzv --strip-components 1
+    `curl -#L https://github.com/graste/dotfiles-etc/tarball/master | tar -xzv --strip-components 1`
 
 ## Screenshot
 
@@ -155,18 +155,15 @@ The `~/.pam_environment` file contains session-wide user-environment locale sett
 For syntax checking with `syntastic` the following (ubuntu) packages may be useful:
 
 - `sudo apt-get install pylint tidy libxml2-utils make puppet-lint`
-- for `jshint`, `jslint` and `csslint`, `less`, `sass`and `js-yaml`:
-    - `sudo apt-get install software-properties-common python-software-properties python g++ make python-pygments`
+- for other (nodejs based) linters:
     - `sudo add-apt-repository ppa:chris-lea/node.js`
     - `sudo apt-get update`
     - `sudo apt-get install nodejs`
-    - install globally `sudo npm install -g less sass jshint jslint js-yaml csslint` (or locally: `npm install less sass jshint jslint js-yaml csslint` and add it to `$PATH` or as an alias)
-    - things like `coffeelint` if you use those...
-- for `twig-lint`:
-    - download `http://asm89.github.com/d/twig-lint.phar` and put it into your `$PATH` (e.g. `~/bin`)
-    - `cd ~/bin && chmod u+x twig-lint.phar && mv twig-lint.phar twig-lint`
-- for vim-php-namespace to work, [exuberant-ctags](http://ctags.sourceforge.net/) is necessary.
+    - `npm install -g less sass sass-lint jshint js-yaml csslint jsonlint dockerfile_lint` (`.bashrc` exports `NPM_CONFIG_PREFIX=~/.npm-global`)
+- for `vim-php-namespace` to work, [exuberant-ctags](http://ctags.sourceforge.net/) is necessary.
     - `sudo apt-get install exuberant-ctags`
+- `sudo apt-get install software-properties-common python-software-properties python g++ make python-pygments`
+- `gem install ruby-lint puppet-lint flog scss_lint haml_lint`
 
 ## Ctags
 
@@ -176,9 +173,10 @@ ctags -nR --PHP-kinds=+cf --exclude='.git' --exclude='*.phar' --exclude="*.min.j
 ```
 There's a bash function called `create-ctags` that may be called in project directories to create a `tags` file (see [`.bash/functions.sh`](.bash/functions.sh)).
 
-## Sources of inspiration
+## Sources/inspiration
 
 - The customized git status information prompt was adapted from: https://github.com/magicmonty/bash-git-prompt
 - various dotfiles of other people (e.g. bash functions `calc`, `json`, `gz`, `unidecode`, `escape` from @mathiasbynens)
-- [``bin/git-open``](https://github.com/paulirish/git-open)
-
+- [`bin/git-open`](https://github.com/paulirish/git-open)
+- [`bin/twig-lint`](https://github.com/asm89/twig-lint)
+- [`bin/phpcs`](https://github.com/squizlabs/PHP_CodeSniffer)

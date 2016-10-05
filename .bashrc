@@ -134,6 +134,9 @@ unset i
 
 PATH=$PATH:~/bin
 
+# npm global install in user home dir
+export NPM_CONFIG_PREFIX=~/.npm-global
+PATH=$PATH:~/.npm-global/bin
 
 # vulnerable to shellshock? http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-6271
 env x='() { :;}; echo "WARNING: SHELLSHOCK DETECTED"' bash --norc -c ':' 2>/dev/null;

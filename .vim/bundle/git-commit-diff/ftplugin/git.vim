@@ -52,9 +52,9 @@ function! Git_diff_windows(vertsplit, auto, opts)
     endif
 endfunction
 
-noremap <buffer> <Leader>gd :call Git_diff_windows(0, 0)<cr>
-noremap <buffer> <Leader>ghd :call Git_diff_windows(0, 0)<cr>
-noremap <buffer> <Leader>gvd :call Git_diff_windows(1, 0)<cr>
+noremap <buffer> <Leader>gd :call Git_diff_windows(0, 0, g:git_diff_opts)<cr>
+noremap <buffer> <Leader>ghd :call Git_diff_windows(0, 0, g:git_diff_opts)<cr>
+noremap <buffer> <Leader>gvd :call Git_diff_windows(1, 0, g:git_diff_opts)<cr>
 
 if !exists("g:git_diff_opts")
     let g:git_diff_opts = "-C -C"

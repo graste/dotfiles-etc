@@ -31,13 +31,17 @@ echo ""
 echo "Hint: use 'all' as a command line argument to copy files in non-interactive mode."
 echo ""
 read -p "Press enter or abort via CTRL+C..." pleaseimscared
+
 if [[ $@ == *all* ]]
 then
     rm -rf ${HOME}/.vim/bundle/*
 fi
+
 mkdir ${HOME}/.bash
 mkdir ${HOME}/bin
+mkdir ${HOME}/.npm-global
 mkdir -p ${HOME}/.vim/{autoload,bundle,backup,swap,undo}
+
 for (( i = 0 ; i < NUM ; i++ ))
 do
     if [[ $@ == *all* ]]
@@ -61,3 +65,5 @@ do
     #read -p "Press <enter> for next file..."
 done
 
+echo "See README.md for programs (linters) you might want to install."
+echo ""

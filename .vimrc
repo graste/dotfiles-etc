@@ -427,33 +427,51 @@ let g:vim_json_syntax_conceal = 0
 
 " syntastic: check syntax on file open
 let g:syntastic_check_on_open = 1
-let g:syntastic_always_populate_loc_list = 0
-let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_wq = 0
-" on open jump to 1st error if any, but no jumping on warnings
-let g:syntastic_auto_jump = 3
-" syntastic: configuration and checkers
-let g:syntastic_php_checkers=['php', 'vendor/bin/phpcs', 'vendor/bin/phpmd'] " 'phpcs', 'phpmd'
-let g:syntastic_python_checkers=['pylint']
-let g:syntastic_twig_checkers=['twig-lint']
-
-" syntastic: map for errors window
-nnoremap <leader>e :Errors<cr>
-
-" syntastic: autoclose error window when there are no errors
-let g:syntastic_auto_loc_list=2
-
+let g:syntastic_always_populate_loc_list = 0
+" autoclose error window when there are no errors
+let g:syntastic_auto_loc_list = 2
+" 3 = on open jump to 1st error if any, but no jumping on warnings
+let g:syntastic_auto_jump = 0
+" checkers and their configuration
+let g:syntastic_python_checkers = ['python', 'pylint']
+let g:syntastic_php_checkers = ['php', 'phpcs']
+let g:syntastic_php_phpcs_args = '--standard=psr2'
+let g:syntastic_twig_checkers = ['twiglint']
+let g:syntastic_html_checkers = ['tidy', 'jshint']
+let g:syntastic_css_checkers = ['csslint']
+let g:syntastic_csslint_args="--ignore=order-alphabetical"
+let g:syntastic_javascript_checkers = ['jshint']
+let g:syntastic_json_checkers = ['jsonlint']
+"let g:syntastic_sass_checkers = ['sass', 'sassc', 'sass_lint', 'scss_lint']
+"let g:syntastic_scss_checkers = ['sass', 'sassc', 'sass_lint', 'scss_lint']
+let g:syntastic_scss_checkers = ['sass', 'sassc']
+let g:syntastic_xml_checkers = ['xmllint']
+let g:syntastic_xslt_checkers = ['xmllint']
+let g:syntastic_sh_checkers = ['sh']
+let g:syntastic_ruby_checkers = ['rubylint', 'flog']
+let g:syntastic_puppet_checkers = ['puppet', 'puppetlint']
+let g:syntastic_yaml_checkers = ['jsyaml']
+let g:syntastic_less_checkers = ['lessc']
+let g:syntastic_go_checkers = ['go']
+let g:syntastic_dockerfile_checkers = ['dockerfile_lint']
+let g:syntastic_haml_checkers = ['haml', 'haml_lint']
+let g:syntastic_perl_checkers = ['perl']
+" map filetypes to e.g. only use one checker for (mixed) templates
+let g:syntastic_filetype_map = { 'html.twig': 'twig' }
 " syntastic: checking mode
 "let g:syntastic_mode_map = { 'mode': 'active',
 "    \ 'active_filetypes': ['ruby', 'python', 'perl', 'shell', 'puppet' ],
 "    \ 'passive_filetypes': ['php', 'html'] }
+" syntastic: map for errors window
+nnoremap <leader>e :Errors<cr>
 
 " Gundo.vim plugin: toggle undo tree and preview pane
 nnoremap <f5> :GundoToggle<cr>
 
 " git-commit-diff plugin to automatically view git diff while writing a commit message
-let g:git_diff_opts="-C -C"
-let g:git_diff_spawn_mode=1
+let g:git_diff_opts = "-C -C"
+let g:git_diff_spawn_mode = 0
 autocmd BufRead,BufNewFile COMMIT_EDITMSG setf git
 
 " vim-numbertoggle
