@@ -31,7 +31,7 @@ prompt with exit code coloring and git status information:
 
 ## Bash prompt
 
-    `# <time> <history-id> <exit-code> (<git-branch> <git-branch-tracking>|<git-local-status>) <path> $ `
+    # <time> <history-id> <exit-code> (<git-branch> <git-branch-tracking>|<git-local-status>) <path> $
 
 - `#` mitigates execution of accidental pastes in the command line
 - `<time>` as often long running commands are not called with the `time` bash builtin
