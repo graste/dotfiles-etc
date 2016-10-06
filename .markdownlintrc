@@ -1,0 +1,10 @@
+{
+    "comment": "Relaxed rules for markdown – see https://github.com/DavidAnson/markdownlint/blob/master/doc/Rules.md",
+    "default": true,
+    "ul-indent": {
+        "indent": 4
+    },
+    "line_length": false,
+    "no-inline-html": false,
+    "first-line-h1": false
+}

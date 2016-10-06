@@ -20,7 +20,7 @@ Clone the repository to a folder of your choice and copy wanted or all files:
 
 Without installed `git` you can try to use `curl` or `wget`:
 
-    `curl -#L https://github.com/graste/dotfiles-etc/tarball/master | tar -xzv --strip-components 1`
+    curl -#L https://github.com/graste/dotfiles-etc/tarball/master | tar -xzv --strip-components 1
 
 ## Screenshot
 
@@ -31,19 +31,20 @@ prompt with exit code coloring and git status information:
 
 ## Bash prompt
 
-- `# <time> <history-id> <exit-code> (<git-branch> <git-branch-tracking>|<git-local-status>) <path> $ `
-    - `#` mitigates execution of accidental pastes in the command line
-    - `<time>` as often long running commands are not called with the `time` bash builtin
-    - `<history-id>` to execute earlier commands via `!<history-id>` when seeing one in the scrollback buffer
-    - `<exit-code>` shell exit code of last command (color in bold red if it's not zero)
-    - `(<git-branch> <git-branch-tracking>|<git-local-status>)` displays detailed useful information about the git repository in the current working directory (not displayed if not in a git directory)
-        - `<git-branch>` name of the currently checked out branch
-        - `<git-branch-tracking>` number of commits ahead/behind of remote
-        - `<git-local-status>` number of staged/modified/conflicted/untracked files
-    - `<path>` current working directory shortened via `PROMPT_DIRTRIM=3` environment variable and colored according to user permissions
-        - in green: user owns directory
-        - in yellow: user is allowed to write in directory
-        - in red: user is not allowed to write in directory
+    `# <time> <history-id> <exit-code> (<git-branch> <git-branch-tracking>|<git-local-status>) <path> $ `
+
+- `#` mitigates execution of accidental pastes in the command line
+- `<time>` as often long running commands are not called with the `time` bash builtin
+- `<history-id>` to execute earlier commands via `!<history-id>` when seeing one in the scrollback buffer
+- `<exit-code>` shell exit code of last command (color in bold red if it's not zero)
+- `(<git-branch> <git-branch-tracking>|<git-local-status>)` displays detailed useful information about the git repository in the current working directory (not displayed if not in a git directory)
+    - `<git-branch>` name of the currently checked out branch
+    - `<git-branch-tracking>` number of commits ahead/behind of remote
+    - `<git-local-status>` number of staged/modified/conflicted/untracked files
+- `<path>` current working directory shortened via `PROMPT_DIRTRIM=3` environment variable and colored according to user permissions
+    - in green: user owns directory
+    - in yellow: user is allowed to write in directory
+    - in red: user is not allowed to write in directory
 
 ## Bash
 
@@ -108,14 +109,14 @@ prompt with exit code coloring and git status information:
 
 - `|&` === `2>&1 |`: standard error of command1 is connected to command2's standard input through the pipe
 - `set` command
-  - `set -o`: list currently configured shell options
-  - `set -o variable_name`: set option
-  - `set +o variable_name`: unset option
-  - `set +e ; command_that_might_fail_but_we_want_to_ignore_it ; set -e` === `command_that_might_fail_but_we_want_to_ignore_it || true`
+    - `set -o`: list currently configured shell options
+    - `set -o variable_name`: set option
+    - `set +o variable_name`: unset option
+    - `set +e ; command_that_might_fail_but_we_want_to_ignore_it ; set -e` === `command_that_might_fail_but_we_want_to_ignore_it || true`
 - `shopt` command
-  - `shopt -p`: list of some of the currently configured variables that control optional behaviour
-  - `shopt -s option_name`: enable/set option
-  - `shopt -u option_name`: disable/unset option
+    - `shopt -p`: list of some of the currently configured variables that control optional behaviour
+    - `shopt -s option_name`: enable/set option
+    - `shopt -u option_name`: disable/unset option
 - `echo $SHLVL`:  get subshell level (toplevel is 1)
 - default time format: ``TIMEFORMAT=$'\nreal\t%3lR\nuser\t%3lU\nsys\t%3lS'``
 - diff two file listings via [process substitution](http://tldp.org/LDP/abs/html/process-sub.html): ```diff <(ls -1a ./dir1) <(ls -1a ./dir2)``` or use ```diff -bur dir1 dir2```
@@ -159,7 +160,7 @@ For syntax checking with `syntastic` the following (ubuntu) packages may be usef
     - `sudo add-apt-repository ppa:chris-lea/node.js`
     - `sudo apt-get update`
     - `sudo apt-get install nodejs`
-    - `npm install -g less sass sass-lint jshint js-yaml csslint jsonlint dockerfile_lint` (`.bashrc` exports `NPM_CONFIG_PREFIX=~/.npm-global`)
+    - `npm install -g less sass sass-lint jshint js-yaml csslint jsonlint dockerfile_lint markdownlint-cli` (`.bashrc` exports `NPM_CONFIG_PREFIX=~/.npm-global`)
 - for `vim-php-namespace` to work, [exuberant-ctags](http://ctags.sourceforge.net/) is necessary.
     - `sudo apt-get install exuberant-ctags`
 - `sudo apt-get install software-properties-common python-software-properties python g++ make python-pygments`
@@ -168,14 +169,16 @@ For syntax checking with `syntastic` the following (ubuntu) packages may be usef
 ## Ctags
 
 Generate ctags completion files in your project's root folder like this:
+
 ```bash
 ctags -nR --PHP-kinds=+cf --exclude='.git' --exclude='*.phar' --exclude="*.min.js" --regex-php='/^[ \t]*trait[ \t]+([a-z0_9_]+)/\1/t,traits/i' -f tags .
 ```
+
 There's a bash function called `create-ctags` that may be called in project directories to create a `tags` file (see [`.bash/functions.sh`](.bash/functions.sh)).
 
 ## Sources/inspiration
 
-- The customized git status information prompt was adapted from: https://github.com/magicmonty/bash-git-prompt
+- The customized git status information prompt was adapted from: <https://github.com/magicmonty/bash-git-prompt>
 - various dotfiles of other people (e.g. bash functions `calc`, `json`, `gz`, `unidecode`, `escape` from @mathiasbynens)
 - [`bin/git-open`](https://github.com/paulirish/git-open)
 - [`bin/twig-lint`](https://github.com/asm89/twig-lint)

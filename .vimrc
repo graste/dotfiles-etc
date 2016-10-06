@@ -194,7 +194,7 @@ set suffixes=~,.bak,.dvi,.hi,.o,.pdf,.gz,.idx,.log,.ps,.swp,.tar,.toc,.ind
 " editor settings for file types and syntax highlighting specials
 "
 autocmd FileType make setlocal tabstop=4 noexpandtab
-autocmd FileType markdown setlocal shiftwidth=2 tabstop=2
+autocmd FileType markdown setlocal shiftwidth=4 tabstop=4
 autocmd FileType python set expandtab shiftwidth=4 tabstop=4 softtabstop=4 smartindent autoindent
 autocmd FileType ruby,haml,eruby,yaml,sass setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
 autocmd FileType text setlocal textwidth=78
@@ -419,13 +419,17 @@ let g:NERDCommentEmptyLines = 1
 
 " disable folding for vim-markdown syntax highlighting
 let g:vim_markdown_folding_disabled = 1
-let g:vim_markdown_fenced_languages = [ 'viml=vim', 'bash=sh', 'ini=dosini', 'csharp=cs', 'twig=twig', 'php=php', 'yaml=yaml', 'html=html', 'sh=sh', 'xml=xml', 'xsl=xml', 'c++=cpp', 'ruby=ruby', 'python=python', 'java=java' ]
-let g:vim_markdown_new_list_item_indent = 2
+let g:vim_markdown_new_list_item_indent = 4
+let g:vim_markdown_toc_autofit = 1
+let g:vim_markdown_conceal = 0
+let g:vim_markdown_json_frontmatter = 1
+let g:vim_markdown_fenced_languages = [ 'viml=vim', 'sh=sh', 'bash=sh', 'ini=dosini', 'csharp=cs', 'twig=twig', 'php=php', 'yaml=yaml', 'html=html', 'sh=sh', 'xml=xml', 'xsl=xml', 'c++=cpp', 'ruby=ruby', 'python=python', 'java=java' ]
 
 " vim-json: don't conceal json syntax
 let g:vim_json_syntax_conceal = 0
 
-" syntastic: check syntax on file open
+" syntastic configuration
+let g:syntastic_debug = 0
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_always_populate_loc_list = 0
@@ -454,6 +458,9 @@ let g:syntastic_puppet_checkers = ['puppet', 'puppetlint']
 let g:syntastic_yaml_checkers = ['jsyaml']
 let g:syntastic_less_checkers = ['lessc']
 let g:syntastic_go_checkers = ['go']
+let g:syntastic_markdown_checkers = ['mdl']
+let g:syntastic_markdown_mdl_exec = 'markdownlint'
+let g:syntastic_markdown_mdl_args = ''
 let g:syntastic_dockerfile_checkers = ['dockerfile_lint']
 let g:syntastic_haml_checkers = ['haml', 'haml_lint']
 let g:syntastic_perl_checkers = ['perl']

@@ -2,20 +2,25 @@
 
 SOURCE_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )/" && pwd )
 
-FILES=(
+TO_COPY=(
     .ackrc
     .bash
     .bash_aliases
     .bash_logout
     .bash_profile
     .bashrc
+    .ctags
+    .gitconfig
+    .gitignore_global
     .inputrc
+    .markdownlintrc
+    .pam_environment
     .profile
     .screenrc
-    .vimrc
-    .gitignore_global
-    .gitconfig
+    .tmux.conf
     .vim
+    .vimrc
+    .wgetrc
     bin
 )
 
@@ -23,7 +28,7 @@ SPECIAL=(
     .ssh/config
 )
 
-NUM=${#FILES[@]}
+NUM=${#TO_COPY[@]}
 echo "Hello ${USER},"
 echo ""
 echo "this script will copy (and overwrite) ${NUM} items from ${SOURCE_DIR} to ${HOME}."
@@ -46,9 +51,9 @@ for (( i = 0 ; i < NUM ; i++ ))
 do
     if [[ $@ == *all* ]]
     then
-        cp -R ${SOURCE_DIR}/${FILES[$i]} ${HOME}/
+        cp -R ${SOURCE_DIR}/${TO_COPY[$i]} ${HOME}/
     else
-        cp -iR ${SOURCE_DIR}/${FILES[$i]} ${HOME}/
+        cp -iR ${SOURCE_DIR}/${TO_COPY[$i]} ${HOME}/
     fi
 done
 
