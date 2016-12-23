@@ -471,7 +471,7 @@ let g:syntastic_filetype_map = { 'html.twig': 'twig' }
 "    \ 'active_filetypes': ['ruby', 'python', 'perl', 'shell', 'puppet' ],
 "    \ 'passive_filetypes': ['php', 'html'] }
 " syntastic: map for errors window
-nnoremap <leader>e :Errors<cr>
+nnoremap <leader>ew :Errors<cr>
 
 " Gundo.vim plugin: toggle undo tree and preview pane
 nnoremap <f5> :GundoToggle<cr>
