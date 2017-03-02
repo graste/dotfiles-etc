@@ -274,6 +274,10 @@ function words-most-freq() {
     cat $1 | tr -s '[:space:]' '\n' | tr '[:upper:]' '[:lower:]' | sort | uniq -c | sort -nr | head -10
 }
 
+function randpw() {
+    < /dev/urandom tr -dc _A-Z-a-z-0-9 | head -c${1:-16};echo;
+}
+
 # pretty print JSON strings or files
 function json() {
     if [ -t 0 ]; then
