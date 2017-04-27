@@ -4,7 +4,7 @@ if [ -r ~/.profile ]; then
 fi
 
 # if we're interactive, source ~/.bashrc if it's readable
-case $- in                                                                                                          
+case $- in
     *i*) if [ -r ~/.bashrc ]; then . ~/.bashrc; fi;;
       *) return;;
 esac
