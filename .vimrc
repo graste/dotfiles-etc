@@ -550,6 +550,9 @@ autocmd FileType php noremap <Leader>e :call PhpExpandClass()<CR>
 autocmd FileType php inoremap <Leader>s <Esc>:call PhpSortUse()<CR>
 autocmd FileType php noremap <Leader>s :call PhpSortUse()<CR>
 
+" vim-php-refactoring-toolbox
+let g:vim_php_refactoring_make_setter_fluent = 1
+
 " enable ctags support and tell vim to automatically
 " recursively search in parent directories for tags file
 set autochdir
@@ -568,7 +571,7 @@ map <leader>gv :vsp <cr>:exec("tag ".expand("<cword>"))<cr>
 " See also http://css-tricks.com/words-avoid-educational-writing/
 "
 "   obviously, basically, simply, of course, clearly,
-"   just, everyone knows, However, So, easy
+"   just, everyone knows, However, so, easy
 highlight TechWordsToAvoid ctermbg=red ctermfg=white
 function MatchTechWordsToAvoid()
     match TechWordsToAvoid /\c\<\(obviously\|basically\|simply\|of\scourse\|clearly\|just\|everyone\sknows\|however\|so,\|easy\)\>/

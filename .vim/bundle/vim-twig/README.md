@@ -1,16 +1,13 @@
-vim-twig
-========
+# Twig syntax and snippets for Vim
 
-[Twig](http://twig.sensiolabs.org) syntax and snippets.  
+[Twig](https://twig.symfony.com/) syntax and snippets.  
 Based on [evidens vim-twig](https://github.com/evidens/vim-twig)
 
-syntax
-------
+## Syntax
 
 `*.html.twig`, `*.twig`
 
-snippets
---------
+## Snippets
 
 ```
 {

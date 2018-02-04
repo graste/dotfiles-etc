@@ -4,9 +4,9 @@ vim-php-namespace is a vim plugin for inserting "use" statements automatically.
 
 ## Features
 
-### Import classes (add use statements)
+### Import classes or functions (add use statements)
 
-Automatically adds the corresponding `use` statement for the class under the cursor.
+Automatically adds the corresponding `use` statement for the name under the cursor.
 
 To use this feature, add the following mappings in `~/.vimrc`:
 
@@ -18,16 +18,16 @@ To use this feature, add the following mappings in `~/.vimrc`:
     autocmd FileType php noremap <Leader>u :call PhpInsertUse()<CR>
 
 
-Then, hitting `\u` in normal or insert mode will import the class under the cursor.
+Then, hitting `\u` in normal or insert mode will import the class or function under the cursor.
 
 ``` php
 <?php
 new Response<-- cursor here or on the name; hit \u now to insert the use statement
 ```
 
-### Make class names fully qualified
+### Make class or function names fully qualified
 
-Expands the class name under the cursor to its fully qualified name.
+Expands the name under the cursor to its fully qualified name.
 
 To use this feature, add the following mappings  in `~/.vimrc`:
 
@@ -38,7 +38,7 @@ To use this feature, add the following mappings  in `~/.vimrc`:
     autocmd FileType php inoremap <Leader>e <Esc>:call IPhpExpandClass()<CR>
     autocmd FileType php noremap <Leader>e :call PhpExpandClass()<CR>
 
-Then, hitting `\e` in normal or insert mode will expand the class name to a fully qualified name.
+Then, hitting `\e` in normal or insert mode will expand the name to a fully qualified name.
 
 ``` php
 <?php
@@ -57,7 +57,7 @@ This vim plugin defines a `PhpSortUse()` you may use in your mappings:
     autocmd FileType php inoremap <Leader>s <Esc>:call PhpSortUse()<CR>
     autocmd FileType php noremap <Leader>s :call PhpSortUse()<CR>
 
-On top of that, you may want to have the dependencies every time you insert one.
+On top of that, you may want to have the dependencies sorted every time you insert one.
 To enable this feature, use the dedicated global option:
 
     let g:php_namespace_sort_after_insert = 1
@@ -68,6 +68,20 @@ To enable this feature, use the dedicated global option:
 
 ``` sh
 git clone git://github.com/arnaud-lb/vim-php-namespace.git ~/.vim/bundle/vim-php-namespace
+```
+
+### Using [vim-plug](https://github.com/junegunn/vim-plug)
+
+Add to vimrc:
+
+``` vim
+Plug 'arnaud-lb/vim-php-namespace'
+```
+
+Run command in vim:
+
+``` vim
+:PlugInstall
 ```
 
 ### Using [vundle](https://github.com/gmarik/vundle)
@@ -92,25 +106,23 @@ Download and copy `plugin/phpns.vim` to `~/.vim/plugin/`
 
 ### Generate a tag file
 
-The plugin makes use of tag files. If you don't already use a tag file you may create one with the following command; after having installed the `ctags` or `ctags-exuberant` package:
+The plugin makes use of tag files. If you don't already use a tag file you may create one with the following command; after having installed the `ctags` package:
 
-    ctags-exuberant -R --PHP-kinds=+cf
-
-or
-
-    ctags -R --PHP-kinds=+cf
+    ctags -R --PHP-kinds=cfi
 
 #### Traits
 
-ctags doesn't indexes [traits](http://php.net/traits) by default, you have to add a `--regex-php` option to index them:
+[universal-ctags] supports traits natively (with `--php-kinds=cfit`).
 
-    ctags -R --PHP-kinds=+cf --regex-php=/^[ \t]*trait[ \t]+([a-z0_9_]+)/\1/t,traits/i
+If you can't use universal-ctags, the `--regex-php` argument allows to extract traits:
 
-Alternatively, create a `~/.ctags` file with the following contents:
+    ctags -R --PHP-kinds=cfi --regex-php="/^[ \t]*trait[ \t]+([a-z0_9_]+)/\1/t,traits/i"
+
+You can also create a `~/.ctags` file with the following contents:
 
     --regex-php=/^[ \t]*trait[ \t]+([a-z0_9_]+)/\1/t,traits/i
 
-You could also use [this patched version of ctags](https://github.com/shawncplus/phpcomplete.vim/wiki/Patched-ctags)
+Note that using `--regex-php=` is 10x slower than using universal-ctags.
 
 #### Automatically updating tags
 
@@ -119,10 +131,10 @@ The [AutoTags](http://www.vim.org/scripts/script.php?script_id=1343) plugin can 
 To keep updates fast, AutoTags won't operate if the tags file exceeds 7MB. To avoid exceeding this limit on projects with many dependencies, use a separate tags file for dependencies:
 
     # dependencies tags file (index only the vendor directory, and save tags in ./tags.vendors)
-    ctags -R --PHP-kinds=+cf -f tags.vendors vendor
+    ctags -R --PHP-kinds=cfi -f tags.vendors vendor
 
     # project tags file (index only src, and save tags in ./tags; AutoTags will update this one)
-    ctags -R --PHP-kinds=+cf src
+    ctags -R --PHP-kinds=cfi src
 
 Do not forget to load both files in vim:
 
