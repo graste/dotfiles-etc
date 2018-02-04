@@ -58,7 +58,7 @@ set matchpairs+=<:>         " allow ci< or di< etc. to work (instead of only ci"
 set matchtime=5             " # of 10ths of a second to blink matching brackets
 set noerrorbells            " no annoying sound on errors
 set novisualbell            " do not use a visual bell for notifications
-"set number                 " display absolute line numbers
+set number                  " display absolute line numbers
 set relativenumber          " display relative line numbers
 set ruler                   " show the cursor position all the time
 set showcmd                 " show command characters
@@ -480,9 +480,6 @@ nnoremap <f5> :GundoToggle<cr>
 let g:git_diff_opts = "-C -C"
 let g:git_diff_spawn_mode = 0
 autocmd BufRead,BufNewFile COMMIT_EDITMSG setf git
-
-" vim-numbertoggle
-let g:NumberToggleTrigger="<f3>"
 
 " NerdTree
 " - open with <Leader>n

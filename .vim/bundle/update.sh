@@ -18,7 +18,6 @@ REPOS=(
     "textile.vim https://github.com/timcharper/textile.vim"
     "vim-haml https://github.com/tpope/vim-haml"
     "vim-markdown https://github.com/plasticboy/vim-markdown"
-    "vim-numbertoggle https://github.com/jeffkreeftmeijer/vim-numbertoggle"
     "vim-php-namespace https://github.com/arnaud-lb/vim-php-namespace"
     "vim-repeat https://github.com/tpope/vim-repeat"
     "vim-surround https://github.com/tpope/vim-surround"
