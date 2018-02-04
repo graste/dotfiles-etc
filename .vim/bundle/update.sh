@@ -26,6 +26,7 @@ REPOS=(
     "vim-php-refactoring-toolbox https://github.com/adoy/vim-php-refactoring-toolbox"
     "vim-json https://github.com/elzr/vim-json"
     "gundo.vim https://github.com/sjl/gundo.vim"
+    "rust.vim https://github.com/rust-lang/rust.vim"
 )
 
 TEMP_DIR="$CURRENT_DIR/tmp"
