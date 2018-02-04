@@ -138,6 +138,9 @@ function setGitPrompt()
 function update_current_git_vars()
 {
     unset __CURRENT_GIT_STATUS
+    if [[ "no" == "${USE_GIT_IN_PROMPT:-yes}" ]]; then
+        return
+    fi
     local gitstatus="$HOME/.bash/gitstatus.py"
 
     _GIT_STATUS=$(python $gitstatus)

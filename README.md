@@ -46,6 +46,11 @@ prompt with exit code coloring and git status information:
     - in yellow: user is allowed to write in directory
     - in red: user is not allowed to write in directory
 
+You can disable the `git` part of the prompt by exporting `USE_GIT_IN_PROMPT=no`:
+
+    # 18:11:01 0 (master|✚ 1) ~/projects/graste/dotfiles-etc $ export USE_GIT_IN_PROMPT=no
+    # 18:11:03 0 ~/projects/graste/dotfiles-etc $ 
+
 ## Bash
 
 - RTFM: [Bash Reference Manual](http://www.gnu.org/software/bash/manual/bashref.html)
