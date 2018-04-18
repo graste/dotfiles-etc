@@ -187,6 +187,12 @@ set wildignore+=*.pyc       " ignore Python compiled files
 set wildignore+=*.rbc       " ignore Rubinius compiled files
 set wildignore+=*.swp       " ignore vim backups
 set wildignore+=*.so,*.swp,*.zip,*.gz,*.min.js,*.o " ignore some more filetypes
+set wildignore+=**/node_modules/**
+set wildignore+=**/bower_components/**
+set wildignore+=**/dist/**
+set wildignore+=**/coverage/**
+set wildignore+=**/.bundle/**
+set wildignore+=**/.sass-cache/**
 " ignore some files when using TAB key with :e
 set suffixes=~,.bak,.dvi,.hi,.o,.pdf,.gz,.idx,.log,.ps,.swp,.tar,.toc,.ind
 
