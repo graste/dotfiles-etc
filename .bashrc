@@ -95,6 +95,8 @@ else
     echo "Remote login..."
 fi
 
+export USE_GIT_IN_PROMPT=no
+
 # source function definitions
 if [ -d "${HOME}/.bash" ]; then
     . ${HOME}/.bash/environment.sh
