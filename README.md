@@ -161,10 +161,9 @@ The `~/.pam_environment` file contains session-wide user-environment locale sett
 For syntax checking with `syntastic` the following (ubuntu) packages may be useful:
 
 - `sudo apt-get install pylint tidy libxml2-utils make puppet-lint`
-- for other (nodejs based) linters:
-    - `sudo add-apt-repository ppa:chris-lea/node.js`
-    - `sudo apt-get update`
-    - `sudo apt-get install nodejs`
+- for other (nodejs based) linters (see [here for nodejs install](https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions) or use [chris lea PPA on older Ubuntu](https://launchpad.net/~chris-lea/+archive/ubuntu/node.js/):
+    - `curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -`
+    - `sudo apt-get install -y nodejs`
     - `npm install -g less sass sass-lint jshint js-yaml csslint jsonlint dockerfile_lint markdownlint-cli` (`.bashrc` exports `NPM_CONFIG_PREFIX=~/.npm-global`)
 - for `vim-php-namespace` to work, [exuberant-ctags](http://ctags.sourceforge.net/) is necessary.
     - `sudo apt-get install exuberant-ctags`
