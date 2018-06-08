@@ -20,6 +20,9 @@
     tags = tag -l
     branches = branch -a
     remotes = remote -v
+    # current branch name
+    localbranch = rev-parse --abbrev-ref HEAD
+    currentbranch = status | head -1
     # latest tag
     latest-tag = describe --tags --abbrev=0
     # useful stuff
@@ -72,6 +75,10 @@
     show-merged-branches = "!git branch --merged | grep -v '\\*'"
     # show all changes of a specific file including renames etc.
     show-file-changes = log --follow --stat -p
+    # list all commits for given branch(es) that are not in the current branch
+    find-missing-commits = "!f() { git log $@ ^$(git rev-parse --abbrev-ref HEAD) --no-merges --oneline; }; f"
+    # list all commit messages for given branch(es) that are not in the current branch
+    find-missing-commits-verbose = "!f() { git log $@ ^$(git rev-parse --abbrev-ref HEAD) --no-merges; }; f"
 [apply]
     # detect a new or modified line that has whitespace errors when applying a patch
     # see: core.whitespace configuration
