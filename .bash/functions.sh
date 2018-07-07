@@ -1,7 +1,7 @@
 # create ctags file in current folder
 function create-ctags()
 {
-    ctags -nR --PHP-kinds=cfi --exclude='.git' --exclude=".svn" --exclude="cache" --exclude="codecache" --exclude="*.phar" --exclude="log" --exclude="node_modules" --exclude="bower_components" --exclude=".tmp" --exclude="*.min.js" --regex-php='/^[ \t]*trait[ \t]+([a-z0_9_]+)/\1/t,traits/i' -f tags .
+    ctags -nR --PHP-kinds=cfi --exclude='.git' --exclude=".svn" --exclude="cache" --exclude=".cache" --exclude="codecache" --exclude="*.phar" --exclude="log" --exclude="node_modules" --exclude="bower_components" --exclude=".tmp" --exclude="*.min.js" --regex-php='/^[ \t]*trait[ \t]+([a-z0_9_]+)/\1/t,traits/i' -f tags .
 }
 
 # traverse into every folder and pull rebase changes (but don't autostash local modifications)
