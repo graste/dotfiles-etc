@@ -71,15 +71,18 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-# source system wide bash completions
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
-    . /etc/bash_completion
-fi
-
-# not sure if this is necessary as /etc/bash_completion may have already sourced that...
-if [ -f /usr/share/bash-completion/bash_completion ] && ! shopt -oq posix; then
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
     . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
 fi
+# 
+
 
 # timeout bash after N seconds if current user is root
 if [ $(id -u) = 0 ] ; then 
