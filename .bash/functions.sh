@@ -10,16 +10,38 @@ function git-pull-rebase-all-folders()
     find . -mindepth 1 -maxdepth 1 -type d -exec bash -c 'cd "$1"; echo "$1"; git pull --rebase --no-autostash' -- {} \;
 }
 
+function kubernetes-lint()
+{
+    if [ $# -ne 1 ]; then
+        echo "Error: Please provide a k8s yaml file or relative path to a folder with k8s yaml files."
+        return 1
+    fi
+    echo "Using strict kubernetes validation. For details see: https://kubeval.instrumenta.dev/"
+    echo ""
+    if [ -f $1 ] ; then
+        docker run --rm -i garethr/kubeval --strict < $1
+    else
+        docker run -it -v $(pwd)/$1:/microk8s garethr/kubeval --strict microk8s/*.yaml
+    fi
+}
+
+function docker-lint()
+{
+    echo "Checking dockerfile. For errors/rules see: https://github.com/hadolint/hadolint#rules"
+    echo ""
+    docker run --rm -i hadolint/hadolint:latest-debian < ${1:-Dockerfile}
+}
+
 # curl -sS https://getcomposer.org/installer | php
 function getcomposer()
 {
-    EXPECTED_SIGNATURE=$(wget https://composer.github.io/installer.sig -O - -q)
+    local EXPECTED_SIGNATURE=$(wget https://composer.github.io/installer.sig -O - -q)
     php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-    ACTUAL_SIGNATURE=$(php -r "echo hash_file('SHA384', 'composer-setup.php');")
+    local ACTUAL_SIGNATURE=$(php -r "echo hash_file('SHA384', 'composer-setup.php');")
     if [ "$EXPECTED_SIGNATURE" = "$ACTUAL_SIGNATURE" ]
     then
         php composer-setup.php
-        RESULT=$?
+        local RESULT=$?
         if [[ $RESULT -ne 0 ]] ; then
             echo "INSTALLATION OF COMPOSER FAILED!"
         else
@@ -35,9 +57,9 @@ function getcomposer()
 # awk column print shorthand, e.g. print 2nd column: "df -h | fawk 2"
 function fawk
 {
-    first="awk '{print "
-    last="}' $2"
-    cmd="${first}\$${1}${last}"
+    local first="awk '{print "
+    local last="}' $2"
+    local cmd="${first}\$${1}${last}"
     echo $cmd
     eval $cmd
 }
@@ -137,7 +159,7 @@ function down4me()
 # try to determine the public ip address
 function my-public-ip()
 {
-    response=$(curl -s checkip.dyndns.org | grep -Eo '[0-9\.]+')
+    local response=$(curl -s checkip.dyndns.org | grep -Eo '[0-9\.]+')
     echo -e "Your public IP address is: \033[1;32m$response\033[0m"
 }
 

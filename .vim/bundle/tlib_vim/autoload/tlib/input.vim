@@ -1,7 +1,7 @@
 " @Author:      Tom Link (micathom AT gmail com?subject=[vim])
 " @Website:     http://www.vim.org/account/profile.php?user_id=4037
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
-" @Revision:    1425
+" @Revision:    1430
 
 " :filedoc:
 " Input-related, select from a list etc.
@@ -457,7 +457,7 @@ function! tlib#input#ListW(world, ...) "{{{3
                             let time6 = str2float(reltimestr(reltime()))
                             Tlibtrace 'tlib', time6, time6 - time0
                             if world.offset_horizontal > 0
-                                call map(dlist, 'v:val[world.offset_horizontal:-1]')
+                                call map(dlist, 'tlib#string#Strcharpart(v:val, world.offset_horizontal)')
                             endif
                             let time7 = str2float(reltimestr(reltime()))
                             Tlibtrace 'tlib', time7, time7 - time0
@@ -773,7 +773,7 @@ function! tlib#input#ListW(world, ...) "{{{3
             else
                 Tlibtrace 'tlib', world.state, world.win_id, world.bufnr
                 if world.CloseScratch(1)
-                    Tlibtrace 'tlib', world.winview
+                    Tlibtrace 'tlib', get(world,'winview','')
                     call tlib#win#SetLayout(world.winview)
                 endif
             endif

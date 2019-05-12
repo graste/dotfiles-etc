@@ -202,7 +202,8 @@ set suffixes=~,.bak,.dvi,.hi,.o,.pdf,.gz,.idx,.log,.ps,.swp,.tar,.toc,.ind
 autocmd FileType make setlocal tabstop=4 noexpandtab
 autocmd FileType markdown setlocal shiftwidth=4 tabstop=4
 autocmd FileType python set expandtab shiftwidth=4 tabstop=4 softtabstop=4 smartindent autoindent
-autocmd FileType ruby,haml,eruby,yaml,sass setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
+autocmd FileType ruby,haml,eruby,sass setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
+autocmd FileType yaml setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
 autocmd FileType text setlocal textwidth=78
 " autocmd FileType twig setlocal filetype=twig
 autocmd FileType vim setlocal shiftwidth=2 tabstop=2

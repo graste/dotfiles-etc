@@ -3,8 +3,8 @@
 " @Website:     http://www.vim.org/account/profile.php?user_id=4037
 " @License:     GPL (see http://www.gnu.org/licenses/gpl.txt)
 " @Created:     2007-06-30.
-" @Last Change: 2017-08-13.
-" @Revision:    119.1.243
+" @Last Change: 2019-01-02.
+" @Revision:    125.1.243
 
 
 " The cache directory. If empty, use |tlib#dir#MyRuntime|.'/cache'.
@@ -182,6 +182,7 @@ function! tlib#cache#Save(cfile, value, ...) "{{{3
         else
             let value = string(a:value)
         endif
+        Tlibtrace 'tlib', cfile, value
         call writefile([value], cfile, 'b')
         call s:SetTimestamp(a:cfile, 'write')
     endif
@@ -232,18 +233,22 @@ function! tlib#cache#Get(cfile, ...) "{{{3
                     else
                         let value = eval(val)
                     endif
+                    call s:PutValue(cfile, value)
+                    return value
                 catch
                     echohl ErrorMsg
                     echom v:exception
                     echom 'tlib#cache#Get: Invalid value in:' cfile
                     echom 'Value:' string(val)
+                    echom 'Please review the file and delete it if necessary'
+                    echom 'Will use default value:' string(default)
                     echohl NONE
                     if g:tlib#debug
                         let @* = string(val)
                     endif
+                    " call s:PutValue(cfile, default)
+                    return default
                 endtry
-                call s:PutValue(cfile, value)
-                return value
             endif
         endif
         return default
@@ -346,7 +351,7 @@ function! tlib#cache#Purge() "{{{3
     try
         for file in files
             if isdirectory(file)
-                if empty(filter(copy(newer), 'strpart(v:val, 0, len(file)) ==# file'))
+                if empty(filter(copy(newer), 'tlib#string#Strcharpart(v:val, 0, len(file)) ==# file'))
                     call add(deldir, file)
                 endif
             else
@@ -441,7 +446,7 @@ function! tlib#cache#ListFilesInCache(...) "{{{3
     endif
     let files = reverse(split(filess, '\n'))
     let pos0 = len(tlib#dir#CanonicName(dir))
-    call filter(files, 's:ShouldPurge(strpart(v:val, pos0))')
+    call filter(files, 's:ShouldPurge(tlib#string#Strcharpart(v:val, pos0))')
     return files
 endf
 
