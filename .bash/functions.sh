@@ -10,6 +10,28 @@ function git-pull-rebase-all-folders()
     find . -mindepth 1 -maxdepth 1 -type d -exec bash -c 'cd "$1"; echo "$1"; git pull --rebase --no-autostash' -- {} \;
 }
 
+
+function kubernetes-install()
+{
+    echo "Downloading kubectl…"
+    curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+    echo "Making kubectl executable…"
+    chmod +x ./kubectl
+    ./kubectl version
+    echo "Moving kubectl into /usr/local/bin/kubectl…"
+    sudo mv ./kubectl /usr/local/bin/kubectl
+    kubectl version
+    echo "Installing bash-completion…"
+    kubectl completion bash > kubectl_completion_bash
+    sudo mv kubectl_completion_bash /etc/bash_completion.d/kubectl
+    echo "Downloading kubelogin…"
+    curl -LO https://github.com/int128/kubelogin/releases/download/v$(curl -s 'https://api.github.com/repos/int128/kubelogin/releases/latest' | grep '"tag_name":' | cut -d'"' -f4 | cut -d'v' -f2)/kubelogin_linux_amd64.zip
+    echo "Extracting kubelogin and making it executable…"
+    unzip kubelogin_linux_amd64.zip
+    chmod +x ./kubelogin
+    sudo mv ./kubelogin /usr/local/bin/kubelogin
+}
+
 function kubernetes-lint()
 {
     if [ $# -ne 1 ]; then
