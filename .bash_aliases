@@ -147,7 +147,8 @@ alias fastping='ping -c 100 -i.2'
 # find all symlinks pointing to their parent directories or above
 alias symlinks-to-parent-directories="find . -type l -printf \"'%p' -> '%l'\n\" | grep '\.\./'"
 
-
+# docker poor men's prune
+alias docker-clean='docker rm $(docker ps -a -q) && docker rmi $(docker images -q) && docker ps -a | cut -c-12 | xargs docker rm'
 
 #
 # cool stuff
