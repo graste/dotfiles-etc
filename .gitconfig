@@ -124,6 +124,8 @@
     renameLimit = 9999
     # one of: myers (default) | minimal | patience | histogram
     algorithm = histogram
+    # remove /a and /b before files
+    noprefix=true
 [help]
     format = man
     # 0 = show mistyped command candidate | n = number of deciseconds prior to automatic execution of the one candidate
