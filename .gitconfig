@@ -17,7 +17,7 @@
     di = diff
     st = status
     # list tags, branches and remotes
-    tags = tag -l
+    tags = tag -l --sort=creatordate
     branches = branch -a
     remotes = remote -v
     # current branch name
@@ -129,7 +129,7 @@
 [help]
     format = man
     # 0 = show mistyped command candidate | n = number of deciseconds prior to automatic execution of the one candidate
-    autoCorrect = 50
+    autoCorrect = 30
 [merge]
     # <<<< |||| >>>> - includes local version in addition to left and right stuff
     conflictstyle = diff3
@@ -138,6 +138,10 @@
 [pack]
     # autodetect number of cpu cores – this is faster, but hijacks all cpu cores on huge repos
     threads = 0
+#[pull]
+    # preserve the history of everybody and avoid origin merge commits
+    # this means, that "git pull --rebase" preserves sync-merges (by default local merges are dropped)
+    #rebase = preserve
 [push]
     # current = only push to the same named remote branch
     # matching = push all matching local branches (default for git < v2.0)
@@ -171,12 +175,24 @@
     # normal | no | all
     showUntrackedFiles = normal
     # summary of commits for modified submodules (true = -1 = unlimited; use a number otherwise)
-    submodulesummary = true
+    submoduleSummary = true
 [stash]
     # "git stash show" displays patch
     showPatch = true
     # "git stash show" displays diff stats
     showStat = true
+[tag]
+    # sort by version numbers by default instead of lexicographic search
+    sort = version:refname
+[versionsort]
+    # sort by version number should sort v1.0-rcX before v1.0 etc.
+    suffix = -
+    suffix = -pre
+    suffix = .pre
+    suffix = -beta
+    suffix = .beta
+    suffix = -rc
+    suffix = .rc
 [uploadpack]
     # defaults to 5 seconds, 0 disables it
     keepAlive = 20
