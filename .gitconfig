@@ -130,6 +130,8 @@
     format = man
     # 0 = show mistyped command candidate | n = number of deciseconds prior to automatic execution of the one candidate
     autoCorrect = 30
+[init]
+    defaultBranch = main
 [merge]
     # <<<< |||| >>>> - includes local version in addition to left and right stuff
     conflictstyle = diff3
@@ -211,4 +213,4 @@
 
 # bin/git-open bash script needs this to know the gitlab url to use
 [gitopen "gitlab"]
-        domain = https://gitlab.berlinonline.net/
+    domain = https://gitlab.berlinonline.net/
