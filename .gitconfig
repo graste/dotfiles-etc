@@ -79,6 +79,12 @@
     find-missing-commits = "!f() { git log $@ ^$(git rev-parse --abbrev-ref HEAD) --no-merges --oneline; }; f"
     # list all commit messages for given branch(es) that are not in the current branch
     find-missing-commits-verbose = "!f() { git log $@ ^$(git rev-parse --abbrev-ref HEAD) --no-merges; }; f"
+    # find commit with deleted file
+    find-commit-where-file-was-deleted = rev-list -n 1 HEAD -- 
+    # restore deleted file from commit before it was deleted
+    undelete-file = "!f() { git checkout $(git rev-list -n 1 HEAD -- $1)^ -- $1; }; f"
+    # skip gitlab CI build
+    push-ohne-gitlab-ci = push -o ci.skip
 [apply]
     # detect a new or modified line that has whitespace errors when applying a patch
     # see: core.whitespace configuration
