@@ -65,7 +65,8 @@ alias chown='chown --preserve-root'
 alias chmod='chmod --preserve-root'
 alias chgrp='chgrp --preserve-root'
 
-
+# list processes with memory percentage column
+alias psmem="ps -o pid,user,%mem,command ax | sort -b -k3 -r"
 
 #
 # various system, services and directory information
