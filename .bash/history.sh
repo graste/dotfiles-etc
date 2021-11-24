@@ -7,6 +7,9 @@ export HISTSIZE=5000
 # history file length
 export HISTFILESIZE=10000
 
+# put full date and time in history file
+export HISTTIMEFORMAT="%F %T "
+
 # blacklist some sensitive history entries here if necessary (":" as separator)
 #export HISTIGNORE="&:[ ]*:truecrypt -P*:sudo*"
 export HISTIGNORE="&:[ ]*:ls:ll:la:[bf]g:exit:truecrypt -P*"
