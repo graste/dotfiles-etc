@@ -2,6 +2,7 @@ Before:
   unlet! b:mkd_known_filetypes
   unlet! b:mkd_included_filetypes
   unlet! g:vim_markdown_math
+  unlet! b:liquid_subtype
 
 Given markdown;
 a **b** c
@@ -634,7 +635,8 @@ Given markdown;
 
 Execute (link with url title):
   AssertEqual SyntaxOf('https://domain.tld'), 'mkdInlineURL'
-  AssertEqual SyntaxOf('https://domain.com'), 'mkdInlineURL'
+  AssertNotEqual SyntaxOf(']'), 'mkdInlineURL'
+  AssertEqual SyntaxOf('https://domain.com'), 'mkdURL'
   AssertNotEqual SyntaxOf('not_a_link'), 'mkdInlineURL'
 
 # Code Blocks
@@ -738,12 +740,18 @@ def a
 end
 ```
 
+```ruby {linenos=table,hl_lines=[8,"15-17"],linenostart=199}
+class b
+end
+```
+
 Execute (fenced code block syntax with a language specifier):
   let b:func = Markdown_GetFunc('vim-markdown/ftplugin/markdown.vim', 'MarkdownRefreshSyntax')
   call b:func(0)
   AssertEqual SyntaxOf('include'), 'cInclude'
   AssertEqual SyntaxOf('code'), 'mkdSnippetCPP'
   AssertEqual SyntaxOf('def'), 'rubyDefine'
+  AssertEqual SyntaxOf('class'), 'rubyClass'
 
 Given markdown;
 ``` c++
@@ -847,6 +855,17 @@ a
 
 Execute (fenced code block with extended info strings):
   AssertEqual SyntaxOf('a'), 'mkdCode'
+
+Given liquid;
+```vim
+let g:a = 1
+```
+
+Execute (fenced code block syntax in liquid file with markdown subtype):
+  let b:liquid_subtype = 'markdown'
+  let b:func = Markdown_GetFunc('vim-markdown/ftplugin/markdown.vim', 'MarkdownRefreshSyntax')
+  call b:func(0)
+  AssertEqual SyntaxOf('g:a'), 'vimVar'
 
 # Code Blocks in pre and code tag
 
@@ -957,12 +976,12 @@ $$ \frac{a}{b} $$
 Execute (math tex highlighting):
   let g:vim_markdown_math=0
   syn off | syn on
-  AssertNotEqual SyntaxOf('sqrt'), 'texStatement'
-  AssertNotEqual SyntaxOf('frac'), 'texStatement'
+  AssertNotEqual SyntaxOf('sqrt')[0:2], 'tex'
+  AssertNotEqual SyntaxOf('frac')[0:2], 'tex'
   let g:vim_markdown_math=1
   syn off | syn on
-  AssertEqual SyntaxOf('sqrt'), 'texStatement'
-  AssertEqual SyntaxOf('frac'), 'texStatement'
+  AssertEqual SyntaxOf('sqrt')[0:2], 'tex'
+  AssertEqual SyntaxOf('frac')[0:2], 'tex'
 
 Given markdown;
 $a b[$ c
@@ -985,7 +1004,7 @@ Execute (math ends with $$):
   AssertNotEqual SyntaxOf('c')[0:2], 'tex'
 
 Given markdown;
-$(0 \le 1)$
+$(0 \leq 1)$
 
 Execute (math conceal in $):
   if has('conceal')
@@ -996,20 +1015,21 @@ Execute (math conceal in $):
     AssertEqual synconcealed(1, 2)[0], 0
     AssertEqual synconcealed(1, 3)[0], 0
     AssertEqual synconcealed(1, 4)[0], 0
-    AssertEqual synconcealed(1, 5)[0], 1, '\le'
+    AssertEqual synconcealed(1, 5)[0], 1, '\leq'
     AssertEqual synconcealed(1, 6)[0], 1
     AssertEqual synconcealed(1, 7)[0], 1
-    AssertEqual synconcealed(1, 8)[0], 0
+    AssertEqual synconcealed(1, 8)[0], 1
     AssertEqual synconcealed(1, 9)[0], 0
     AssertEqual synconcealed(1, 10)[0], 0
-    AssertEqual synconcealed(1, 11)[0], 1, '$'
+    AssertEqual synconcealed(1, 11)[0], 0
+    AssertEqual synconcealed(1, 12)[0], 1, '$'
     setlocal conceallevel=0
   endif
 
 Given markdown;
 $$
 \omega
-0 \le 1
+0 \leq 1
 $$
 
 Execute (math conceal in $$):
@@ -1020,8 +1040,8 @@ Execute (math conceal in $$):
     AssertEqual synconcealed(1, 1)[0], 1, '$$'
     AssertEqual synconcealed(2, 1)[0], 1, '\omega'
     AssertEqual synconcealed(3, 1)[0], 0, '0'
-    AssertEqual synconcealed(3, 3)[0], 1, '\le'
-    AssertEqual synconcealed(3, 7)[0], 0, '1'
+    AssertEqual synconcealed(3, 3)[0], 1, '\leq'
+    AssertEqual synconcealed(3, 8)[0], 0, '1'
     AssertEqual synconcealed(4, 1)[0], 1, '$$'
     setlocal conceallevel=0
   endif
@@ -1282,3 +1302,227 @@ Execute (HTML tag in text):
   AssertEqual SyntaxOf('span'), 'htmlTagName'
   AssertEqual SyntaxOf('<span>'), 'htmlTag'
   AssertEqual SyntaxOf('</span>'), 'htmlEndTag'
+
+Given markdown;
+# _h1_
+
+## _h2_
+
+### _h3_
+
+#### _h4_
+
+##### _h5_
+
+###### _h6_
+
+Execute (underscore italic text in atx headings):
+  AssertEqual SyntaxOf('h1'), 'htmlItalic'
+  AssertEqual SyntaxOf('h2'), 'htmlItalic'
+  AssertEqual SyntaxOf('h3'), 'htmlItalic'
+  AssertEqual SyntaxOf('h4'), 'htmlItalic'
+  AssertEqual SyntaxOf('h5'), 'htmlItalic'
+  AssertEqual SyntaxOf('h6'), 'htmlItalic'
+
+Given markdown;
+# *h1*
+
+## *h2*
+
+### *h3*
+
+#### *h4*
+
+##### *h5*
+
+###### *h6*
+
+Execute (asterisk italic text in atx headings):
+  AssertEqual SyntaxOf('h1'), 'htmlItalic'
+  AssertEqual SyntaxOf('h2'), 'htmlItalic'
+  AssertEqual SyntaxOf('h3'), 'htmlItalic'
+  AssertEqual SyntaxOf('h4'), 'htmlItalic'
+  AssertEqual SyntaxOf('h5'), 'htmlItalic'
+  AssertEqual SyntaxOf('h6'), 'htmlItalic'
+
+Given markdown;
+_h1_
+=
+
+_h2_
+-
+
+Execute (underscore italic text in setext headings):
+  AssertEqual SyntaxOf('h1'), 'htmlItalic'
+  AssertEqual SyntaxOf('h2'), 'htmlItalic'
+
+Given markdown;
+*h1*
+=
+
+*h2*
+-
+
+Execute (asterisk italic text in setext headings):
+  AssertEqual SyntaxOf('h1'), 'htmlItalic'
+  AssertEqual SyntaxOf('h2'), 'htmlItalic'
+
+Given markdown;
+# __h1__
+
+## __h2__
+
+### __h3__
+
+#### __h4__
+
+##### __h5__
+
+###### __h6__
+
+Execute (underscore bold text in atx headings):
+  AssertEqual SyntaxOf('h1'), 'htmlBold'
+  AssertEqual SyntaxOf('h2'), 'htmlBold'
+  AssertEqual SyntaxOf('h3'), 'htmlBold'
+  AssertEqual SyntaxOf('h4'), 'htmlBold'
+  AssertEqual SyntaxOf('h5'), 'htmlBold'
+  AssertEqual SyntaxOf('h6'), 'htmlBold'
+
+Given markdown;
+# **h1**
+
+## **h2**
+
+### **h3**
+
+#### **h4**
+
+##### **h5**
+
+###### **h6**
+
+Execute (asterisk bold text in atx headings):
+  AssertEqual SyntaxOf('h1'), 'htmlBold'
+  AssertEqual SyntaxOf('h2'), 'htmlBold'
+  AssertEqual SyntaxOf('h3'), 'htmlBold'
+  AssertEqual SyntaxOf('h4'), 'htmlBold'
+  AssertEqual SyntaxOf('h5'), 'htmlBold'
+  AssertEqual SyntaxOf('h6'), 'htmlBold'
+
+Given markdown;
+__h1__
+=
+
+__h2__
+-
+
+Execute (underscore bold text in setext headings):
+  AssertEqual SyntaxOf('h1'), 'htmlBold'
+  AssertEqual SyntaxOf('h2'), 'htmlBold'
+
+Given markdown;
+**h1**
+=
+
+**h2**
+-
+
+Execute (asterisk bold text in setext headings):
+  AssertEqual SyntaxOf('h1'), 'htmlBold'
+  AssertEqual SyntaxOf('h2'), 'htmlBold'
+
+Given markdown;
+# ___h1___
+
+## ___h2___
+
+### ___h3___
+
+#### ___h4___
+
+##### ___h5___
+
+###### ___h6___
+
+Execute (underscore bold italic text in atx headings):
+  AssertEqual SyntaxOf('h1'), 'htmlBoldItalic'
+  AssertEqual SyntaxOf('h2'), 'htmlBoldItalic'
+  AssertEqual SyntaxOf('h3'), 'htmlBoldItalic'
+  AssertEqual SyntaxOf('h4'), 'htmlBoldItalic'
+  AssertEqual SyntaxOf('h5'), 'htmlBoldItalic'
+  AssertEqual SyntaxOf('h6'), 'htmlBoldItalic'
+
+Given markdown;
+# ***h1***
+
+## ***h2***
+
+### ***h3***
+
+#### ***h4***
+
+##### ***h5***
+
+###### ***h6***
+
+Execute (asterisk bold italic text in atx headings):
+  AssertEqual SyntaxOf('h1'), 'htmlBoldItalic'
+  AssertEqual SyntaxOf('h2'), 'htmlBoldItalic'
+  AssertEqual SyntaxOf('h3'), 'htmlBoldItalic'
+  AssertEqual SyntaxOf('h4'), 'htmlBoldItalic'
+  AssertEqual SyntaxOf('h5'), 'htmlBoldItalic'
+  AssertEqual SyntaxOf('h6'), 'htmlBoldItalic'
+
+Given markdown;
+___h1___
+=
+
+___h2___
+-
+
+Execute (underscore bold italic text in setext headings):
+  AssertEqual SyntaxOf('h1'), 'htmlBoldItalic'
+  AssertEqual SyntaxOf('h2'), 'htmlBoldItalic'
+
+Given markdown;
+***h1***
+=
+
+***h2***
+-
+
+Execute (asterisk bold italic text in setext headings):
+  AssertEqual SyntaxOf('h1'), 'htmlBoldItalic'
+  AssertEqual SyntaxOf('h2'), 'htmlBoldItalic'
+
+Given markdown;
+# [^h1]
+
+## [^h2]
+
+### [^h3]
+
+#### [^h4]
+
+##### [^h5]
+
+###### [^h6]
+
+Execute (footnotes in atx headings):
+  AssertEqual SyntaxOf('h1'), 'mkdFootnotes'
+  AssertEqual SyntaxOf('h2'), 'mkdFootnotes'
+  AssertEqual SyntaxOf('h3'), 'mkdFootnotes'
+  AssertEqual SyntaxOf('h4'), 'mkdFootnotes'
+  AssertEqual SyntaxOf('h5'), 'mkdFootnotes'
+  AssertEqual SyntaxOf('h6'), 'mkdFootnotes'
+
+Given markdown;
+[^h1]
+=
+
+[^h2]
+-
+
+Execute (footnotes in setext headings):
+  AssertEqual SyntaxOf('h1'), 'mkdFootnotes'
+  AssertEqual SyntaxOf('h2'), 'mkdFootnotes'

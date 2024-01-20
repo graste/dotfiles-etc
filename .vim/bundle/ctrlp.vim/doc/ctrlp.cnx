@@ -203,7 +203,7 @@ OPTIONS                                                         *ctrlp-options*
   w - 用来修饰r：使用当前工作目录而不是当前文件所在目录进行查找
   0 或者 <empty> - 禁用这项功能。
 
-注意 #1: 如果 "a" 或者 "c" 和 "r"一起被包含，当无法找到根目录时使用 "a" 或者 
+注意 #1: 如果 "a" 或者 "c" 和 "r"一起被包含，当无法找到根目录时使用 "a" 或者
 "c" 的行为（作为备选）。
 
 注意 #2: 你可以在每个缓冲区内使用 |b:var| 来设置该选项。
@@ -241,22 +241,8 @@ OPTIONS                                                         *ctrlp-options*
 <
 注意: 当命令使用 |g:ctrlp_user_command| 定义时该选项无效。
 
-                                                           *'ctrlp-wildignore'*
-你可以使用Vim的 |'wildignore'| 来从结果集中排序文件或目录。
-例子: >
-  " 排除版本控制文件
-  set wildignore+=*/.git/*,*/.hg/*,*/.svn/*        " Linux/MacOSX
-  set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*  " Windows ('noshellslash')
-<
-注意 #1: 每个目录设置前的字符 `*/` 是必须的。
-
-注意 #2: |wildignore| 影响 |expand()| ， |globpath()| 和 |glob()| 的结果，这些函数被很
-多插件用来在系统中执行查找。（例如和版本控制系统有关的插件在查找.git/、.hg/等，
-一些其他插件用来在Windows上查找外部的*.exe工具），所以要修改 |wildignore| 时请先
-考虑清楚。
-
                                                       *'g:ctrlp_custom_ignore'*
-作为对 |'wildignore'| 和 |g:ctrlp_show_hidden| 的补充，用来设置你只是想在CtrlP中隐藏的文件和目录。使用正
+除了 |g:ctrlp_show_hidden|，你可以用这个选项设置你想在CtrlP中隐藏的文件和目录。使用正
 则表达式来指定匹配模式: >
   let g:ctrlp_custom_ignore = ''
 <
@@ -274,9 +260,7 @@ OPTIONS                                                         *ctrlp-options*
     \ 'func': 'some#custom#match_function'
     \ }
 <
-注意 #1: 默认情况下， |wildignore| 和 |g:ctrlp_custom_ignore| 只在 |globpath()| 被用
-来扫描文件的情况下使用，这样这些选项在那些使用 |g:ctrlp_user_command| 定义的命
-令中不会生效。
+注意 #1: |g:ctrlp_custom_ignore| 在已经使用 |g:ctrlp_user_command| 的时候不会生效。
 
 注意 #2: 当改变选项的变量类型时，记得先 |:unlet| ，或者重启Vim来避免这个错误：
 "E706: Variable type mismatch" 。
@@ -284,6 +268,9 @@ OPTIONS                                                         *ctrlp-options*
 注意 #3: 当使用函数来忽略类型时，你必须提供CtrlP可以调用的函数的全名。建议使用
 自动加载的函数。函数必须接受两个参数，要匹配的条目和接受的类型，类型可以是目
 录、文件和链接。如果条目被忽略，函数需要返回1，反之，返回0。
+
+注意 #4: 如果设置 |g:ctrlp_use_readdir| 为0，你可以使用 Vim 的 |'wildignore'|
+来将文件和目录排除出搜索结果。
 
                                                           *'g:ctrlp_max_files'*
 扫描文件的最大数量，设置为0时不进行限制: >
@@ -425,10 +412,12 @@ OPTIONS                                                         *ctrlp-options*
 注意: 当命令使用 |g:ctrlp_user_command| 定义时该选项无效。
 
                                                         *'g:ctrlp_lazy_update'*
-设置为1将开启延迟更新特性：只在输入停止一个确定的时间后才更新匹配窗口: >
+设置为1将或更大可开启延迟更新特性：只在输入停止一个确定的时间后才更新匹配窗口:
+>
   let g:ctrlp_lazy_update = 0
 <
-如果设置为1，在250毫秒后更新。如果大于1，数字会被作为延迟时间使用。
+如果设置为1，在250毫秒后更新該值作為默認值。如果大于1，数字会被作为延迟时间使
+用。
 
                                                       *'g:ctrlp_default_input'*
 设置为1将为提示符面板提供当前文件的相对路径作为种子: >
@@ -1045,7 +1034,7 @@ b)  在正则表达式模式，输入字符串被按照Vim的正则表达式模�
 
     例如: 'abc\d*efg' 会被解读为 'abc\d*efg'。
 
-    如何启用正则表达式模式参见 |ctrlp-fullregexp| （按键绑定）和 
+    如何启用正则表达式模式参见 |ctrlp-fullregexp| （按键绑定）和
     |g:ctrlp_regexp_search| （选项）。
 
 c)  字符串末尾使用一个冒号':'跟随一个Vim命令来在打开那个文件后执行该命令。如果
@@ -1255,7 +1244,7 @@ h)  使用?打开帮助文件。
       这样只会忽略包含 "build" 的目录和包含 "foo.txt" 的文件。不会忽略带
       有 "build" 的文件或者反过来。
 
-      注意: 如果为了忽略名为 "build" 的目录，而不是『任何』包含 "build" 
+      注意: 如果为了忽略名为 "build" 的目录，而不是『任何』包含 "build"
       的目录，你可以使用下面的正则： ^build$
 
     - 常见问题:
@@ -1439,7 +1428,7 @@ Before 2016/11/28~
     + 新命令: |YankLine()| 来复制整个文件。
     + 新选项: |g:ctrlp_types| 来选择內建类型。
     + 新特性: 异步在新线程中调用 |g:ctrlp_user_command| 。 设置
-              |g:user_command_async|  为1来启用。
+              |g:ctrlp_user_command_async|  为1来启用。
     + 为 delphi, rust 和 golang提供buffertag支持。
     + 新选项: |g:ctrlp_brief_prompt|,
               |g:match_current_file|,

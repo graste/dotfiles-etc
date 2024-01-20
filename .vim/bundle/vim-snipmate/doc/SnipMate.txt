@@ -17,7 +17,7 @@ For Vim version 7.0 or later.
 This plugin only works if 'compatible' is not set.
 {Vi does not have any of these features.}
 
-SnipMate depends on vim-addon-mw-utils and tlib.
+SnipMate depends on vim-addon-mw-utils and optionally on tlib.
 
 ==============================================================================
 DESCRIPTION                                             *SnipMate-description*
@@ -74,6 +74,9 @@ Commands~
                                 Only existing files and non-existing .snippets
                                 files will be shown, with the existing files
                                 shown first.
+
+                                The optional dependency tlib is required for
+                                this command to work.
 
 :SnipMateLoadScope[!] scope [scope ...]
                                 Load snippets from additional scopes. Without
@@ -221,6 +224,44 @@ The list of possible <Plug> mappings is as follows:
 Additionally, <CR> is mapped in visual mode in .snippets files for retabbing
 snippets.
 
+
+                                                           *SnipMate-autocmds*
+Autocommands~
+
+Autocommands allow code written by the user to be executed automatically at
+certain points within SnipMate's normal execution. Here is a list of events
+available to the User. All of these are subject to change.
+
+SnipTriggerPre                                       *SnipMate-SnipTriggerPre*
+SnipTriggerPost                                     *SnipMate-SnipTriggerPost*
+
+                These two events are run when determining what text to use as
+                the trigger. The Pre version can be used to forgo SnipMate's
+                normal lookups entirely, and the Post version can be used to
+                add to whatever lookups already exist.
+
+                Both events have access to b:snip_word, a variable
+                containining the WORD before the cursor when snippet
+                triggering began, and b:snip_lookups, a |List| containing all
+                possible lookups that SnipMate should try as possible
+                triggers. They are tried in order from the beginning.
+
+                If SnipTriggerPre runs and puts anything in b:snip_lookups,
+                SnipMate's normal lookups will not be tried. SnipTriggerPost
+                runs regardless.
+
+                The following example only allows a '.' as a possible trigger
+                if the WORD before the cursor is not "self.": >
+
+                    au User SnipLookupPost call My_func()
+
+                    function My_func() abort
+                        if match(b:snip_word, 'self\.$') != -1
+                            call filter(b:snip_lookups, "v:val !~# '^\\.$'")
+                        endif
+                    endfunction
+
+
 ==============================================================================
 SNIPPETS                                                   *SnipMate-snippets*
 
@@ -242,7 +283,8 @@ snippets: >
 
 where <scope> is a scope or 'filetype' or 'syntax', <name> is an arbitrary
 name, <trigger> is the trigger for a snippet, and <description> is
-a description used for |SnipMate-multisnip|.
+a description used for |SnipMate-multisnip|. Snippets in the `_` scope (for
+example `.../snippets/_.snippets`) are loaded for all filetypes.
 
 A .snippet file defines a single snippet with the trigger (and description)
 determined by the filename. The entire contents of the file are used as the
@@ -359,9 +401,13 @@ selected in |Select-mode|. For example, >
             $0
         </div>
 
-Finally, placeholders can contain mirrors and evaluations (detailed below) and
-even entire other tab stops. If the placeholder is edited, then these nested
-tab stops are removed and skipped entirely. For example, >
+Finally, placeholders can contain mirrors and evaluations (detailed below)
+and, in version 1 of the snippet parser, even entire other tab stops. If the
+placeholder is edited, then these nested tab stops are removed and skipped
+entirely.
+NOTE: Version 1 of the snippet parser must be used! See
+|SnipMate-parser-versions|.
+For example, >
 
     snippet div
         <div${1: id="${2:id}"}${3: class="${4:class}"}>
@@ -469,6 +515,8 @@ Which version is used is determined by version directives in snippet files
 (|SnipMate-options|).
 
 A complete list of current differences is as follows:
+- Version 0 does not support nested placeholders such as ${1:"${2:foo}"} at
+  all.
 - Backslash escaping is guaranteed to work in version 1. In certain edge cases
   this may not work in version 0.
 - Certain syntactic errors, such as a missing closing brace for a tabstop, are
@@ -478,7 +526,7 @@ A complete list of current differences is as follows:
 - Braces are not mandatory in version 1. SnipMate will determine which
   instance of a stop ID to use based on the presence of a placeholder, or
   whichever instance occurs first. Braces can therefore be used to
-  disambiguate between stop 12, $12, and stop 1 followed by a 2, ${1}2. In
+  disambiguate between stop 12, $12, and stop 1 followed by a 2: ${1}2. In
   other words, version 0 makes a distinction between a mirror and a stop while
   version 1 resolves the differences for you.
 - Placeholders are not mandatory to enable mirror support in version 1.
@@ -489,6 +537,21 @@ A complete list of current differences is as follows:
 - Transformations similar to |:substitute| can be preformed on any mirror,
   including visual content.
 
+                                                          *SnipMate-deprecate*
+Deprecation~
+
+The legacy parser, version 0, is deprecated. It is currently still the default
+parser, but that will be changing. NOTE that switching which parser you use
+could require changes to your snippets--see the previous section.
+
+To continue using the old parser, set g:snipMate.snippet_version (see
+|SnipMate-options|) to 0 in your |vimrc|.
+
+Setting g:snipMate.snippet_version to either 0 or 1 will remove the start up
+message. One way this can be done--to use the new parser--is as follows:
+>
+    let g:snipMate = { 'snippet_version' : 1 }
+<
 ==============================================================================
 SNIPPET SOURCES                                     *SnipMate-snippet-sources*
 
@@ -511,7 +574,7 @@ sources such as creating snippets on the fly representing python function
 definitions found in the current file.
 
 Example 2:~
-Add to your ~/.vimrc: For each know snippet add a second version ending in _
+Add to your ~/.vimrc: For each new snippet add a second version ending in _
 adding folding markers >
 
     let g:commentChar = {
@@ -561,14 +624,24 @@ Perhaps some of these features will be added in a later release.
 ==============================================================================
 CHANGELOG                                                 *SnipMate-changelog*
 
+0.90 - 2023-12-29
+-----------------
+
+- Remove empty lines at the end of a `${VISUAL}` expansion
+- Fix code for opening folds when expanding a snippet
+- Deprecate legacy snippet parser
+- Fix jumps when `&sel == 'exclusive'`
+
 0.89 - 2016-05-29
 -----------------
 
-* Various regex updates to legacy parser Addition of double bang syntax to
-* completely remove a snippet from lookup Group various SnipMate autocommands
-* Support setting 'shiftwidth' to 0 Parser now operates linewise, adding some
-* flexibility Mirror substitutions are more literal Mirror length is
-* calculated correctly when substitutions occur
+* Various regex updates to legacy parser
+* Addition of double bang syntax to completely remove a snippet from lookup
+* Group various SnipMate autocommands
+* Support setting 'shiftwidth' to 0
+* Parser now operates linewise, adding some flexibility
+* Mirror substitutions are more literal
+* Mirror length is calculated correctly when substitutions occur
 
 0.88 - 2015-04-04
 -----------------

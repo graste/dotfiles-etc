@@ -59,7 +59,6 @@ SYNTAX CHECKERS BY LANGUAGE                          *syntastic-checkers-lang*
     Java.....................................|syntastic-checkers-java|
     JavaScript...............................|syntastic-checkers-javascript|
     JSON.....................................|syntastic-checkers-json|
-    Julia....................................|syntastic-checkers-julia|
 
     LESS.....................................|syntastic-checkers-less|
     Lex......................................|syntastic-checkers-lex|
@@ -81,7 +80,6 @@ SYNTAX CHECKERS BY LANGUAGE                          *syntastic-checkers-lang*
     OCaml....................................|syntastic-checkers-ocaml|
 
     Perl.....................................|syntastic-checkers-perl|
-    Perl 6...................................|syntastic-checkers-perl6|
     PHP......................................|syntastic-checkers-php|
     POD......................................|syntastic-checkers-pod|
     Pug (formerly Jade)......................|syntastic-checkers-pug|
@@ -93,6 +91,7 @@ SYNTAX CHECKERS BY LANGUAGE                          *syntastic-checkers-lang*
     R........................................|syntastic-checkers-r|
     R Markdown...............................|syntastic-checkers-rmd|
     Racket...................................|syntastic-checkers-racket|
+    Raku.....................................|syntastic-checkers-raku|
     Relax NG.................................|syntastic-checkers-rnc|
     reStructuredText.........................|syntastic-checkers-rst|
     RPM spec.................................|syntastic-checkers-spec|
@@ -118,7 +117,6 @@ SYNTAX CHECKERS BY LANGUAGE                          *syntastic-checkers-lang*
     Twig.....................................|syntastic-checkers-twig|
     TypeScript...............................|syntastic-checkers-typescript|
 
-    Vala.....................................|syntastic-checkers-vala|
     Verilog..................................|syntastic-checkers-verilog|
     VHDL.....................................|syntastic-checkers-vhdl|
     Vim help.................................|syntastic-checkers-help|
@@ -1194,7 +1192,7 @@ Maintainer:  LCD 47 <lcd047@gmail.com>
 
 For details about "Cpplint" see the project's page:
 
-    https://code.google.com/p/google-styleguide/
+    https://github.com/google/styleguide/
 
 Checker options~
 
@@ -1846,8 +1844,7 @@ Checker options~
 This checker is initialised using the "makeprgBuild()" function and thus it
 accepts the standard options described at |syntastic-config-makeprg|.
 
-See also: |syntastic-html-stylelint|, |syntastic-less-stylelint|,
-|syntastic-scss-stylelint|.
+See also: |syntastic-html-stylelint|, |syntastic-vue-stylelint|.
 
 ==============================================================================
 SYNTAX CHECKERS FOR CUCUMBER                     *syntastic-checkers-cucumber*
@@ -3055,8 +3052,7 @@ Checker options~
 This checker is initialised using the "makeprgBuild()" function and thus it
 accepts the standard options described at |syntastic-config-makeprg|.
 
-See also: |syntastic-css-stylelint|, |syntastic-less-stylelint|,
-|syntastic-scss-stylelint|.
+See also: |syntastic-css-stylelint|, |syntastic-vue-stylelint|.
 
 ------------------------------------------------------------------------------
 8. textlint                                          *syntastic-html-textlint*
@@ -3883,51 +3879,12 @@ This checker is initialised using the "makeprgBuild()" function and thus it
 accepts the standard options described at |syntastic-config-makeprg|.
 
 ==============================================================================
-SYNTAX CHECKERS FOR JULIA                           *syntastic-checkers-julia*
-
-The following checkers are available for Julia (filetype "julia"):
-
-    1. lint.....................|syntastic-julia-lint|
-
-------------------------------------------------------------------------------
-1. lint                                                 *syntastic-julia-lint*
-
-Name:        lint
-Maintainer:  LCD 47 <lcd047@gmail.com>
-
-This is a linter for Julia files (https://julialang.org/), using the Julia
-package "Lint". See the package's documentation for more information:
-
-    http://lintjl.readthedocs.io/
-
-Installation~
-
-You need to install Julia itself, and the package "Lint". You can install
-"Lint" from the Julia package manager, with the command: >
-    Pkg.add("Lint")
-<
-Checker Options~
-
-This checker doesn't call the "makeprgBuild()" function, and thus it ignores
-the usual 'g:syntastic_julia_lint_<option>' variables. The only exception is
-'g:syntastic_julia_lint_exec', which can still be used to override the "julia"
-executable.
-
-Note~
-
-You probably also need a plugin to set |filetype| for Julia files, such as
-"julia-vim":
-
-    https://github.com/JuliaEditorSupport/julia-vim
-
-==============================================================================
 SYNTAX CHECKERS FOR LESS                             *syntastic-checkers-less*
 
 The following checkers are available for LESS (filetype "less"):
 
     1. lessc....................|syntastic-less-lessc|
     2. RECESS...................|syntastic-less-recess|
-    3. stylelint................|syntastic-less-stylelint|
 
 ------------------------------------------------------------------------------
 1. lessc                                                *syntastic-less-lessc*
@@ -3968,25 +3925,6 @@ This checker is initialised using the "makeprgBuild()" function and thus it
 accepts the standard options described at |syntastic-config-makeprg|.
 
 See also: |syntastic-css-recess|.
-
-------------------------------------------------------------------------------
-3. stylelint                                        *syntastic-less-stylelint*
-
-Name:        stylelint
-Maintainer:  Tim Carry <tim@pixelastic.com>
-
-"stylelint" is a style linter for Cascading Stylesheets. See the project's
-page for more information:
-
-    http://stylelint.io/
-
-Checker options~
-
-This checker is initialised using the "makeprgBuild()" function and thus it
-accepts the standard options described at |syntastic-config-makeprg|.
-
-See also: |syntastic-css-stylelint|, |syntastic-html-stylelint|,
-|syntastic-scss-stylelint|.
 
 ==============================================================================
 SYNTAX CHECKERS FOR LEX                               *syntastic-checkers-lex*
@@ -4798,66 +4736,6 @@ accepts the standard options described at |syntastic-config-makeprg|.
 See also: |syntastic-pod-podchecker|.
 
 ==============================================================================
-SYNTAX CHECKERS FOR PERL 6                          *syntastic-checkers-perl6*
-
-The following checkers are available for Perl 6 (filetype "perl6"):
-
-    1. perl6....................|syntastic-perl6-perl6|
-
-------------------------------------------------------------------------------
-1. perl6                                               *syntastic-perl6-perl6*
-
-Name:        perl6
-Maintainers: Claudio Ramirez <pub.claudio@gmail.com>
-
-"perl6" is a checker for Perl 6 files using the "Rakudo" compiler. See the
-project's page for details:
-
-    http://rakudo.org/
-
-Syntastic requires Rakudo Star release 2018.08 or later. Syntastic can't
-enforce this, since it can't reliably compare Rakudo Star versions.
-
-Security~
-
-This checker runs "perl6 -c" against your files, which executes any "BEGIN"
-and "CHECK" blocks (cf. https://docs.perl6.org/programs/00-running). This
-is probably fine if you wrote the files yourself, but it can be a problem if
-you're trying to check third party files. If you are 100% willing to let Vim
-run the code in your files, set 'g:syntastic_enable_perl6_checker' to 1 in
-your vimrc to enable this checker: >
-    let g:syntastic_enable_perl6_checker = 1
-<
-There is also a buffer-local version of this variable, that takes precedence
-over it in the buffers where it is defined.
-
-Please note that setting this variable doesn't automatically enable the
-checker, you still need to add it to 'g:syntastic_perl6_checkers' if you plan
-to use it.
-
-Checker options~
-
-This checker is initialised using the "makeprgBuild()" function and thus it
-accepts the standard options described at syntastic-config-makeprg.
-
-Additionally:
-
-                                                *'g:syntastic_perl6_lib_path'*
-Type: list of strings
-Default: []
-List of include directories to be added to the perl6 command line. Example: >
-    let g:syntastic_perl6_lib_path = [ "./lib", "./lib/auto" ]
-<
-You can also set the "PERL6LIB" environment variable to a colon-separated
-list of add-hoc include paths. These paths will then be added to the ones
-prescribed by |'g:syntastic_perl6_lib_path'|.
-
-Note~
-
-At the time of this writing the support for JSON error output of the "Rakudo"
-compiler is still incomplete.
-
-==============================================================================
 SYNTAX CHECKERS FOR PHP                               *syntastic-checkers-php*
 
 The following checkers are available for PHP (filetype "php"):
@@ -5631,6 +5509,61 @@ This checker is initialised using the "makeprgBuild()" function and thus it
 accepts the standard options described at |syntastic-config-makeprg|.
 
 ==============================================================================
+SYNTAX CHECKERS FOR RAKU                             *syntastic-checkers-raku*
+
+The following checkers are available for Raku (filetype "raku"):
+
+    1. Raku.....................|syntastic-raku-raku|
+
+------------------------------------------------------------------------------
+1. Raku                                                  *syntastic-raku-raku*
+
+Name:        raku
+Maintainers: Claudio Ramirez <pub.claudio@gmail.com>
+
+"raku" is a checker for Raku files using the "Rakudo" compiler. See the
+project's page for details:
+
+    http://rakudo.org/
+
+Syntastic requires Rakudo Star release 2018.08 or later. Syntastic can't
+enforce this, since it can't reliably compare Rakudo Star versions.
+
+Security~
+
+This checker runs "raku -c" against your files, which executes any "BEGIN" and
+"CHECK" blocks (cf. https://docs.raku.org/programs/03-environment-variables).
+This is probably fine if you wrote the files yourself, but it can be a problem
+if you're trying to check third party files. If you are 100% willing to let
+Vim run the code in your files, set 'g:syntastic_enable_raku_checker' to 1 in
+your vimrc to enable this checker: >
+    let g:syntastic_enable_raku_checker = 1
+<
+There is also a buffer-local version of this variable, that takes precedence
+over it in the buffers where it is defined.
+
+Please note that setting this variable doesn't automatically enable the
+checker, you still need to add it to 'g:syntastic_raku_checkers' if you plan
+to use it.
+
+Checker options~
+
+This checker is initialised using the "makeprgBuild()" function and thus it
+accepts the standard options described at syntastic-config-makeprg.
+
+Additionally:
+
+                                                 *'g:syntastic_raku_lib_path'*
+Type: list of strings
+Default: []
+List of include directories to be added to the raku command line. Example: >
+    let g:syntastic_raku_lib_path = [ "./lib", "./lib/auto" ]
+<
+You can also set the "RAKULIB" environment variable to a colon-separated
+list of add-hoc include paths. These paths will then be added to the ones
+prescribed by |'g:syntastic_raku_lib_path'|.
+
+==============================================================================
 SYNTAX CHECKERS FOR RELAX NG                          *syntastic-checkers-rnc*
 
 The following checkers are available for Relax NG (filetype "rnc"):
@@ -5805,6 +5738,7 @@ The following checkers are available for Ruby (filetype "ruby"):
     5. reek.....................|syntastic-ruby-reek|
     6. RuboCop..................|syntastic-ruby-rubocop|
     7. Ruby-lint................|syntastic-ruby-rubylint|
+    8. Sorbet...................|syntastic-ruby-sorbet|
 
 ------------------------------------------------------------------------------
 1. Flog                                                  *syntastic-ruby-flog*
@@ -6017,6 +5951,22 @@ also install a wrapper script that kills the version warning and point
 
     https://gist.github.com/lcd047/492245d9923af45fb964
 
+------------------------------------------------------------------------------
+8. Sorbet                                              *syntastic-ruby-sorbet*
+
+Name:        sorbet
+Maintainer:  Tom Morton
+
+Sorbet is a static analysis and gradual typing tool for Ruby. See the
+project's page at GitHub for details:
+
+    https://github.com/sorbet/sorbet
+
+Checker options~
+
+This checker is initialised using the "makeprgBuild()" function and thus it
+accepts the standard options described at |syntastic-config-makeprg|.
+
 ==============================================================================
 SYNTAX CHECKERS FOR SASS                             *syntastic-checkers-sass*
 
@@ -6173,7 +6123,6 @@ The following checkers are available for SCSS (filetype "scss"):
     3. Sass Lint................|syntastic-scss-sass_lint|
     4. SassC....................|syntastic-scss-sassc|
     5. SCSS-lint................|syntastic-scss-scss_lint|
-    6. stylelint................|syntastic-scss-stylelint|
 
 ------------------------------------------------------------------------------
 1. mixedindentlint                            *syntastic-scss-mixedindentlint*
@@ -6276,25 +6225,6 @@ Checker options~
 This checker is initialised using the "makeprgBuild()" function and thus it
 accepts the standard options described at |syntastic-config-makeprg|.
 
-------------------------------------------------------------------------------
-6. stylelint                                        *syntastic-scss-stylelint*
-
-Name:        stylelint
-Maintainer:  Tim Carry <tim@pixelastic.com>
-
-"stylelint" is a style linter for Cascading Stylesheets. See the project's
-page for more information:
-
-    http://stylelint.io/
-
-Checker options~
-
-This checker is initialised using the "makeprgBuild()" function and thus it
-accepts the standard options described at |syntastic-config-makeprg|.
-
-See also: |syntastic-css-stylelint|, |syntastic-html-stylelint|,
-|syntastic-less-stylelint|.
-
 ==============================================================================
 SYNTAX CHECKERS FOR SH                                 *syntastic-checkers-sh*
 
@@ -6304,6 +6234,7 @@ The following checkers are available for Sh (filetype "sh"):
     2. checkbashisms............|syntastic-sh-checkbashisms|
     3. sh.......................|syntastic-sh-sh|
     4. ShellCheck...............|syntastic-sh-shellcheck|
+    5. shfmt....................|syntastic-sh-shfmt|
 
 ------------------------------------------------------------------------------
 1. Bashate                                              *syntastic-sh-bashate*
@@ -6370,6 +6301,26 @@ Checker options~
 
 This checker is initialised using the "makeprgBuild()" function and thus it
 accepts the standard options described at |syntastic-config-makeprg|.
+
+------------------------------------------------------------------------------
+5. shfmt                                                  *syntastic-sh-shfmt*
+
+Name:        shfmt
+Maintainer:  LCD 47 <lcd047@gmail.com>
+
+"shfmt" is a parser, formatter, and interpreter for sh/bash/mksh. See the
+project's page at GitHub for details:
+
+    https://github.com/mvdan/sh
+
+Checker options~
+
+This checker is initialised using the "makeprgBuild()" function and thus it
+accepts the standard options described at |syntastic-config-makeprg|.
+
+Note~
+
+Automatically formatting (option "-w") is not supported.
 
 ==============================================================================
 SYNTAX CHECKERS FOR SLIM                             *syntastic-checkers-slim*
@@ -7122,6 +7073,7 @@ SYNTAX CHECKERS FOR TWIG                             *syntastic-checkers-twig*
 The following checkers are available for Twig (filetype "twig"):
 
     1. twig-lint................|syntastic-twig-twiglint|
+    2. twigcs...................|syntastic-twig-twigcs|
 
 ------------------------------------------------------------------------------
 1. twig-lint                                         *syntastic-twig-twiglint*
@@ -7147,6 +7099,22 @@ For the standalone executable, add the following to your vimrc file: >
 <
 For the "Composer" (https://getcomposer.org/) dependency "twig-lint" must be
 in your "$PATH". No further configuration is needed.
+
+------------------------------------------------------------------------------
+2. twigcs                                              *syntastic-twig-twigcs*
+
+Name:        twigcs
+Maintainer:  Ciloe <escrichjimmy@yahoo.fr>
+
+"twigcs" is a lint tool for Twig templates. See the project's page at
+GitHub for details:
+
+    https://github.com/friendsoftwig/twigcs
+
+Checker options~
+
+This checker is initialised using the "makeprgBuild()" function and thus it
+accepts the standard options described at |syntastic-config-makeprg|.
 
 ==============================================================================
 SYNTAX CHECKERS FOR TYPESCRIPT                 *syntastic-checkers-typescript*
@@ -7229,51 +7197,6 @@ You probably also need a plugin to set |filetype| for TypeScript files, such
 as "typescript-vim":
 
     https://github.com/leafgarland/typescript-vim
-
-==============================================================================
-SYNTAX CHECKERS FOR VALA                             *syntastic-checkers-vala*
-
-The following checkers are available for Vala (filetype "vala"):
-
-    1. Valac....................|syntastic-vala-valac|
-
-------------------------------------------------------------------------------
-1. Valac                                                *syntastic-vala-valac*
-
-Name:        valac
-Maintainer:  Konstantin Stepanov (me@kstep.me)
-
-"valac" is a compiler for Vala. See the project's page for details:
-
-        https://wiki.gnome.org/Projects/Vala
-
-Checker options~
-
-This checker is initialised using the "makeprgBuild()" function and thus it
-accepts the standard options described at |syntastic-config-makeprg|.
-
-Additionally:
-
-                                                  *'g:syntastic_vala_modules'*
-Type: string or array of strings
-Default: unset
-Space-separated list of Vala modules to be passed as "--pkg" arguments.
-
-                                                *'g:syntastic_vala_vapi_dirs'*
-Type: string or array of strings
-Default: unset
-Space-separated list of "vapi" directories to be passed as "--vapidirs"
-arguments.
-
-Notes~
-
-If |'g:syntastic_vala_modules'| is unset, you can also specify a list of
-module to load for the current file by adding a special comment starting with
-"// modules: " and containing a space-delimited list of names.
-
-If |'g:syntastic_vala_vapi_dirs'| is unset, you can also specify a list of
-"vapi" directories for the current file by adding a special comment starting
-with "// vapidirs:" and containing a space-delimited list of names.
 
 ==============================================================================
 SYNTAX CHECKERS FOR VERILOG                       *syntastic-checkers-verilog*
@@ -7512,6 +7435,7 @@ The following checkers are available for Vue.js (filetype "vue"):
 
     1. ESLint...................|syntastic-vue-eslint|
     2. pug_lint_vue.............|syntastic-vue-pug_lint_vue|
+    3. stylelint................|syntastic-vue-stylelint|
 
 ------------------------------------------------------------------------------
 1. ESLint                                               *syntastic-vue-eslint*
@@ -7570,6 +7494,24 @@ You probably also need a plugin to set |filetype| for Vue.js files, such as
 "vim-vue":
 
     https://github.com/posva/vim-vue
+
+------------------------------------------------------------------------------
+3. stylelint                                         *syntastic-vue-stylelint*
+
+Name:        stylelint
+Maintainer:  Tim Carry <tim@pixelastic.com>
+
+"stylelint" is a style linter for Cascading Stylesheets. See the project's
+page for more information:
+
+    http://stylelint.io/
+
+Checker options~
+
+This checker is initialised using the "makeprgBuild()" function and thus it
+accepts the standard options described at |syntastic-config-makeprg|.
+
+See also: |syntastic-css-stylelint|, |syntastic-html-stylelint|.
 
 ==============================================================================
 SYNTAX CHECKERS FOR XHTML                           *syntastic-checkers-xhtml*

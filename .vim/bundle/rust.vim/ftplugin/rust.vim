@@ -1,7 +1,6 @@
 " Language:     Rust
 " Description:  Vim ftplugin for Rust
 " Maintainer:   Chris Morgan <me@chrismorgan.info>
-" Maintainer:   Kevin Ballard <kevin@sb.org>
 " Last Change:  June 08, 2016
 " For bugs, patches and license go to https://github.com/rust-lang/rust.vim
 
@@ -35,7 +34,7 @@ if get(g:, 'rust_bang_comment_leader', 0)
     " leaders. I'm fairly sure that's a Vim bug.
     setlocal comments=s1:/*,mb:*,ex:*/,s0:/*,mb:\ ,ex:*/,:///,://!,://
 else
-    setlocal comments=s0:/*!,m:\ ,ex:*/,s1:/*,mb:*,ex:*/,:///,://!,://
+    setlocal comments=s0:/*!,ex:*/,s1:/*,mb:*,ex:*/,:///,://!,://
 endif
 setlocal commentstring=//%s
 setlocal formatoptions-=t formatoptions+=croqnl
@@ -48,7 +47,7 @@ setlocal smartindent nocindent
 
 if get(g:, 'rust_recommended_style', 1)
     let b:rust_set_style = 1
-    setlocal tabstop=8 shiftwidth=4 softtabstop=4 expandtab
+    setlocal shiftwidth=4 softtabstop=4 expandtab
     setlocal textwidth=99
 endif
 
@@ -122,7 +121,7 @@ command! -nargs=* -buffer RustEmitAsm call rust#Emit("asm", <q-args>)
 command! -range=% RustPlay :call rust#Play(<count>, <line1>, <line2>, <f-args>)
 
 " See |:RustFmt| for docs
-command! -buffer RustFmt call rustfmt#Format()
+command! -bar -buffer RustFmt call rustfmt#Format()
 
 " See |:RustFmtRange| for docs
 command! -range -buffer RustFmtRange call rustfmt#FormatRange(<line1>, <line2>)
@@ -137,7 +136,7 @@ command! -bar RustInfoToClipboard call rust#debugging#InfoToClipboard()
 command! -bar -nargs=1 RustInfoToFile call rust#debugging#InfoToFile(<f-args>)
 
 " See |:RustTest| for docs
-command! -buffer -nargs=* -bang RustTest call rust#Test(<bang>0, <q-args>)
+command! -buffer -nargs=* -count -bang RustTest call rust#Test(<q-mods>, <count>, <bang>0, <q-args>)
 
 if !exists("b:rust_last_rustc_args") || !exists("b:rust_last_args")
     let b:rust_last_rustc_args = []
@@ -191,7 +190,7 @@ augroup END
 
 setlocal matchpairs+=<:>
 " For matchit.vim (rustArrow stops `Fn() -> X` messing things up)
-let b:match_skip = 's:comment\|string\|rustArrow'
+let b:match_skip = 's:comment\|string\|rustCharacter\|rustArrow'
 
 " vint: -ProhibitAbbreviationOption
 let &cpo = s:save_cpo

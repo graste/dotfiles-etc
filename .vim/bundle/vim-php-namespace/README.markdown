@@ -1,12 +1,12 @@
 # Goal
 
-vim-php-namespace is a vim plugin for inserting "use" statements automatically.
+[vim-php-namespace](https://github.com/arnaud-lb/vim-php-namespace) is a vim plugin for inserting "use" statements automatically.
 
 ## Features
 
-### Import classes or functions (add use statements)
+### Import classes, functions, traits, or enums (add use statements)
 
-Automatically adds the corresponding `use` statement for the name under the cursor.
+Imports the symbol under the cursor by adding the corresponding `use` statement.
 
 To use this feature, add the following mappings in `~/.vimrc`:
 
@@ -18,16 +18,16 @@ To use this feature, add the following mappings in `~/.vimrc`:
     autocmd FileType php noremap <Leader>u :call PhpInsertUse()<CR>
 
 
-Then, hitting `\u` in normal or insert mode will import the class or function under the cursor.
+Then, typing `\u` in normal or insert mode will import the symbol under the cursor.
 
 ``` php
 <?php
 new Response<-- cursor here or on the name; hit \u now to insert the use statement
 ```
 
-### Make class or function names fully qualified
+### Make symbol fully qualified
 
-Expands the name under the cursor to its fully qualified name.
+Expands the symbol under the cursor to its fully qualified name.
 
 To use this feature, add the following mappings  in `~/.vimrc`:
 
@@ -38,27 +38,24 @@ To use this feature, add the following mappings  in `~/.vimrc`:
     autocmd FileType php inoremap <Leader>e <Esc>:call IPhpExpandClass()<CR>
     autocmd FileType php noremap <Leader>e :call PhpExpandClass()<CR>
 
-Then, hitting `\e` in normal or insert mode will expand the name to a fully qualified name.
+Then, typing `\e` in normal or insert mode will expand the symbol to its fully qualified name.
 
 ``` php
 <?php
-$this->getMock('RouterInterface<-- cursor here or on the name; hit \e now to expand the class name'
+$this->getMock('RouterInterface<-- cursor here or on the name; type \e now to expand the class name'
 ```
 
 ### Sort existing use statements alphabetically
 
-If you do not know how to organize use statements, (or anything else, for that
-matter), the alphabetical order might be a sensible choice, because it makes
-finding what you are looking for easier, and reduces the risk for conflicts :
-if everyone adds new things at the same line, conflicts are guaranteed.
-
-This vim plugin defines a `PhpSortUse()` you may use in your mappings:
+To use this feature, add the following mappings  in `~/.vimrc`:
 
     autocmd FileType php inoremap <Leader>s <Esc>:call PhpSortUse()<CR>
     autocmd FileType php noremap <Leader>s :call PhpSortUse()<CR>
 
-On top of that, you may want to have the dependencies sorted every time you insert one.
-To enable this feature, use the dedicated global option:
+Then, hitting `\s` in normal or insert mode will sort use statements.
+
+It is also possible to sort statements automatically after a PhpInsertUse()
+by defining the following variable:
 
     let g:php_namespace_sort_after_insert = 1
 
@@ -123,6 +120,16 @@ You can also create a `~/.ctags` file with the following contents:
     --regex-php=/^[ \t]*trait[ \t]+([a-z0_9_]+)/\1/t,traits/i
 
 Note that using `--regex-php=` is 10x slower than using universal-ctags.
+
+#### Enums
+
+The `--regex-php` argument can be used to extract enums:
+
+    ctags -R --PHP-kinds=cfi --regex-php="/^[ \t]*enum[ \t]+([a-z0_9_]+)/\1/e,enum/i"
+
+You can also create a `~/.ctags` file with the following contents:
+
+    --regex-php=/^[ \t]*enum[ \t]+([a-z0_9_]+)/\1/e,enum/i
 
 #### Automatically updating tags
 
