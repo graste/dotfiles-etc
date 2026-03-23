@@ -1756,7 +1756,7 @@ Maintainer:  LCD 47 <lcd047@gmail.com>
 "PHP_CodeSniffer" is a style linter for PHP and CSS. See the project's page
 at GitHub for details:
 
-    https://github.com/squizlabs/PHP_CodeSniffer/
+    https://github.com/PHPCSStandards/PHP_CodeSniffer/
 
 Installation~
 
@@ -4766,7 +4766,7 @@ Maintainer:  Martin Grenfell <martin.grenfell@gmail.com>
 "PHP_CodeSniffer" is a style linter for PHP and CSS. See the project's page
 at GitHub for details:
 
-    https://github.com/squizlabs/PHP_CodeSniffer/
+    https://github.com/PHPCSStandards/PHP_CodeSniffer/
 
 Installation~
 

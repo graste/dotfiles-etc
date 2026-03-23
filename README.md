@@ -186,4 +186,4 @@ There's a bash function called `create-ctags` that may be called in project dire
 - various dotfiles of other people (e.g. bash functions `calc`, `json`, `gz`, `unidecode`, `escape` from @mathiasbynens)
 - [`bin/git-open`](https://github.com/paulirish/git-open)
 - [`bin/twig-lint`](https://github.com/asm89/twig-lint)
-- [`bin/phpcs`](https://github.com/squizlabs/PHP_CodeSniffer)
+- [`bin/phpcs`](https://github.com/PHPCSStandards/PHP_CodeSniffer)
