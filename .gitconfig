@@ -18,7 +18,8 @@
     st = status
     # list tags, branches and remotes
     tags = tag -l --sort=creatordate
-    branches = branch -a
+    #branches = branch -a --sort=-committerdate -vv
+    branches = branch -a --sort=-committerdate --format='%(color:green)%(committerdate:short) %(color:cyan)%(refname:short)%(color:reset) %(contents:subject)'
     remotes = remote -v
     # current branch name
     localbranch = rev-parse --abbrev-ref HEAD
@@ -55,6 +56,8 @@
     stash = stash --include-untracked
     # stash ignored, untracked, and tracked files
     stash-all = stash --all
+    # stash list with age
+    stash-list = stash list --pretty=format:'%gd: %Cred%h%Creset %Cgreen[%ar]%Creset %s'
     # get access to the notes that might be available due to Github discussions on a Pull Request etc.
     # use this via: git show HEAD --show-notes=github-comments
     # fetch = +refs/notes/*:refs/notes/*
@@ -85,6 +88,8 @@
     undelete-file = "!f() { git checkout $(git rev-list -n 1 HEAD -- $1)^ -- $1; }; f"
     # skip gitlab CI build
     push-ohne-gitlab-ci = push -o ci.skip
+    # list subtrees
+    ls-subtrees = !"git log | grep git-subtree-dir | awk '{ print $2 }'"
 [apply]
     # detect a new or modified line that has whitespace errors when applying a patch
     # see: core.whitespace configuration
@@ -139,8 +144,8 @@
 [init]
     defaultBranch = main
 [merge]
-    # <<<< |||| >>>> - includes local version in addition to left and right stuff
-    conflictstyle = diff3
+    # <<<< |||| >>>> - includes local version in addition to left and right stuff; zdiff3 is like diff3, but it moves any common lines at the beginning or end outside of the conflict area.
+    conflictstyle = zdiff3
     # include summaries of merged commits in newly created merge commit messages
     log = true
 [pack]
@@ -184,6 +189,8 @@
     showUntrackedFiles = normal
     # summary of commits for modified submodules (true = -1 = unlimited; use a number otherwise)
     submoduleSummary = true
+    # show current stashes
+    showstash = true
 [stash]
     # "git stash show" displays patch
     showPatch = true
