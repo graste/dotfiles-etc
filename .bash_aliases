@@ -220,7 +220,18 @@ alias log='git log --pretty=format:"%h %ai | %s%d [%an]" --graph --date=short '
 # start temporary secure opera instance with cache on ramdisk
 alias banking='TEMPDIR=$(mktemp -d --tmpdir=/dev/shm) && cp ~/secure_operaprefs.ini $TEMPDIR/operaprefs.ini && /usr/bin/opera -pd $TEMPDIR &'
 
-# craur
-alias craur=/home/graste/projects/Craur/php/craur
 
 alias troll="echo \"What you've just written is one of the most insanely idiotic things I have ever heard. At no point in your rambling, incoherent response were you even close to anything that could be considered a rational thought. Everyone here is now dumber for having read it. I award you no points and downvote instead."
+
+
+
+#alias npm='docker run -it --rm -e "TERM=xterm-256color" -v $(pwd):/usr/src/app -w /usr/src/app registry.berlinonline.net/cache/library/node:lts npm "$@"'
+alias npx='docker run -it --rm -e "TERM=xterm-256color" -v $(pwd):/usr/src/app -w /usr/src/app node:lts npx "$@"'
+alias jq='docker run -it --rm -e "TERM=xterm-256color" -v $(pwd):/home/ubuntu -w /home/ubuntu badouralix/curl-jq jq "$@"'
+
+
+alias scc='docker run --rm -it -v "$PWD:/pwd" scc:master scc /pwd'
+alias phpstan='docker run -v $PWD:/app --rm phpstan/phpstan'
+
+alias composer='podman run --name composer --rm -ti -u $(id -u):$(id -g) -v $(pwd):$(pwd) -w $(pwd) docker.io/library/composer:2'
+alias npm='podman run --name npm --rm -ti -e npm_config_cache=.cache/npm -u $(id -u):$(id -g) -v $(pwd):$(pwd) -w $(pwd)   docker.io/library/node:lts npm'
